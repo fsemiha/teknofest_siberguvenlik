@@ -2679,11 +2679,16 @@
    }
 
    // BEYAZ ALAN SORUNU İÇİN - DİNAMİK VİEWPORT HEİGHT HESAPLAYICI
-   function setViewportHeight() {
+   function setViewportHeight(isKeyboardActive = false) {
        // Gerçek viewport yüksekliğini hesapla
        let vh = window.innerHeight * 0.01;
        const realHeight = window.innerHeight;
        const screenHeight = window.screen.height;
+       
+       // Klavye durumu kontrolü
+       if (isKeyboardActive) {
+           console.log(`⌨️ KLAVYE AKTİF: realHeight=${realHeight}, screenHeight=${screenHeight}`);
+       }
        
        // CSS custom property'leri güncelle
        document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -2698,7 +2703,11 @@
        // Beyaz alan için dinamik scale faktörü hesapla
        let scaleFactor = 1.02; // Default browser modu - daha az agresif
        
-       if (isStandalone) {
+       // Klavye aktifken daha düşük scale kullan
+       if (isKeyboardActive) {
+           scaleFactor = 1.01; // Klavye modunda minimal scale
+           console.log(`⌨️ Klavye modu - Scale azaltıldı: ${scaleFactor}`);
+       } else if (isStandalone) {
            // PWA standalone modda orta agresif scale
            scaleFactor = 1.04; // Standalone için orta scale
            document.body.classList.add('pwa-standalone-mode');
@@ -2964,10 +2973,88 @@
        console.log('🔒 Kiosk modu ayarları yüklendi');
    }
 
+   // ⌨️ KLAVYE KONTROLLERI - İOS SAFARI BEYAZ ALAN FİKSİ
+   let isKeyboardOpen = false;
+   
+   function initKeyboardHandling() {
+       console.log('⌨️ Klavye kontrolleri başlatılıyor...');
+       
+       // Tüm input alanlarını bul
+       const inputElements = document.querySelectorAll('input[type="text"], input[type="password"], textarea');
+       
+       inputElements.forEach(input => {
+           // Input odaklandığında (klavye açılıyor)
+           input.addEventListener('focus', function() {
+               console.log('⌨️ Klavye açılıyor - Viewport ayarı güncelleniyor');
+               isKeyboardOpen = true;
+               
+               // Klavye class'ını ekle
+               document.body.classList.add('keyboard-active');
+               
+               // Küçük gecikme ile klavye tam açıldıktan sonra ayarla
+               setTimeout(() => {
+                   setViewportHeight(true); // Klavye modu aktif
+                   
+                   // Klavye modunda minimal scale
+                   document.documentElement.style.setProperty('--scale-factor', '1.01');
+                   
+                   // Scroll engelleme devam etsin
+                   window.scrollTo(0, 0);
+               }, 300); // iOS Safari klavyesi için yeterli süre
+           });
+           
+           // Input odağını kaybettiğinde (klavye kapanıyor)
+           input.addEventListener('blur', function() {
+               console.log('⌨️ Klavye kapanıyor - Normal viewport ayarı');
+               isKeyboardOpen = false;
+               
+               // Klavye class'ını kaldır
+               document.body.classList.remove('keyboard-active');
+               
+               // Küçük gecikme ile klavye tam kapandıktan sonra ayarla
+               setTimeout(() => {
+                   setViewportHeight(false); // Normal mod
+                   forceFullscreen(); // Tam ekran zorla
+               }, 300); // iOS Safari için yeterli süre
+           });
+       });
+       
+       // Visual Viewport API desteği (iOS Safari 13+)
+       if (window.visualViewport) {
+           window.visualViewport.addEventListener('resize', function() {
+               console.log(`⌨️ Visual Viewport değişti: ${window.visualViewport.height}px`);
+               
+               const currentHeight = window.visualViewport.height;
+               const fullHeight = window.screen.height;
+               
+               // Klavye açık/kapalı durumunu tespit et
+               if (currentHeight < fullHeight * 0.7) {
+                   if (!isKeyboardOpen) {
+                       isKeyboardOpen = true;
+                       document.body.classList.add('keyboard-active');
+                       setViewportHeight(true);
+                   }
+               } else {
+                   if (isKeyboardOpen) {
+                       isKeyboardOpen = false;
+                       document.body.classList.remove('keyboard-active');
+                       setTimeout(() => {
+                           setViewportHeight(false);
+                           forceFullscreen();
+                       }, 100);
+                   }
+               }
+           });
+       }
+       
+       console.log('⌨️ Klavye kontrolleri hazır - iOS Safari beyaz alan korunması aktif');
+   }
+
    // Dom yüklendiğinde kiosk modunu başlat
    document.addEventListener('DOMContentLoaded', function() {
        initKioskMode();
        initHomeButton(); // 🏠 Ana ekran butonu başlat
+       initKeyboardHandling(); // ⌨️ Klavye kontrolleri başlat
        
        // DOM yüklendikten hemen sonra viewport hesapla ve tam ekran zorla
        setTimeout(function() {

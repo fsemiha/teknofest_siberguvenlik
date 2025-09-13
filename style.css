@@ -1924,6 +1924,39 @@ html::before, html::after, body::before, body::after {
     /* Sadece tanımlayıcı class - özel stil gereksiz */
 }
 
+/* ⌨️ KLAVYE MODU - İOS SAFARI BEYAZ ALAN KORUMASI */
+.keyboard-active {
+    /* Klavye açık olduğunda minimal transform */
+    transform: scale(1.01) !important;
+    -webkit-transform: scale(1.01) !important;
+}
+
+.keyboard-active html,
+.keyboard-active body,
+.keyboard-active .background,
+.keyboard-active .background-img {
+    /* Klavye modunda çok hafif scale */
+    transform: scale(1.01) translate3d(0,0,0) !important;
+    -webkit-transform: scale(1.01) translate3d(0,0,0) !important;
+}
+
+.keyboard-active html::before,
+.keyboard-active html::after,
+.keyboard-active body::before,
+.keyboard-active body::after {
+    /* Klavye modunda pseudo elementler daha az agresif */
+    transform: scale(1.02) !important;
+    -webkit-transform: scale(1.02) !important;
+}
+
+/* Input focus durumunda özel stiller */
+.username-input-on-svg:focus,
+.password-input:focus {
+    /* Odaklandığında scroll önleme */
+    position: relative !important;
+    z-index: 10 !important;
+}
+
 /* PWA Standalone modu - basit düzeltme */
 @media all and (display-mode: standalone) {
     /* Safe area padding sadece status bar için */
