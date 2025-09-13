@@ -2679,16 +2679,11 @@
    }
 
    // BEYAZ ALAN SORUNU İÇİN - DİNAMİK VİEWPORT HEİGHT HESAPLAYICI
-   function setViewportHeight(isKeyboardActive = false) {
+   function setViewportHeight() {
        // Gerçek viewport yüksekliğini hesapla
        let vh = window.innerHeight * 0.01;
        const realHeight = window.innerHeight;
        const screenHeight = window.screen.height;
-       
-       // Klavye durumu kontrolü
-       if (isKeyboardActive) {
-           console.log(`⌨️ KLAVYE AKTİF: realHeight=${realHeight}, screenHeight=${screenHeight}`);
-       }
        
        // CSS custom property'leri güncelle
        document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -2703,25 +2698,19 @@
        // Beyaz alan için dinamik scale faktörü hesapla
        let scaleFactor = 1.02; // Default browser modu - daha az agresif
        
-       // PWA standalone modunda CSS kontrolü
        if (isStandalone) {
-           // PWA modunda CSS kendisi scale'i hallediyor - JavaScript scale'i kullanma
-           scaleFactor = 1.0; // CSS media query kendi scale'ini uygular
+           // PWA standalone modda orta agresif scale
+           scaleFactor = 1.04; // Standalone için orta scale
            document.body.classList.add('pwa-standalone-mode');
-           console.log(`📱 PWA Standalone modu - CSS scale kullanılıyor`);
+           console.log(`📱 PWA Standalone modu tespit edildi! Orta scale: ${scaleFactor}`);
            
-       } else if (isKeyboardActive) {
-           // Browser modunda klavye aktifken minimal scale
-           scaleFactor = 1.01; // Klavye modunda minimal scale
-           console.log(`⌨️ Browser klavye modu - Scale azaltıldı: ${scaleFactor}`);
+           // Logo artık background div dışında - otomatik görünür
            
        } else if (realHeight < screenHeight * 0.95) {
-           scaleFactor = 1.04; // Browser modda beyaz alan tespit edilirse
+           scaleFactor = 1.04; // Browser modda beyaz alan tespit edilirse - daha az agresif  
            console.log(`📐 Browser modda beyaz alan tespit edildi! Scale faktörü artırıldı: ${scaleFactor}`);
-           
        } else if (realHeight < screenHeight * 0.98) {
-           scaleFactor = 1.03; // Browser modda orta scale
-           
+           scaleFactor = 1.03; // Orta scale
        }
        
        document.documentElement.style.setProperty('--scale-factor', scaleFactor);
@@ -2738,11 +2727,7 @@
        
        if (isStandalone) {
            document.body.classList.add('pwa-standalone-mode');
-           console.log('📱 PWA Standalone modu tespit edildi - CSS media query kontrolünde');
-           
-           // PWA modunda JavaScript scale'ini devre dışı bırak
-           document.documentElement.style.removeProperty('--scale-factor');
-           console.log('📱 PWA modunda JavaScript scale devre dışı - CSS kullanılıyor');
+           console.log('📱 PWA Standalone modu tespit edildi - Logo ve buton artık otomatik görünür');
        }
        
        // İlk viewport hesaplaması
@@ -2775,17 +2760,7 @@
 
        // BEYAZ KISIM SORUNU İÇİN - DİNAMİK VİEWPORT İLE TAM EKRAN ZORLAMA
        function forceFullscreen() {
-           // PWA standalone modunu kontrol et
-           const isStandalone = window.navigator.standalone || 
-                               window.matchMedia('(display-mode: standalone)').matches ||
-                               window.matchMedia('(display-mode: fullscreen)').matches;
-           
-           if (isStandalone) {
-               console.log('📱 PWA Standalone modu - forceFullscreen atlandı, CSS kontrolünde');
-               return; // PWA modunda JavaScript forceFullscreen kullanma
-           }
-           
-           console.log('🔄 Browser modunda tam ekran zorlaması başlatılıyor...');
+           console.log('🔄 DİNAMİK VİEWPORT ile tam ekran zorlaması başlatılıyor...');
            
            // Önce dinamik viewport hesapla
            setViewportHeight();
@@ -2989,76 +2964,10 @@
        console.log('🔒 Kiosk modu ayarları yüklendi');
    }
 
-   // ⌨️ KLAVYE KONTROLLERI - İOS SAFARI BEYAZ ALAN FİKSİ
-   let isKeyboardOpen = false;
-   
-   function initKeyboardHandling() {
-       console.log('⌨️ Klavye kontrolleri başlatılıyor...');
-       
-       // PWA standalone modunu kontrol et
-       const isStandalone = window.navigator.standalone || 
-                           window.matchMedia('(display-mode: standalone)').matches ||
-                           window.matchMedia('(display-mode: fullscreen)').matches;
-       
-       if (isStandalone) {
-           console.log('📱 PWA Standalone modu - Klavye kontrolleri minimal');
-           // PWA modunda minimal klavye kontrolü
-           const inputElements = document.querySelectorAll('input[type="text"], input[type="password"], textarea');
-           
-           inputElements.forEach(input => {
-               input.addEventListener('focus', function() {
-                   // Sadece scroll'u sıfırla, scale'e dokunma
-                   setTimeout(() => {
-                       window.scrollTo(0, 0);
-                   }, 100);
-               });
-           });
-           return; // PWA modunda erken çık
-       }
-       
-       // Normal browser modu için tam klavye kontrolleri
-       const inputElements = document.querySelectorAll('input[type="text"], input[type="password"], textarea');
-       
-       inputElements.forEach(input => {
-           // Input odaklandığında (klavye açılıyor)
-           input.addEventListener('focus', function() {
-               console.log('⌨️ Browser modunda klavye açılıyor');
-               isKeyboardOpen = true;
-               
-               // Klavye class'ını ekle
-               document.body.classList.add('keyboard-active');
-               
-               // Küçük gecikme ile klavye tam açıldıktan sonra ayarla
-               setTimeout(() => {
-                   setViewportHeight(true); // Klavye modu aktif
-                   window.scrollTo(0, 0);
-               }, 200);
-           });
-           
-           // Input odağını kaybettiğinde (klavye kapanıyor)
-           input.addEventListener('blur', function() {
-               console.log('⌨️ Browser modunda klavye kapanıyor');
-               isKeyboardOpen = false;
-               
-               // Klavye class'ını kaldır
-               document.body.classList.remove('keyboard-active');
-               
-               // Küçük gecikme ile klavye tam kapandıktan sonra ayarla
-               setTimeout(() => {
-                   setViewportHeight(false); // Normal mod
-                   forceFullscreen(); // Tam ekran zorla
-               }, 200);
-           });
-       });
-       
-       console.log('⌨️ Browser modu klavye kontrolleri hazır');
-   }
-
    // Dom yüklendiğinde kiosk modunu başlat
    document.addEventListener('DOMContentLoaded', function() {
        initKioskMode();
        initHomeButton(); // 🏠 Ana ekran butonu başlat
-       initKeyboardHandling(); // ⌨️ Klavye kontrolleri başlat
        
        // DOM yüklendikten hemen sonra viewport hesapla ve tam ekran zorla
        setTimeout(function() {
