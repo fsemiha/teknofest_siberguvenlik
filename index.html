@@ -9,7 +9,7 @@
     <link rel="canonical" href="https://fsemiha.github.io/teknofest_siberguvenlik/">
     
     <!-- BEYAZ KISIM SORUNU İÇİN SÜPER AGRESİF VIEWPORT -->
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, interactive-widget=overlays-content, web-app-capable=yes">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, interactive-widget=resizes-visual, web-app-capable=yes">
     
     <!-- iPad için ek meta taglar - BEYAZ ALAN SORUNU İÇİN -->
     <meta name="full-screen" content="yes">
@@ -1109,9 +1109,12 @@
              if (crackTime) crackTime.textContent = '';
              if (congratsMessage) congratsMessage.textContent = '';
              
-             // Parola sonuçlarını temizle
-             const passwordResult = document.querySelector('.password-result');
-             if (passwordResult) passwordResult.style.display = 'none';
+       // Parola sonuçlarını temizle
+       const passwordResult = document.querySelector('.password-result');
+       if (passwordResult) {
+           passwordResult.style.display = 'none';
+           passwordResult.innerHTML = ''; // İçeriği tamamen temizle
+       }
              
              const nextTaskBtn = document.getElementById('next-task-btn');
              if (nextTaskBtn) nextTaskBtn.style.display = 'none';
@@ -2650,6 +2653,26 @@
        if (passwordInput) passwordInput.value = '';
        if (confirmPasswordInput) confirmPasswordInput.value = '';
        
+       // Parola sonuç panelini tamamen temizle
+       const passwordResultPanel = document.getElementById('password-result');
+       if (passwordResultPanel) {
+           passwordResultPanel.style.display = 'none';
+           passwordResultPanel.innerHTML = ''; // İçeriği tamamen temizle
+       }
+       
+       // Parola eşleşme mesajını temizle
+       const passwordMatchMessage = document.getElementById('password-match-message');
+       if (passwordMatchMessage) {
+           passwordMatchMessage.textContent = '';
+       }
+       
+       // Parola kontrol butonunu sıfırla
+       const checkBtn = document.getElementById('check-password-btn');
+       if (checkBtn) {
+           checkBtn.style.opacity = '0.5';
+           checkBtn.style.pointerEvents = 'none';
+       }
+       
        // Share panel'ı sıfırla
        if (typeof selectedAnswers !== 'undefined') selectedAnswers = {};
        if (typeof shareQuestionsDisplayed !== 'undefined') shareQuestionsDisplayed = false;
@@ -2964,10 +2987,62 @@
        console.log('🔒 Kiosk modu ayarları yüklendi');
    }
 
+   // Input alanları için klavye yöneticisi
+   function setupKeyboardManager() {
+       let isInputFocused = false;
+       
+       function enableScrollForKeyboard() {
+           isInputFocused = true;
+           document.body.style.position = 'static';
+           document.documentElement.style.position = 'static';
+           console.log('⌨️ Klavye için scroll etkinleştirildi');
+       }
+       
+       function disableScrollForKeyboard() {
+           setTimeout(() => {
+               if (!isInputFocused) return; // Başka bir input focus değilse
+               isInputFocused = false;
+               document.body.style.position = 'fixed';
+               document.documentElement.style.position = 'fixed';
+               console.log('⌨️ Klavye için scroll devre dışı bırakıldı');
+           }, 300); // Klavye animasyonu için kısa delay
+       }
+       
+       // Tüm input alanlarını bul ve event listener ekle
+       const inputs = ['username-input', 'password-input-1', 'password-input-2'];
+       
+       inputs.forEach(inputId => {
+           const input = document.getElementById(inputId);
+           if (input) {
+               input.addEventListener('focus', function() {
+                   enableScrollForKeyboard();
+                   // Input'u görünür hale getir
+                   setTimeout(() => {
+                       this.scrollIntoView({ 
+                           behavior: 'smooth', 
+                           block: 'center',
+                           inline: 'nearest'
+                       });
+                   }, 100);
+               });
+               
+               input.addEventListener('blur', function() {
+                   disableScrollForKeyboard();
+               });
+               
+               // iOS için özel ayarlar
+               input.addEventListener('touchstart', function() {
+                   enableScrollForKeyboard();
+               });
+           }
+       });
+   }
+
    // Dom yüklendiğinde kiosk modunu başlat
    document.addEventListener('DOMContentLoaded', function() {
        initKioskMode();
        initHomeButton(); // 🏠 Ana ekran butonu başlat
+       setupKeyboardManager(); // ⌨️ Klavye yöneticisini başlat
        
        // DOM yüklendikten hemen sonra viewport hesapla ve tam ekran zorla
        setTimeout(function() {

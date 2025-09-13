@@ -1926,17 +1926,28 @@ html::before, html::after, body::before, body::after {
 
 /* PWA Standalone modu - basit düzeltme */
 @media all and (display-mode: standalone) {
-    /* Safe area padding sadece status bar için */
-    body {
-        padding-top: env(safe-area-inset-top, 0px);
+    /* Safe area padding hem üst hem alt için */
+    html, body {
+        padding-top: env(safe-area-inset-top, 0px) !important;
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
+    }
+    
+    /* Background için safe area desteği */
+    .background, .background-img {
+        padding-top: env(safe-area-inset-top, 0px) !important;
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
     }
 }
 
-/* iOS Safari standalone modu - Status bar kompensasyonu */
+/* iOS Safari standalone modu - Status bar ve home indicator kompensasyonu */
 @media all and (display-mode: standalone) and (-webkit-min-device-pixel-ratio: 2) {
     html, body {
-        /* iPhone/iPad status bar için alan bırakma */
+        /* iPhone/iPad status bar ve home indicator için alan bırakma */
         padding-top: env(safe-area-inset-top, 0px) !important;
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        min-height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
     }
     
     .logo {
@@ -1945,6 +1956,13 @@ html::before, html::after, body::before, body::after {
     
     #control-buttons {
         top: calc(32px + env(safe-area-inset-top, 0px)) !important;
+    }
+    
+    /* Background için tam kaplama */
+    .background, .background-img {
+        padding-top: env(safe-area-inset-top, 0px) !important;
+        padding-bottom: env(safe-area-inset-bottom, 0px) !important;
+        height: calc(100vh - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)) !important;
     }
 }
 
@@ -2050,10 +2068,46 @@ body {
     }
 }
 
-/* iPad Pro notch desteği */
+/* iPad Pro notch desteği - Üst ve alt safe area */
 @media (device-width: 1024px) and (device-height: 1366px) and (-webkit-device-pixel-ratio: 2) {
     body.standalone-mode {
-        padding-top: env(safe-area-inset-top, 24px);
+        padding-top: env(safe-area-inset-top, 24px) !important;
+        padding-bottom: env(safe-area-inset-bottom, 24px) !important;
+    }
+    
+    /* iPad Pro için background ayarları */
+    .background, .background-img {
+        padding-top: env(safe-area-inset-top, 24px) !important;
+        padding-bottom: env(safe-area-inset-bottom, 24px) !important;
+        height: calc(100vh - env(safe-area-inset-top, 24px) - env(safe-area-inset-bottom, 24px)) !important;
+    }
+}
+
+/* UNIVERSAL PWA SAFE AREA FIX - Tüm iOS cihazları için */
+@media all {
+    @supports (padding: max(0px)) {
+        html, body {
+            padding-top: max(env(safe-area-inset-top, 0px), 0px) !important;
+            padding-bottom: max(env(safe-area-inset-bottom, 0px), 0px) !important;
+        }
+        
+        /* Ana ekrana eklenen uygulamalar için özel durum */
+        @media (display-mode: standalone) {
+            html, body {
+                padding-top: env(safe-area-inset-top) !important;
+                padding-bottom: env(safe-area-inset-bottom) !important;
+                height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+                min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+                max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+            }
+            
+            .background, .background-img {
+                height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+                min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+                padding-top: env(safe-area-inset-top) !important;
+                padding-bottom: env(safe-area-inset-bottom) !important;
+            }
+        }
     }
 }
 
