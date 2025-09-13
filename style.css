@@ -32,7 +32,7 @@
     --vh: 1vh;
     --app-height: calc(var(--vh, 1vh) * 100);
     --real-height: 100vh;
-    --scale-factor: 1.05;
+    --scale-factor: 1.02;
 }
 
 html {
@@ -250,12 +250,23 @@ html::before, html::after, body::before, body::after {
 }
 
 .logo {
-    position: fixed;
-    top: 32px;
-    left: 32px;
-    width: 110px;
-    height: auto;
-    z-index: 3;
+    position: fixed !important;
+    top: 32px !important;
+    left: 32px !important;
+    width: 110px !important;
+    height: auto !important;
+    z-index: 99999 !important; /* Ultra yüksek z-index */
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    
+    /* Logo görünürlüğü için özel koruma */
+    filter: brightness(1.1) drop-shadow(0 2px 8px rgba(0,0,0,0.3)) !important;
+    -webkit-filter: brightness(1.1) drop-shadow(0 2px 8px rgba(0,0,0,0.3)) !important;
+    
+    /* Transform hiçbir zaman uygulanmasın */
+    transform: none !important;
+    -webkit-transform: none !important;
 }
 
 .center-panel {
@@ -1716,17 +1727,15 @@ html::before, html::after, body::before, body::after {
     max-width: 600px !important;
 }
 
-/* Modal animasyonları */
+/* Modal animasyonları - DİREKT MERKEZ ÇIKIŞ */
 @keyframes modalFadeIn {
-    from {
+    0% {
         opacity: 0;
-        transform: translate(-50%, -60%);
-        scale: 0.8;
+        transform: translate(-50%, -50%) scale(0.9);
     }
-    to {
+    100% {
         opacity: 1;
-        transform: translate(-50%, -50%);
-        scale: 1;
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
@@ -1786,52 +1795,47 @@ html::before, html::after, body::before, body::after {
     100% { transform: translateX(100%); }
 }
 
-/* 🎮 KONTROL BUTONLARI STİLLERİ (SES + ANA EKRAN) */
-#control-buttons {
+/* 🏠 ANA EKRAN BUTONU STİLLERİ */
+#home-control {
     position: fixed !important;
     top: 32px !important;
     right: 32px !important;
-    z-index: 10 !important;
-    display: flex !important;
-    gap: 15px !important;
-    align-items: center !important;
-}
-
-#sound-control, #home-control {
+    z-index: 99999 !important; /* Logo ile aynı seviye */
     cursor: pointer !important;
     background: rgba(255,255,255,0.1) !important;
     border-radius: 50% !important;
     padding: 10px !important;
     transition: all 0.3s ease !important;
     backdrop-filter: blur(10px) !important;
-    border: 2px solid rgba(255,255,255,0.2) !important;
+    border: 2px solid rgba(52,152,219,0.5) !important;
     width: 50px !important;
     height: 50px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    box-shadow: 0 0 15px rgba(52,152,219,0.3) !important;
 }
 
-#sound-control:hover, #home-control:hover {
+#home-control:hover {
     background: rgba(255,255,255,0.2) !important;
     transform: scale(1.1) !important;
 }
 
-#sound-icon, #home-icon {
+#home-icon {
     font-size: 20px !important;
     color: #fff !important;
     pointer-events: none !important;
 }
 
-/* Modal fade-in animasyonu */
-@keyframes modalFadeIn {
+/* Home Modal fade-in animasyonu - MERKEZ ODAKLI */
+@keyframes homeModalFadeIn {
     0% {
         opacity: 0;
-        transform: scale(0.9);
+        transform: translate(-50%, -50%) scale(0.9);
     }
     100% {
         opacity: 1;
-        transform: scale(1);
+        transform: translate(-50%, -50%) scale(1);
     }
 }
 
@@ -1978,9 +1982,9 @@ html::before, html::after, body::before, body::after {
         padding: 0 !important;
         overflow: hidden !important;
         
-        /* Standalone modda beyaz alan için ultra scale */
-        transform: scale(1.08) translate3d(0,0,0) !important;
-        -webkit-transform: scale(1.08) translate3d(0,0,0) !important;
+        /* Standalone modda beyaz alan için orta scale */
+        transform: scale(1.04) translate3d(0,0,0) !important;
+        -webkit-transform: scale(1.04) translate3d(0,0,0) !important;
         transform-origin: center center !important;
         -webkit-transform-origin: center center !important;
         
@@ -2001,9 +2005,9 @@ html::before, html::after, body::before, body::after {
         min-height: 100vh !important;
         max-height: none !important;
         
-        /* Ultra scale standalone için */
-        transform: scale(1.1) translate3d(0,0,0) !important;
-        -webkit-transform: scale(1.1) translate3d(0,0,0) !important;
+        /* Orta scale standalone için */
+        transform: scale(1.05) translate3d(0,0,0) !important;
+        -webkit-transform: scale(1.05) translate3d(0,0,0) !important;
         transform-origin: center center !important;
         -webkit-transform-origin: center center !important;
         

@@ -66,19 +66,9 @@
           <img src="assets/Asset 4.svg" alt="Arka Plan" class="background-img" loading="lazy">
           <img src="assets/Asset 5.svg" alt="Siber Güvenlik Başkanlığı" class="logo" loading="lazy">
           
-          <!-- 🎵 SES KONTROL VE ANA EKRAN BUTONLARI -->
-          <div id="control-buttons" style="position: fixed; top: 32px; right: 32px; z-index: 10; display: flex; gap: 15px; align-items: center;">
-              
-              <!-- 🏠 ANA EKRANA DÖN BUTONU -->
-              <div id="home-control" style="cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; padding: 10px; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;" onclick="goToHome()" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
-                  <span id="home-icon" style="font-size: 20px; color: #fff;">🏠</span>
-              </div>
-              
-              <!-- 🎵 SES KONTROL BUTONU -->
-              <div id="sound-control" style="cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; padding: 10px; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;" onclick="toggleSound()" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
-                  <span id="sound-icon" style="font-size: 20px; color: #fff;">🔊</span>
-              </div>
-              
+          <!-- 🏠 SADECE ANA EKRANA DÖN BUTONU -->
+          <div id="home-control" style="position: fixed; top: 32px; right: 32px; z-index: 10; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; padding: 10px; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 2px solid rgba(52,152,219,0.5); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(52,152,219,0.3);" onclick="goToHome()" onmouseover="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='scale(1)'">
+              <span id="home-icon" style="font-size: 20px; color: #fff;">🏠</span>
           </div>
         <!-- Ana Panel -->
         <div class="center-panel" id="main-panel">
@@ -2283,8 +2273,8 @@
          const submitAnswersBtn = document.getElementById('continue-to-phishing-btn');
          if (submitAnswersBtn) {
              submitAnswersBtn.onclick = function() {
-                 // 🎵 OLTALAMA TESTİNE GEÇ SESİ
-                 gameAudio.play('transition');
+                 // 🎵 OLTALAMA TESTİNE GEÇ SESİ - PAYLAŞ/SAKLA İLE AYNI
+                 gameAudio.play('success');
                  
                  // Her durumda sonuç ekranını göster
                  checkShareAnswers();
@@ -2498,27 +2488,7 @@
    // Global ses sistemi
    const gameAudio = new GameAudio();
 
-   // 🎵 SES KONTROL FONKSİYONU
-   function toggleSound() {
-       gameAudio.toggle();
-       const soundIcon = document.getElementById('sound-icon');
-       const soundControl = document.getElementById('sound-control');
-       
-       if (gameAudio.enabled) {
-           soundIcon.textContent = '🔊';
-           soundControl.style.borderColor = 'rgba(0,255,153,0.5)';
-           soundControl.style.boxShadow = '0 0 15px rgba(0,255,153,0.3)';
-           
-           // Ses açıldığında küçük bir test sesi çal
-           gameAudio.play('buttonClick');
-       } else {
-           soundIcon.textContent = '🔇';
-           soundControl.style.borderColor = 'rgba(255,68,68,0.5)';
-           soundControl.style.boxShadow = '0 0 15px rgba(255,68,68,0.3)';
-       }
-       
-       console.log(`🎵 Ses kontrol butonu: ${gameAudio.enabled ? 'SES AÇIK' : 'SES KAPALI'}`);
-   }
+   // 🎵 Ses kontrol fonksiyonu kaldırıldı - sadece otomatik ses var
    
    // 🏠 ANA EKRANA DÖN FONKSİYONU
    function goToHome() {
@@ -2554,7 +2524,7 @@
                text-align: center;
                font-size: 1.3rem;
                line-height: 1.5;
-               animation: modalFadeIn 0.5s ease-out;
+               animation: homeModalFadeIn 0.5s ease-out;
            ">
                <img src="assets/Asset 43.svg" alt="Modal Çerçeve" style="
                    position: absolute;
@@ -2603,8 +2573,8 @@
    
    // Ana ekrana dönüşü onayla
    function confirmGoHome() {
-       // 🎵 ONAY SESİ
-       gameAudio.play('success');
+       // 🎵 ANA EKRANA DÖN ÖZEL SESİ - Daha dramatik
+       gameAudio.play('startGame');
        
        // Modal'ı kaldır
        const modal = document.getElementById('home-confirm-modal');
@@ -2691,28 +2661,14 @@
        console.log('🏠 Oyun tamamen sıfırlandı - Ana ekran gösteriliyor');
    }
    
-   // Kontrol butonları için hover efektleri
-   function initControlButtons() {
-       const soundControl = document.getElementById('sound-control');
+   // Ana ekran butonu için hover efektleri
+   function initHomeButton() {
        const homeControl = document.getElementById('home-control');
        
-       if (soundControl) {
-           // Başlangıçta ses açık göster
-           soundControl.style.borderColor = 'rgba(0,255,153,0.5)';
-           soundControl.style.boxShadow = '0 0 15px rgba(0,255,153,0.3)';
-           
-           console.log('🎵 Ses kontrol butonu hazır');
-       }
-       
        if (homeControl) {
-           // Home butonu için mavi glow
-           homeControl.style.borderColor = 'rgba(52,152,219,0.5)';
-           homeControl.style.boxShadow = '0 0 15px rgba(52,152,219,0.3)';
-           
-           console.log('🏠 Ana ekran butonu hazır');
+           // Home butonu için mavi glow zaten CSS'de var
+           console.log('🏠 Ana ekran butonu hazır - Sağ üst köşe');
        }
-       
-       console.log('🎮 Kontrol butonları hazır - Sağ üst köşe');
    }
 
    // BEYAZ ALAN SORUNU İÇİN - DİNAMİK VİEWPORT HEİGHT HESAPLAYICI
@@ -2733,11 +2689,11 @@
                            window.matchMedia('(display-mode: fullscreen)').matches;
        
        // Beyaz alan için dinamik scale faktörü hesapla
-       let scaleFactor = 1.05; // Default browser modu
+       let scaleFactor = 1.02; // Default browser modu - daha az agresif
        
        if (isStandalone) {
-           // PWA standalone modda daha agresif scale
-           scaleFactor = 1.08; // Standalone için ultra scale
+           // PWA standalone modda orta agresif scale
+           scaleFactor = 1.04; // Standalone için orta scale
            document.body.classList.add('pwa-standalone-mode');
            console.log(`📱 PWA Standalone modu tespit edildi! Ultra scale: ${scaleFactor}`);
            
@@ -2755,10 +2711,10 @@
            }, 100);
            
        } else if (realHeight < screenHeight * 0.95) {
-           scaleFactor = 1.08; // Browser modda beyaz alan tespit edilirse
+           scaleFactor = 1.04; // Browser modda beyaz alan tespit edilirse - daha az agresif  
            console.log(`📐 Browser modda beyaz alan tespit edildi! Scale faktörü artırıldı: ${scaleFactor}`);
        } else if (realHeight < screenHeight * 0.98) {
-           scaleFactor = 1.06; // Orta scale
+           scaleFactor = 1.03; // Orta scale
        }
        
        document.documentElement.style.setProperty('--scale-factor', scaleFactor);
@@ -3033,7 +2989,7 @@
    // Dom yüklendiğinde kiosk modunu başlat
    document.addEventListener('DOMContentLoaded', function() {
        initKioskMode();
-       initControlButtons(); // 🎮 Kontrol butonları başlat (Ses + Ana Ekran)
+       initHomeButton(); // 🏠 Ana ekran butonu başlat
        
        // DOM yüklendikten hemen sonra viewport hesapla ve tam ekran zorla
        setTimeout(function() {
