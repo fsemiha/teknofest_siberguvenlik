@@ -1908,10 +1908,141 @@ html::before, html::after, body::before, body::after {
     }
 }
 
-/* PWA Standalone Modu Stilleri */
+/* PWA STANDALONE MODU İÇİN ÖZEL ÇÖZÜMLER */
 .standalone-mode {
     /* Ana ekran modunda ekstra margin kaldır */
     padding-top: 0 !important;
+}
+
+/* JavaScript ile eklenen PWA standalone class */
+.pwa-standalone-mode {
+    /* PWA modunda ultra scale zorlaması */
+    transform: scale(1.08) translate3d(0,0,0) !important;
+    -webkit-transform: scale(1.08) translate3d(0,0,0) !important;
+    transform-origin: center center !important;
+    -webkit-transform-origin: center center !important;
+}
+
+.pwa-standalone-mode .logo {
+    /* PWA modunda logo ultra görünürlük */
+    z-index: 9999 !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    display: block !important;
+    position: fixed !important;
+    top: 32px !important;
+    left: 32px !important;
+    filter: brightness(1.2) drop-shadow(0 2px 8px rgba(0,0,0,0.5)) !important;
+}
+
+.pwa-standalone-mode .background,
+.pwa-standalone-mode .background-img {
+    /* PWA modunda background ultra scale */
+    transform: scale(1.1) translate3d(0,0,0) !important;
+    -webkit-transform: scale(1.1) translate3d(0,0,0) !important;
+}
+
+/* PWA Standalone modunda logo görünürlüğü zorla */
+@media all and (display-mode: standalone) {
+    .logo {
+        position: fixed !important;
+        top: 32px !important;
+        left: 32px !important;
+        width: 110px !important;
+        height: auto !important;
+        z-index: 9999 !important; /* Ultra yüksek z-index */
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        
+        /* Standalone modda ekstra görünürlük zorlaması */
+        filter: brightness(1.1) !important;
+        -webkit-filter: brightness(1.1) !important;
+        background: transparent !important;
+        border: none !important;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.3) !important;
+    }
+    
+    /* Standalone modda body düzeltmeleri */
+    html, body {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 100vh !important;
+        max-height: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        overflow: hidden !important;
+        
+        /* Standalone modda beyaz alan için ultra scale */
+        transform: scale(1.08) translate3d(0,0,0) !important;
+        -webkit-transform: scale(1.08) translate3d(0,0,0) !important;
+        transform-origin: center center !important;
+        -webkit-transform-origin: center center !important;
+        
+        /* Background zorlaması */
+        background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
+        background-attachment: fixed !important;
+        background-size: cover !important;
+    }
+    
+    /* Standalone modda background elements ultra scale */
+    .background, .background-img {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 100vh !important;
+        max-height: none !important;
+        
+        /* Ultra scale standalone için */
+        transform: scale(1.1) translate3d(0,0,0) !important;
+        -webkit-transform: scale(1.1) translate3d(0,0,0) !important;
+        transform-origin: center center !important;
+        -webkit-transform-origin: center center !important;
+        
+        z-index: -1 !important;
+        overflow: hidden !important;
+    }
+    
+    /* Standalone modda control butonları üstte kalır */
+    #control-buttons {
+        z-index: 10000 !important;
+        position: fixed !important;
+        top: 32px !important;
+        right: 32px !important;
+    }
+    
+    /* Standalone modda center-panel'lar düzgün konumlanır */
+    .center-panel {
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        z-index: 1 !important;
+    }
+}
+
+/* iOS Safari standalone modu - Status bar kompensasyonu */
+@media all and (display-mode: standalone) and (-webkit-min-device-pixel-ratio: 2) {
+    html, body {
+        /* iPhone/iPad status bar için alan bırakma */
+        padding-top: env(safe-area-inset-top, 0px) !important;
+    }
+    
+    .logo {
+        top: calc(32px + env(safe-area-inset-top, 0px)) !important;
+    }
+    
+    #control-buttons {
+        top: calc(32px + env(safe-area-inset-top, 0px)) !important;
+    }
 }
 
 /* BEYAZ KISIM SORUNU İÇİN SÜPER AGRESİF ÇÖZÜM */

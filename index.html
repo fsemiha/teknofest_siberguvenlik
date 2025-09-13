@@ -2540,81 +2540,58 @@
            return;
        }
        
+       // EMİN MİSİN MODALI İLE AYNI TASARIM - Çerçeve ve yazı tipi eşitleme
        const modalHTML = `
            <div id="home-confirm-modal" style="
                position: fixed;
-               top: 0;
-               left: 0;
-               width: 100vw;
-               height: 100vh;
-               background: rgba(10, 20, 40, 0.95);
-               backdrop-filter: blur(10px);
+               top: 50%;
+               left: 50%;
+               transform: translate(-50%, -50%);
                z-index: 1000;
-               display: flex;
-               justify-content: center;
-               align-items: center;
-               animation: modalFadeIn 0.3s ease-out;
+               max-width: 700px;
+               width: 85vw;
+               min-height: 400px;
+               text-align: center;
+               font-size: 1.3rem;
+               line-height: 1.5;
+               animation: modalFadeIn 0.5s ease-out;
            ">
-               <div style="
-                   background: linear-gradient(145deg, rgba(15, 30, 60, 0.95), rgba(25, 45, 80, 0.95));
-                   border: 2px solid rgba(0, 255, 153, 0.3);
-                   border-radius: 20px;
-                   padding: 40px;
-                   text-align: center;
-                   max-width: 500px;
-                   width: 90%;
-                   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+               <img src="assets/Asset 43.svg" alt="Modal Çerçeve" style="
+                   position: absolute;
+                   top: 0;
+                   left: 0;
+                   width: 100%;
+                   height: 100%;
+                   z-index: 0;
+                   pointer-events: none;
                ">
-                   <div style="
-                       font-family: 'Gilmer Medium', sans-serif;
-                       font-size: 1.8rem;
-                       color: #fff;
-                       margin-bottom: 20px;
-                       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
-                   ">🏠 Ana Ekrana Dönmek İstiyor Musunuz?</div>
-                   
-                   <div style="
-                       font-family: 'Gilmer Light', sans-serif;
-                       font-size: 1.1rem;
-                       color: rgba(255, 255, 255, 0.8);
-                       margin-bottom: 35px;
-                       line-height: 1.5;
-                   ">
-                       ⚠️ Oyunun tüm ilerlemesi sıfırlanacak!<br>
-                       Bu işlemi onaylıyor musunuz?
+               <div style="
+                   position: relative;
+                   z-index: 1;
+                   padding: 50px 40px;
+                   color: #ffffff;
+               ">
+                   <div style="margin-bottom: 30px;">
+                       <img src="assets/Asset 46.svg" alt="Soru İşareti" style="max-width: 60px; height: auto;">
                    </div>
-                   <div style="margin-top: 35px; display: flex; gap: 25px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                       <button onclick="confirmGoHome()" style="
-                           background: linear-gradient(45deg, #ff4757, #ff3742);
-                           border: none;
-                           border-radius: 12px;
-                           padding: 12px 25px;
-                           color: white;
-                           font-family: 'Gilmer Medium', sans-serif;
-                           font-size: 1.1rem;
+                   <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; color: #fff;">
+                       Ana ekrana dönmek istiyor musunuz?
+                   </div>
+                   <div style="color: #ffffff; line-height: 1.4; margin-bottom: 30px; font-size: 1.2rem;">
+                       ⚠️ Oyunun tüm ilerlemesi sıfırlanacak!
+                   </div>
+                   <div style="margin-top: 35px; display: flex; gap: 30px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                       <img src="assets/Asset 60.svg" alt="Evet, Dön" onclick="confirmGoHome()" style="
+                           max-width: 180px;
                            cursor: pointer;
-                           transition: all 0.3s ease;
-                           box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
-                           min-width: 120px;
-                       " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(255, 71, 87, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(255, 71, 87, 0.3)'">
-                           ✅ Evet, Dön
-                       </button>
+                           transition: transform 0.2s ease;
+                       " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                        
-                       <button onclick="cancelGoHome()" style="
-                           background: linear-gradient(45deg, #2ed573, #1dd1a1);
-                           border: none;
-                           border-radius: 12px;
-                           padding: 12px 25px;
-                           color: white;
-                           font-family: 'Gilmer Medium', sans-serif;
-                           font-size: 1.1rem;
+                       <img src="assets/Asset 61.svg" alt="İptal" onclick="cancelGoHome()" style="
+                           max-width: 180px;
                            cursor: pointer;
-                           transition: all 0.3s ease;
-                           box-shadow: 0 4px 15px rgba(46, 213, 115, 0.3);
-                           min-width: 120px;
-                       " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(46, 213, 115, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(46, 213, 115, 0.3)'">
-                           ❌ İptal
-                       </button>
+                           transition: transform 0.2s ease;
+                       " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
                    </div>
                </div>
            </div>
@@ -2750,12 +2727,36 @@
        document.documentElement.style.setProperty('--app-height', `${realHeight}px`);
        document.documentElement.style.setProperty('--real-height', `${realHeight}px`);
        
+       // PWA Standalone modu tespiti
+       const isStandalone = window.navigator.standalone || 
+                           window.matchMedia('(display-mode: standalone)').matches ||
+                           window.matchMedia('(display-mode: fullscreen)').matches;
+       
        // Beyaz alan için dinamik scale faktörü hesapla
-       // Eğer gerçek yükseklik ekran yüksekliğinden küçükse, scale faktörünü artır
-       let scaleFactor = 1.05; // Default
-       if (realHeight < screenHeight * 0.95) {
-           scaleFactor = 1.08; // Daha agresif scale
-           console.log(`📐 Beyaz alan tespit edildi! Scale faktörü artırıldı: ${scaleFactor}`);
+       let scaleFactor = 1.05; // Default browser modu
+       
+       if (isStandalone) {
+           // PWA standalone modda daha agresif scale
+           scaleFactor = 1.08; // Standalone için ultra scale
+           document.body.classList.add('pwa-standalone-mode');
+           console.log(`📱 PWA Standalone modu tespit edildi! Ultra scale: ${scaleFactor}`);
+           
+           // Standalone modda logo görünürlüğünü zorla
+           setTimeout(() => {
+               const logo = document.querySelector('.logo');
+               if (logo) {
+                   logo.style.zIndex = '9999';
+                   logo.style.visibility = 'visible';
+                   logo.style.opacity = '1';
+                   logo.style.display = 'block';
+                   logo.style.position = 'fixed';
+                   console.log('🏠 PWA modunda logo görünürlük zorlandı');
+               }
+           }, 100);
+           
+       } else if (realHeight < screenHeight * 0.95) {
+           scaleFactor = 1.08; // Browser modda beyaz alan tespit edilirse
+           console.log(`📐 Browser modda beyaz alan tespit edildi! Scale faktörü artırıldı: ${scaleFactor}`);
        } else if (realHeight < screenHeight * 0.98) {
            scaleFactor = 1.06; // Orta scale
        }
@@ -2767,6 +2768,34 @@
 
    // PWA ve Kiosk Modu Kontrollerini
    function initKioskMode() {
+       // PWA Standalone modu tespiti ve logo düzeltmesi
+       const isStandalone = window.navigator.standalone || 
+                           window.matchMedia('(display-mode: standalone)').matches ||
+                           window.matchMedia('(display-mode: fullscreen)').matches;
+       
+       if (isStandalone) {
+           document.body.classList.add('pwa-standalone-mode');
+           console.log('📱 PWA Standalone modu tespit edildi - Özel düzeltmeler aktif');
+           
+           // Logo görünürlüğünü zorla
+           setTimeout(() => {
+               const logo = document.querySelector('.logo');
+               if (logo) {
+                   logo.style.cssText += `
+                       z-index: 9999 !important;
+                       visibility: visible !important;
+                       opacity: 1 !important;
+                       display: block !important;
+                       position: fixed !important;
+                       top: 32px !important;
+                       left: 32px !important;
+                       filter: brightness(1.2) drop-shadow(0 2px 8px rgba(0,0,0,0.5)) !important;
+                   `;
+                   console.log('🏠 PWA modunda logo ultra görünürlük zorlandı');
+               }
+           }, 200);
+       }
+       
        // İlk viewport hesaplaması
        setViewportHeight();
        
