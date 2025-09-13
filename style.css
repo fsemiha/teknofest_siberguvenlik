@@ -27,16 +27,21 @@
     font-display: swap;
 }
 
+/* BEYAZ KISIM SORUNU İÇİN SÜPER AGRESİF BAŞLANGIÇ KURALLARI */
 body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    min-height: 100vh !important;
+    max-height: 100vh !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: hidden !important;
     font-family: 'Gilmer', Arial, sans-serif;
-    background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%);
+    background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
     color: #fff;
-    min-height: 100vh;
-    max-height: 100vh;
-    overflow: hidden;
     
     /* PWA ve Kiosk modu için */
     -webkit-touch-callout: none;
@@ -45,27 +50,27 @@ body, html {
     user-select: none;
     touch-action: manipulation;
     
-    /* TAM EKRAN ZORLAMA - Safari URL çubuğunu gizle */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    
     /* iOS Safari için özel */
     -webkit-appearance: none;
     -webkit-overflow-scrolling: touch;
     
     /* BEYAZ KISIM SORUNU İÇİN - Safe area düzeltmeleri */
-    padding-top: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    padding-right: 0;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
     
     /* Background'ı her durumda tam kapla */
-    background-attachment: fixed;
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-attachment: fixed !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    
+    /* iPad için ekstra zorlamalar */
+    -webkit-transform: translate3d(0,0,0) !important;
+    transform: translate3d(0,0,0) !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
 }
 
 /* iPad için özel beyaz kısım düzeltmesi */
@@ -84,35 +89,57 @@ body, html {
     }
 }
 
-/* Ana container'ı tam ekran yap */
+/* BEYAZ KISIM SORUNU İÇİN - BACKGROUND SÜPER AGRESİF ÇÖZÜM */
 .background {
     position: fixed !important;
     top: 0 !important;
+    bottom: 0 !important;
     left: 0 !important;
+    right: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
     min-height: 100vh !important;
     max-height: 100vh !important;
+    min-width: 100vw !important;
+    max-width: 100vw !important;
+    margin: 0 !important;
+    padding: 0 !important;
     z-index: 0;
-    background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%);
-    overflow: hidden;
+    background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
+    background-size: cover !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    overflow: hidden !important;
+    
+    /* iPad için ekstra */
+    -webkit-transform: translate3d(0,0,0) !important;
+    transform: translate3d(0,0,0) !important;
 }
 
 .background-img {
     position: fixed !important;
     top: 0 !important;
+    bottom: 0 !important;
     left: 0 !important;
+    right: 0 !important;
     width: 100vw !important;
     height: 100vh !important;
     min-width: 100vw !important;
     min-height: 100vh !important;
     max-width: 100vw !important;
     max-height: 100vh !important;
-    object-fit: cover;
-    object-position: center center;
+    margin: 0 !important;
+    padding: 0 !important;
+    object-fit: cover !important;
+    object-position: center center !important;
     z-index: 0;
     pointer-events: none;
     opacity: 0.95;
+    
+    /* Background image için ekstra zorlamalar */
+    -webkit-transform: translate3d(0,0,0) !important;
+    transform: translate3d(0,0,0) !important;
 }
 
 /* iPad için background resmi özel düzeltme */
@@ -1678,7 +1705,7 @@ body, html {
     padding-top: 0 !important;
 }
 
-/* TAM EKRAN ZORLAMA - TÜM DURUMLAR İÇİN */
+/* BEYAZ KISIM SORUNU İÇİN SÜPER AGRESİF ÇÖZÜM */
 html, body {
     position: fixed !important;
     top: 0 !important;
@@ -1692,6 +1719,26 @@ html, body {
     overflow: hidden !important;
     -webkit-overflow-scrolling: touch !important;
     background-size: cover !important;
+    
+    /* BEYAZ ALAN SORUNU İÇİN EK KURALLAR */
+    background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
+    background-attachment: fixed !important;
+    background-repeat: no-repeat !important;
+    background-position: center center !important;
+    
+    /* Safari safe area zorlaması */
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    
+    /* iOS Safari için ekstra */
+    -webkit-transform: translate3d(0,0,0) !important;
+    transform: translate3d(0,0,0) !important;
+    
+    /* Viewport zorlaması */
+    min-width: 100vw !important;
+    max-width: 100vw !important;
 }
 
 /* Safari Browser Modunda URL çubuğunu gizlemek için - GÜÇLÜ VERSIYON */
