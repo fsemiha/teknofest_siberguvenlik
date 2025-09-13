@@ -2314,6 +2314,40 @@
              document.getElementById('share-panel').style.display = 'none';
              document.getElementById('phishing-panel').style.display = 'flex';
              
+             // PHISHING PANEL - LOGO VE HOME BUTON GÖRÜNÜRLÜĞÜ ZORLA
+             setTimeout(function() {
+                 const logo = document.querySelector('.logo');
+                 const homeControl = document.getElementById('home-control');
+                 
+                 if (logo) {
+                     logo.style.cssText += `
+                         z-index: 999999 !important;
+                         position: fixed !important;
+                         top: 32px !important;
+                         left: 32px !important;
+                         display: block !important;
+                         visibility: visible !important;
+                         opacity: 1 !important;
+                         pointer-events: auto !important;
+                     `;
+                     console.log('🏠 Phishing panelinde logo görünürlük ZORLA');
+                 }
+                 
+                 if (homeControl) {
+                     homeControl.style.cssText += `
+                         z-index: 999999 !important;
+                         position: fixed !important;
+                         top: 32px !important;
+                         right: 32px !important;
+                         display: flex !important;
+                         visibility: visible !important;
+                         opacity: 1 !important;
+                         pointer-events: auto !important;
+                     `;
+                     console.log('🏠 Phishing panelinde home buton görünürlük ZORLA');
+                 }
+             }, 100);
+             
              // Panel geçişi sonrası tam ekran zorla
              setTimeout(function() {
                  if (typeof forceFullscreen === 'function') {
@@ -2669,6 +2703,40 @@
            // Home butonu için mavi glow zaten CSS'de var
            console.log('🏠 Ana ekran butonu hazır - Sağ üst köşe');
        }
+       
+       // LOGO VE HOME BUTON GÖRÜNÜRLÜK GARANTİSİ - Sürekli kontrol
+       setInterval(function() {
+           const logo = document.querySelector('.logo');
+           const homeControl = document.getElementById('home-control');
+           
+           if (logo && (logo.style.visibility === 'hidden' || logo.style.display === 'none' || window.getComputedStyle(logo).visibility === 'hidden')) {
+               logo.style.cssText += `
+                   z-index: 9999999 !important;
+                   position: fixed !important;
+                   top: 32px !important;
+                   left: 32px !important;
+                   display: block !important;
+                   visibility: visible !important;
+                   opacity: 1 !important;
+                   pointer-events: auto !important;
+               `;
+               console.log('⚡ Logo görünürlük otomatik düzeltme');
+           }
+           
+           if (homeControl && (homeControl.style.visibility === 'hidden' || homeControl.style.display === 'none' || window.getComputedStyle(homeControl).visibility === 'hidden')) {
+               homeControl.style.cssText += `
+                   z-index: 9999999 !important;
+                   position: fixed !important;
+                   top: 32px !important;
+                   right: 32px !important;
+                   display: flex !important;
+                   visibility: visible !important;
+                   opacity: 1 !important;
+                   pointer-events: auto !important;
+               `;
+               console.log('⚡ Home buton görünürlük otomatik düzeltme');
+           }
+       }, 1000); // Her saniye kontrol et
    }
 
    // BEYAZ ALAN SORUNU İÇİN - DİNAMİK VİEWPORT HEİGHT HESAPLAYICI

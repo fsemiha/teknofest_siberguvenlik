@@ -255,7 +255,7 @@ html::before, html::after, body::before, body::after {
     left: 32px !important;
     width: 110px !important;
     height: auto !important;
-    z-index: 99999 !important; /* Ultra yüksek z-index */
+    z-index: 999999 !important; /* ULTRA ULTRA yüksek z-index */
     display: block !important;
     visibility: visible !important;
     opacity: 1 !important;
@@ -267,6 +267,10 @@ html::before, html::after, body::before, body::after {
     /* Transform hiçbir zaman uygulanmasın */
     transform: none !important;
     -webkit-transform: none !important;
+    
+    /* Her durumda üstte kal */
+    pointer-events: auto !important;
+    will-change: auto !important;
 }
 
 .center-panel {
@@ -1800,7 +1804,7 @@ html::before, html::after, body::before, body::after {
     position: fixed !important;
     top: 32px !important;
     right: 32px !important;
-    z-index: 99999 !important; /* Logo ile aynı seviye */
+    z-index: 999999 !important; /* Logo ile aynı ULTRA ULTRA seviye */
     cursor: pointer !important;
     background: rgba(255,255,255,0.1) !important;
     border-radius: 50% !important;
@@ -1814,6 +1818,12 @@ html::before, html::after, body::before, body::after {
     align-items: center !important;
     justify-content: center !important;
     box-shadow: 0 0 15px rgba(52,152,219,0.3) !important;
+    
+    /* Her durumda üstte kal */
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+    will-change: auto !important;
 }
 
 #home-control:hover {
@@ -1825,6 +1835,50 @@ html::before, html::after, body::before, body::after {
     font-size: 20px !important;
     color: #fff !important;
     pointer-events: none !important;
+}
+
+/* PHISHING PANEL ÖZEL LOGO VE BUTON KORUMALARI */
+#phishing-panel ~ .logo,
+body:has(#phishing-panel[style*="flex"]) .logo {
+    z-index: 999999 !important;
+    position: fixed !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+#phishing-panel ~ #home-control,
+body:has(#phishing-panel[style*="flex"]) #home-control {
+    z-index: 999999 !important;
+    position: fixed !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* Phishing panel açık olduğunda logo ve buton koruma */
+body:has(#phishing-panel[style*="display: flex"]) .logo,
+body:has(#phishing-panel[style*="display:flex"]) .logo {
+    z-index: 9999999 !important; /* MEGA ULTRA yüksek */
+    position: fixed !important;
+    top: 32px !important;
+    left: 32px !important;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
+}
+
+body:has(#phishing-panel[style*="display: flex"]) #home-control,
+body:has(#phishing-panel[style*="display:flex"]) #home-control {
+    z-index: 9999999 !important; /* MEGA ULTRA yüksek */
+    position: fixed !important;
+    top: 32px !important;
+    right: 32px !important;
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    pointer-events: auto !important;
 }
 
 /* Home Modal fade-in animasyonu - MERKEZ ODAKLI */
@@ -1946,7 +2000,7 @@ html::before, html::after, body::before, body::after {
     -webkit-transform: scale(1.1) translate3d(0,0,0) !important;
 }
 
-/* PWA Standalone modunda logo görünürlüğü zorla */
+/* PWA Standalone modunda logo görünürlüğü zorla - ULTRA GÜÇLENDİRİLMİŞ */
 @media all and (display-mode: standalone) {
     .logo {
         position: fixed !important;
@@ -1954,18 +2008,20 @@ html::before, html::after, body::before, body::after {
         left: 32px !important;
         width: 110px !important;
         height: auto !important;
-        z-index: 9999 !important; /* Ultra yüksek z-index */
+        z-index: 9999999 !important; /* MEGA ULTRA yüksek z-index */
         display: block !important;
         visibility: visible !important;
         opacity: 1 !important;
         pointer-events: auto !important;
         
         /* Standalone modda ekstra görünürlük zorlaması */
-        filter: brightness(1.1) !important;
-        -webkit-filter: brightness(1.1) !important;
+        filter: brightness(1.2) drop-shadow(0 3px 10px rgba(0,0,0,0.5)) !important;
+        -webkit-filter: brightness(1.2) drop-shadow(0 3px 10px rgba(0,0,0,0.5)) !important;
         background: transparent !important;
         border: none !important;
         box-shadow: 0 2px 15px rgba(0,0,0,0.3) !important;
+        transform: none !important;
+        -webkit-transform: none !important;
     }
     
     /* Standalone modda body düzeltmeleri */
@@ -2015,12 +2071,18 @@ html::before, html::after, body::before, body::after {
         overflow: hidden !important;
     }
     
-    /* Standalone modda control butonları üstte kalır */
-    #control-buttons {
-        z-index: 10000 !important;
+    /* Standalone modda home control butonu üstte kalır - ULTRA GÜÇLENDİRİLMİŞ */
+    #home-control {
+        z-index: 9999999 !important; /* MEGA ULTRA yüksek */
         position: fixed !important;
         top: 32px !important;
         right: 32px !important;
+        display: flex !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        pointer-events: auto !important;
+        transform: none !important;
+        -webkit-transform: none !important;
     }
     
     /* Standalone modda center-panel'lar düzgün konumlanır */
