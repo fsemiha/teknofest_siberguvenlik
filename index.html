@@ -9,7 +9,7 @@
     <link rel="canonical" href="https://fsemiha.github.io/teknofest_siberguvenlik/">
     
     <!-- BEYAZ KISIM SORUNU İÇİN SÜPER AGRESİF VIEWPORT -->
-    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, interactive-widget=resizes-content">
+        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, interactive-widget=overlays-content, web-app-capable=yes">
     
     <!-- iPad için ek meta taglar - BEYAZ ALAN SORUNU İÇİN -->
     <meta name="full-screen" content="yes">
@@ -66,9 +66,19 @@
           <img src="assets/Asset 4.svg" alt="Arka Plan" class="background-img" loading="lazy">
           <img src="assets/Asset 5.svg" alt="Siber Güvenlik Başkanlığı" class="logo" loading="lazy">
           
-          <!-- 🎵 SES KONTROL BUTONU -->
-          <div id="sound-control" style="position: fixed; top: 32px; right: 32px; z-index: 10; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; padding: 10px; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.2);" onclick="toggleSound()" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
-              <span id="sound-icon" style="font-size: 20px; color: #fff;">🔊</span>
+          <!-- 🎵 SES KONTROL VE ANA EKRAN BUTONLARI -->
+          <div id="control-buttons" style="position: fixed; top: 32px; right: 32px; z-index: 10; display: flex; gap: 15px; align-items: center;">
+              
+              <!-- 🏠 ANA EKRANA DÖN BUTONU -->
+              <div id="home-control" style="cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; padding: 10px; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;" onclick="goToHome()" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                  <span id="home-icon" style="font-size: 20px; color: #fff;">🏠</span>
+              </div>
+              
+              <!-- 🎵 SES KONTROL BUTONU -->
+              <div id="sound-control" style="cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; padding: 10px; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 2px solid rgba(255,255,255,0.2); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center;" onclick="toggleSound()" onmouseover="this.style.background='rgba(255,255,255,0.2)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+                  <span id="sound-icon" style="font-size: 20px; color: #fff;">🔊</span>
+              </div>
+              
           </div>
         <!-- Ana Panel -->
         <div class="center-panel" id="main-panel">
@@ -1006,11 +1016,16 @@
     // PAYLAŞ/SAKLA butonuna tıklanınca panel geçişi
     document.addEventListener('click', function(e) {
         if (e.target.closest('#next-task-btn')) {
+            // 🎵 PAYLAŞ/SAKLA GÖREVİNE GEÇ SESİ
+            gameAudio.play('success');
+            
             document.getElementById('password-panel').style.display = 'none';
             document.getElementById('share-panel').style.display = 'flex';
             
             // Yeni share panel sistemini başlat
             displayShareQuestions();
+            
+            console.log('🎵 "Paylaş/Sakla Görevine Geç" butonuna basıldı - Başarı sesi çalındı');
         }
         
                                   // Phishing testine geçiş butonu
@@ -2110,19 +2125,28 @@
     }
     
     function continueToPhishing() {
+        // 🎵 EMİN MİSİN EKRАНИ - GEÇ SESİ
+        gameAudio.play('success');
+        
         // Modal'ı kaldır
         clearExplanation();
         
         // Phishing testine geç
         showPhishingPanel();
+        
+        console.log('🎵 Emin misin ekranı "Geç" butonuna basıldı - Başarı sesi çalındı');
     }
     
     function cancelToPhishing() {
+        // 🎵 EMİN MİSİN EKRАНИ - GEÇME SESİ
+        gameAudio.play('buttonClick');
+        
         // Modal'ı kaldır
         clearExplanation();
         
         // Paylaş/sakla bölümünde kal - hiçbir şey yapma, modal sadece kapansın
         console.log("👤 Kullanıcı phishing testine geçmek istemedi, paylaş/sakla bölümünde kalıyor");
+        console.log('🎵 Emin misin ekranı "Geçme" butonuna basıldı - Buton sesi çalındı');
     }
     
     // Phishing test acil durumu - eğer test tamamen çökerse kullan
@@ -2259,8 +2283,13 @@
          const submitAnswersBtn = document.getElementById('continue-to-phishing-btn');
          if (submitAnswersBtn) {
              submitAnswersBtn.onclick = function() {
+                 // 🎵 OLTALAMA TESTİNE GEÇ SESİ
+                 gameAudio.play('transition');
+                 
                  // Her durumda sonuç ekranını göster
                  checkShareAnswers();
+                 
+                 console.log('🎵 "Oltalama Testine Geç" butonuna basıldı - Geçiş sesi çalındı');
              };
          }
         
@@ -2491,28 +2520,249 @@
        console.log(`🎵 Ses kontrol butonu: ${gameAudio.enabled ? 'SES AÇIK' : 'SES KAPALI'}`);
    }
    
-   // Ses butonu için hover efektleri
-   function initSoundControl() {
+   // 🏠 ANA EKRANA DÖN FONKSİYONU
+   function goToHome() {
+       // 🎵 ANA EKRANA DÖNÜŞ SESİ
+       gameAudio.play('welcome');
+       
+       // Onay modal'ı göster
+       showHomeConfirmModal();
+       
+       console.log('🏠 Ana ekrana dön butonu basıldı - Onay modalı gösteriliyor');
+   }
+   
+   // Ana ekrana dönüş onay modal'ı
+   function showHomeConfirmModal() {
+       // Eğer zaten ana ekrandaysak, modal gösterme
+       const mainPanel = document.getElementById('main-panel');
+       if (mainPanel && mainPanel.style.display !== 'none' && mainPanel.style.display !== '') {
+           console.log('🏠 Zaten ana ekrandasınız');
+           return;
+       }
+       
+       const modalHTML = `
+           <div id="home-confirm-modal" style="
+               position: fixed;
+               top: 0;
+               left: 0;
+               width: 100vw;
+               height: 100vh;
+               background: rgba(10, 20, 40, 0.95);
+               backdrop-filter: blur(10px);
+               z-index: 1000;
+               display: flex;
+               justify-content: center;
+               align-items: center;
+               animation: modalFadeIn 0.3s ease-out;
+           ">
+               <div style="
+                   background: linear-gradient(145deg, rgba(15, 30, 60, 0.95), rgba(25, 45, 80, 0.95));
+                   border: 2px solid rgba(0, 255, 153, 0.3);
+                   border-radius: 20px;
+                   padding: 40px;
+                   text-align: center;
+                   max-width: 500px;
+                   width: 90%;
+                   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+               ">
+                   <div style="
+                       font-family: 'Gilmer Medium', sans-serif;
+                       font-size: 1.8rem;
+                       color: #fff;
+                       margin-bottom: 20px;
+                       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+                   ">🏠 Ana Ekrana Dönmek İstiyor Musunuz?</div>
+                   
+                   <div style="
+                       font-family: 'Gilmer Light', sans-serif;
+                       font-size: 1.1rem;
+                       color: rgba(255, 255, 255, 0.8);
+                       margin-bottom: 35px;
+                       line-height: 1.5;
+                   ">
+                       ⚠️ Oyunun tüm ilerlemesi sıfırlanacak!<br>
+                       Bu işlemi onaylıyor musunuz?
+                   </div>
+                   <div style="margin-top: 35px; display: flex; gap: 25px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                       <button onclick="confirmGoHome()" style="
+                           background: linear-gradient(45deg, #ff4757, #ff3742);
+                           border: none;
+                           border-radius: 12px;
+                           padding: 12px 25px;
+                           color: white;
+                           font-family: 'Gilmer Medium', sans-serif;
+                           font-size: 1.1rem;
+                           cursor: pointer;
+                           transition: all 0.3s ease;
+                           box-shadow: 0 4px 15px rgba(255, 71, 87, 0.3);
+                           min-width: 120px;
+                       " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(255, 71, 87, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(255, 71, 87, 0.3)'">
+                           ✅ Evet, Dön
+                       </button>
+                       
+                       <button onclick="cancelGoHome()" style="
+                           background: linear-gradient(45deg, #2ed573, #1dd1a1);
+                           border: none;
+                           border-radius: 12px;
+                           padding: 12px 25px;
+                           color: white;
+                           font-family: 'Gilmer Medium', sans-serif;
+                           font-size: 1.1rem;
+                           cursor: pointer;
+                           transition: all 0.3s ease;
+                           box-shadow: 0 4px 15px rgba(46, 213, 115, 0.3);
+                           min-width: 120px;
+                       " onmouseover="this.style.transform='scale(1.05)'; this.style.boxShadow='0 6px 20px rgba(46, 213, 115, 0.4)'" onmouseout="this.style.transform='scale(1)'; this.style.boxShadow='0 4px 15px rgba(46, 213, 115, 0.3)'">
+                           ❌ İptal
+                       </button>
+                   </div>
+               </div>
+           </div>
+       `;
+       
+       // Body'ye ekle
+       document.body.insertAdjacentHTML('beforeend', modalHTML);
+   }
+   
+   // Ana ekrana dönüşü onayla
+   function confirmGoHome() {
+       // 🎵 ONAY SESİ
+       gameAudio.play('success');
+       
+       // Modal'ı kaldır
+       const modal = document.getElementById('home-confirm-modal');
+       if (modal) {
+           modal.remove();
+       }
+       
+       // Oyunu tamamen sıfırla ve ana ekrana dön
+       resetGameToHome();
+       
+       console.log('🏠 Ana ekrana dönüş onaylandı - Oyun sıfırlandı');
+   }
+   
+   // Ana ekrana dönüşü iptal et
+   function cancelGoHome() {
+       // 🎵 İPTAL SESİ
+       gameAudio.play('buttonClick');
+       
+       // Modal'ı kaldır
+       const modal = document.getElementById('home-confirm-modal');
+       if (modal) {
+           modal.remove();
+       }
+       
+       console.log('🏠 Ana ekrana dönüş iptal edildi');
+   }
+   
+   // Oyunu sıfırlayıp ana ekrana dön
+   function resetGameToHome() {
+       // Tüm panelleri gizle
+       const panels = ['main-panel', 'username-panel', 'password-panel', 'share-panel', 'phishing-panel', 'final-score-panel', 'scoreboard-panel'];
+       panels.forEach(panelId => {
+           const panel = document.getElementById(panelId);
+           if (panel) {
+               panel.style.display = 'none';
+           }
+       });
+       
+       // Ana menü panelini göster
+       const mainPanel = document.getElementById('main-panel');
+       if (mainPanel) {
+           mainPanel.style.display = 'flex';
+       }
+       
+       // Kullanıcı adı input'unu temizle
+       const usernameInput = document.getElementById('username-input');
+       if (usernameInput) {
+           usernameInput.value = '';
+       }
+       
+       // Global değişkenleri sıfırla
+       if (typeof totalScore !== 'undefined') totalScore = 0;
+       if (typeof passwordScore !== 'undefined') passwordScore = 0;
+       if (typeof shareScore !== 'undefined') shareScore = 0;
+       if (typeof phishingScore !== 'undefined') phishingScore = 0;
+       if (typeof timeLeft !== 'undefined') timeLeft = 0;
+       if (typeof timerStarted !== 'undefined') timerStarted = false;
+       if (typeof currentPhishingQuestion !== 'undefined') currentPhishingQuestion = 0;
+       if (typeof currentUsername !== 'undefined') currentUsername = '';
+       
+       // Timer'ı durdur
+       if (typeof timerInterval !== 'undefined' && timerInterval) {
+           clearInterval(timerInterval);
+           timerInterval = null;
+       }
+       
+       // Parola panelini sıfırla
+       const passwordInput = document.getElementById('password-input-1');
+       const confirmPasswordInput = document.getElementById('password-input-2');
+       if (passwordInput) passwordInput.value = '';
+       if (confirmPasswordInput) confirmPasswordInput.value = '';
+       
+       // Share panel'ı sıfırla
+       if (typeof selectedAnswers !== 'undefined') selectedAnswers = {};
+       if (typeof shareQuestionsDisplayed !== 'undefined') shareQuestionsDisplayed = false;
+       
+       // Tam ekran zorla
+       setTimeout(function() {
+           if (typeof forceFullscreen === 'function') {
+               forceFullscreen();
+           }
+       }, 100);
+       
+       console.log('🏠 Oyun tamamen sıfırlandı - Ana ekran gösteriliyor');
+   }
+   
+   // Kontrol butonları için hover efektleri
+   function initControlButtons() {
        const soundControl = document.getElementById('sound-control');
+       const homeControl = document.getElementById('home-control');
+       
        if (soundControl) {
            // Başlangıçta ses açık göster
            soundControl.style.borderColor = 'rgba(0,255,153,0.5)';
            soundControl.style.boxShadow = '0 0 15px rgba(0,255,153,0.3)';
            
-           console.log('🎵 Ses kontrol butonu hazır - Sağ üst köşe');
+           console.log('🎵 Ses kontrol butonu hazır');
        }
+       
+       if (homeControl) {
+           // Home butonu için mavi glow
+           homeControl.style.borderColor = 'rgba(52,152,219,0.5)';
+           homeControl.style.boxShadow = '0 0 15px rgba(52,152,219,0.3)';
+           
+           console.log('🏠 Ana ekran butonu hazır');
+       }
+       
+       console.log('🎮 Kontrol butonları hazır - Sağ üst köşe');
    }
 
    // BEYAZ ALAN SORUNU İÇİN - DİNAMİK VİEWPORT HEİGHT HESAPLAYICI
    function setViewportHeight() {
        // Gerçek viewport yüksekliğini hesapla
        let vh = window.innerHeight * 0.01;
+       const realHeight = window.innerHeight;
+       const screenHeight = window.screen.height;
+       
+       // CSS custom property'leri güncelle
        document.documentElement.style.setProperty('--vh', `${vh}px`);
+       document.documentElement.style.setProperty('--app-height', `${realHeight}px`);
+       document.documentElement.style.setProperty('--real-height', `${realHeight}px`);
        
-       // CSS custom property güncelle
-       document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+       // Beyaz alan için dinamik scale faktörü hesapla
+       // Eğer gerçek yükseklik ekran yüksekliğinden küçükse, scale faktörünü artır
+       let scaleFactor = 1.05; // Default
+       if (realHeight < screenHeight * 0.95) {
+           scaleFactor = 1.08; // Daha agresif scale
+           console.log(`📐 Beyaz alan tespit edildi! Scale faktörü artırıldı: ${scaleFactor}`);
+       } else if (realHeight < screenHeight * 0.98) {
+           scaleFactor = 1.06; // Orta scale
+       }
        
-       console.log(`📐 Dinamik viewport ayarlandı: ${window.innerHeight}px (--vh: ${vh}px)`);
+       document.documentElement.style.setProperty('--scale-factor', scaleFactor);
+       
+       console.log(`📐 Dinamik viewport ayarlandı: ${realHeight}px (--vh: ${vh}px, scale: ${scaleFactor})`);
    }
 
    // PWA ve Kiosk Modu Kontrollerini
@@ -2754,7 +3004,7 @@
    // Dom yüklendiğinde kiosk modunu başlat
    document.addEventListener('DOMContentLoaded', function() {
        initKioskMode();
-       initSoundControl(); // 🎵 Ses kontrol butonu başlat
+       initControlButtons(); // 🎮 Kontrol butonları başlat (Ses + Ana Ekran)
        
        // DOM yüklendikten hemen sonra viewport hesapla ve tam ekran zorla
        setTimeout(function() {
@@ -2780,14 +3030,66 @@
        }
    }, { passive: true });
 
-   // Scroll olaylarını engelle ve tam ekran zorla
-   window.addEventListener('scroll', function(e) {
-       e.preventDefault();
+   // BEYAZ ALAN ENGELLEMESİ - Süper Agresif Scroll Kilitleme
+   let scrollResetTimeout;
+   let lastScrollTime = 0;
+   
+   function forceScrollReset() {
+       const now = Date.now();
+       if (now - lastScrollTime < 16) return; // 60fps throttle
+       lastScrollTime = now;
+       
+       // Hemen scroll'u sıfırla - Tüm yönlerde
        window.scrollTo(0, 0);
-       if (document.body.style.position !== 'fixed') {
+       document.documentElement.scrollTop = 0;
+       document.body.scrollTop = 0;
+       document.documentElement.scrollLeft = 0;
+       document.body.scrollLeft = 0;
+       
+       // Viewport yeniden hesapla
+       setViewportHeight();
+       
+       // Tam ekran zorla
+       if (typeof forceFullscreen === 'function') {
            forceFullscreen();
        }
-   }, { passive: false });
+       
+       console.log('🔒 BEYAZ ALAN ENGELLENDİ - Scroll agresif sıfırlama');
+   }
+   
+   // Scroll olaylarını engelle ve tam ekran zorla - SÜPER AGRESİF
+   window.addEventListener('scroll', function(e) {
+       e.preventDefault();
+       e.stopPropagation();
+       e.stopImmediatePropagation();
+       
+       clearTimeout(scrollResetTimeout);
+       scrollResetTimeout = setTimeout(forceScrollReset, 1);
+       
+       return false;
+   }, { passive: false, capture: true });
+   
+   // Touch scroll engelleme - Beyaz alan engelleyici
+   window.addEventListener('touchmove', function(e) {
+       if (e.touches.length > 1) return; // Multi-touch gestures allow
+       
+       e.preventDefault();
+       clearTimeout(scrollResetTimeout);
+       scrollResetTimeout = setTimeout(forceScrollReset, 1);
+       
+       return false;
+   }, { passive: false, capture: true });
+   
+   // Mouse wheel scroll engelleme
+   window.addEventListener('wheel', function(e) {
+       e.preventDefault();
+       e.stopPropagation();
+       
+       clearTimeout(scrollResetTimeout);
+       scrollResetTimeout = setTimeout(forceScrollReset, 1);
+       
+       return false;
+   }, { passive: false, capture: true });
 
    // Visibility API ile sayfa odağını kontrol et
    document.addEventListener('visibilitychange', function() {
