@@ -2091,23 +2091,57 @@ body {
             padding-bottom: max(env(safe-area-inset-bottom, 0px), 0px) !important;
         }
         
-        /* Ana ekrana eklenen uygulamalar için özel durum */
+        /* Ana ekrana eklenen uygulamalar için özel durum - EV TUŞU ÇİZGİSİNİ GİZLE */
         @media (display-mode: standalone) {
             html, body {
                 padding-top: env(safe-area-inset-top) !important;
-                padding-bottom: env(safe-area-inset-bottom) !important;
-                height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
-                min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
-                max-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+                padding-bottom: 0px !important; /* Home indicator'ı gizlemek için padding kaldır */
+                height: calc(100vh - env(safe-area-inset-top)) !important; /* Sadece üst safe area hesapla */
+                min-height: calc(100vh - env(safe-area-inset-top)) !important;
+                max-height: calc(100vh - env(safe-area-inset-top)) !important;
+                /* Home indicator'ı gizleme ayarları */
+                -webkit-overflow-scrolling: touch;
+                overscroll-behavior: none;
             }
             
             .background, .background-img {
-                height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
-                min-height: calc(100vh - env(safe-area-inset-top) - env(safe-area-inset-bottom)) !important;
+                height: calc(100vh - env(safe-area-inset-top)) !important; /* Tam yükseklik */
+                min-height: calc(100vh - env(safe-area-inset-top)) !important;
                 padding-top: env(safe-area-inset-top) !important;
-                padding-bottom: env(safe-area-inset-bottom) !important;
+                padding-bottom: 0px !important; /* Alt padding kaldır */
             }
         }
+    }
+}
+
+/* HOME INDICATOR GİZLEME - iOS Safari PWA için özel */
+@media (display-mode: standalone) {
+    html {
+        /* Home indicator'ı tamamen gizle */
+        -webkit-touch-callout: none !important;
+        -webkit-user-select: none !important;
+        -webkit-tap-highlight-color: transparent !important;
+        /* Content'i tam ekrana yay */
+        height: 100vh !important;
+        width: 100vw !important;
+        overflow: hidden !important;
+    }
+    
+    body {
+        /* Alt alan home indicator için değil, content için */
+        margin-bottom: 0px !important;
+        padding-bottom: 0px !important;
+        /* Tam yükseklik kullan */
+        height: calc(100vh - env(safe-area-inset-top, 0px)) !important;
+        max-height: calc(100vh - env(safe-area-inset-top, 0px)) !important;
+        overflow: hidden !important;
+    }
+    
+    /* Tüm content'i home indicator alanına kadar uzat */
+    .center-panel, .background, .background-img {
+        bottom: 0px !important; /* Home indicator alanına kadar uzat */
+        margin-bottom: 0px !important;
+        padding-bottom: 0px !important;
     }
 }
 

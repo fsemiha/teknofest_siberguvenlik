@@ -38,5 +38,10 @@
   "prefer_related_applications": false,
   "edge_side_panel": {
     "preferred_width": 800
-  }
+  },
+  "handle_links": "preferred",
+  "launch_handler": {
+    "client_mode": ["focus-existing", "auto"]
+  },
+  "capture_links": "new-client"
 }

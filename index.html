@@ -2673,6 +2673,17 @@
            checkBtn.style.pointerEvents = 'none';
        }
        
+       // Parola input wrapper'larını tekrar göster
+       const passwordInputWrapper = document.getElementById('password-input-wrapper');
+       const confirmWrapper = document.getElementById('password-confirm-wrapper');
+       const passwordDesc = document.getElementById('password-desc');
+       const checkBtnWrapper = document.getElementById('password-check-btn-wrapper');
+       
+       if (passwordInputWrapper) passwordInputWrapper.style.display = 'flex';
+       if (confirmWrapper) confirmWrapper.style.display = 'flex';
+       if (passwordDesc) passwordDesc.style.display = 'block';
+       if (checkBtnWrapper) checkBtnWrapper.style.display = 'flex';
+       
        // Share panel'ı sıfırla
        if (typeof selectedAnswers !== 'undefined') selectedAnswers = {};
        if (typeof shareQuestionsDisplayed !== 'undefined') shareQuestionsDisplayed = false;
