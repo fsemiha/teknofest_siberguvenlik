@@ -1924,29 +1924,25 @@ html::before, html::after, body::before, body::after {
     /* Sadece tanımlayıcı class - özel stil gereksiz */
 }
 
-/* ⌨️ KLAVYE MODU - İOS SAFARI BEYAZ ALAN KORUMASI */
-.keyboard-active {
-    /* Klavye açık olduğunda minimal transform */
-    transform: scale(1.01) !important;
-    -webkit-transform: scale(1.01) !important;
-}
+/* ⌨️ KLAVYE MODU - SADECE BROWSER İÇİN (PWA MODUNDAKİ ÇAKIŞMAYI ÖNLEMEK İÇİN) */
+@media not all and (display-mode: standalone) {
+    .keyboard-active html,
+    .keyboard-active body,
+    .keyboard-active .background,
+    .keyboard-active .background-img {
+        /* Klavye modunda çok hafif scale - sadece browser modunda */
+        transform: scale(1.01) translate3d(0,0,0) !important;
+        -webkit-transform: scale(1.01) translate3d(0,0,0) !important;
+    }
 
-.keyboard-active html,
-.keyboard-active body,
-.keyboard-active .background,
-.keyboard-active .background-img {
-    /* Klavye modunda çok hafif scale */
-    transform: scale(1.01) translate3d(0,0,0) !important;
-    -webkit-transform: scale(1.01) translate3d(0,0,0) !important;
-}
-
-.keyboard-active html::before,
-.keyboard-active html::after,
-.keyboard-active body::before,
-.keyboard-active body::after {
-    /* Klavye modunda pseudo elementler daha az agresif */
-    transform: scale(1.02) !important;
-    -webkit-transform: scale(1.02) !important;
+    .keyboard-active html::before,
+    .keyboard-active html::after,
+    .keyboard-active body::before,
+    .keyboard-active body::after {
+        /* Klavye modunda pseudo elementler daha az agresif - sadece browser modunda */
+        transform: scale(1.02) !important;
+        -webkit-transform: scale(1.02) !important;
+    }
 }
 
 /* Input focus durumunda özel stiller */
@@ -1957,11 +1953,119 @@ html::before, html::after, body::before, body::after {
     z-index: 10 !important;
 }
 
-/* PWA Standalone modu - basit düzeltme */
+/* PWA standalone modunda input focus için özel koruma */
 @media all and (display-mode: standalone) {
-    /* Safe area padding sadece status bar için */
-    body {
-        padding-top: env(safe-area-inset-top, 0px);
+    .username-input-on-svg:focus,
+    .password-input:focus {
+        /* PWA modunda input odaklandığında sabit kal */
+        position: relative !important;
+        z-index: 10 !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+    }
+    
+    .input-svg-wrapper {
+        /* Input wrapper da sabit kalsın */
+        position: relative !important;
+        z-index: 5 !important;
+    }
+    
+    .center-panel {
+        /* Panel de sabit kalsın PWA modunda */
+        position: fixed !important;
+        top: 50% !important;
+        left: 50% !important;
+        transform: translate(-50%, -50%) !important;
+        -webkit-transform: translate(-50%, -50%) !important;
+        z-index: 1 !important;
+    }
+}
+
+/* PWA Standalone modu - AGRESİF BEYAZ ALAN KORUMASI */
+@media all and (display-mode: standalone) {
+    html, body {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        height: 100dvh !important;
+        min-height: 100vh !important;
+        max-height: 100vh !important;
+        overflow: hidden !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        
+        /* PWA modunda ultra scale */
+        transform: scale(1.08) translate3d(0,0,0) !important;
+        -webkit-transform: scale(1.08) translate3d(0,0,0) !important;
+        transform-origin: center center !important;
+        -webkit-transform-origin: center center !important;
+        
+        background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
+        background-attachment: fixed !important;
+        background-size: cover !important;
+    }
+    
+    .background, .background-img {
+        position: fixed !important;
+        top: -10px !important;
+        left: -10px !important;
+        width: calc(100vw + 20px) !important;
+        height: calc(100vh + 20px) !important;
+        height: calc(100dvh + 20px) !important;
+        min-height: calc(100vh + 20px) !important;
+        max-height: none !important;
+        
+        /* PWA modunda background ultra scale */
+        transform: scale(1.1) translate3d(0,0,0) !important;
+        -webkit-transform: scale(1.1) translate3d(0,0,0) !important;
+        transform-origin: center center !important;
+        -webkit-transform-origin: center center !important;
+        
+        z-index: -1 !important;
+        overflow: hidden !important;
+    }
+    
+    /* PWA modunda pseudo elementler ile beyaz alan örtme */
+    html::before, html::after, body::before, body::after {
+        content: '' !important;
+        position: fixed !important;
+        top: -20px !important;
+        left: -20px !important;
+        right: -20px !important;
+        bottom: -20px !important;
+        width: calc(100vw + 40px) !important;
+        height: calc(100vh + 40px) !important;
+        height: calc(100dvh + 40px) !important;
+        min-height: calc(100vh + 40px) !important;
+        max-height: none !important;
+        background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
+        z-index: -999 !important;
+        pointer-events: none !important;
+        transform: scale(1.15) !important;
+        -webkit-transform: scale(1.15) !important;
+        transform-origin: center center !important;
+        -webkit-transform-origin: center center !important;
+    }
+    
+    /* Logo ve home buton PWA modunda korunması */
+    .logo {
+        z-index: 999999 !important;
+        position: fixed !important;
+        top: env(safe-area-inset-top, 32px) !important;
+        left: 32px !important;
+        transform: none !important;
+        -webkit-transform: none !important;
+    }
+    
+    #home-control {
+        z-index: 999999 !important;
+        position: fixed !important;
+        top: env(safe-area-inset-top, 32px) !important;
+        right: 32px !important;
+        transform: none !important;
+        -webkit-transform: none !important;
     }
 }
 
