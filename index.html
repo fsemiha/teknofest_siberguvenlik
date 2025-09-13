@@ -751,6 +751,15 @@
     document.getElementById('start-btn').onclick = function() {
         document.getElementById('main-panel').style.display = 'none';
         document.getElementById('username-panel').style.display = 'flex';
+        
+        // Panel geçişi sonrası tam ekran zorla
+        setTimeout(function() {
+            if (typeof forceFullscreen === 'function') {
+                forceFullscreen();
+            }
+            console.log('🎯 Username paneline geçiş - Tam ekran zorlandı');
+        }, 50);
+        
         // Username input'una odaklan
         setTimeout(() => {
             document.getElementById('username-input').focus();
@@ -789,6 +798,14 @@
         document.getElementById('password-panel').style.display = 'flex';
         startTimer();
         setScore(0);
+        
+        // Panel geçişi sonrası tam ekran zorla
+        setTimeout(function() {
+            if (typeof forceFullscreen === 'function') {
+                forceFullscreen();
+            }
+            console.log('🎯 Password paneline geçiş - Tam ekran zorlandı');
+        }, 50);
         
         // Parola inputları için event listener ekle
         setupPasswordValidation();
@@ -2231,6 +2248,15 @@
              document.getElementById('password-panel').style.display = 'none';
              document.getElementById('phishing-panel').style.display = 'none';
              document.getElementById('share-panel').style.display = 'flex';
+             
+             // Panel geçişi sonrası tam ekran zorla
+             setTimeout(function() {
+                 if (typeof forceFullscreen === 'function') {
+                     forceFullscreen();
+                 }
+                 console.log('🎯 Share paneline geçiş - Tam ekran zorlandı');
+             }, 50);
+             
              displayShareQuestions();
          };
          
@@ -2240,6 +2266,14 @@
              
              document.getElementById('share-panel').style.display = 'none';
              document.getElementById('phishing-panel').style.display = 'flex';
+             
+             // Panel geçişi sonrası tam ekran zorla
+             setTimeout(function() {
+                 if (typeof forceFullscreen === 'function') {
+                     forceFullscreen();
+                 }
+                 console.log('🎯 Phishing paneline geçiş - Tam ekran zorlandı');
+             }, 50);
              
              // İlk phishing sorusunu başlat
              currentPhishingQuestion = 0;
@@ -2335,10 +2369,81 @@
            }
        }
 
-       // Sayfa yüklendiğinde URL çubuğunu gizle
-       window.addEventListener('load', hideAddressBar);
+       // TAM EKRAN ZORLAMA - Daha güçlü kontroller
+       function forceFullscreen() {
+           console.log('🔄 Tam ekran zorlaması başlatılıyor...');
+           
+           // Body ve HTML'i zorla tam ekran yap
+           document.documentElement.style.cssText = `
+               position: fixed !important;
+               top: 0 !important;
+               left: 0 !important;
+               width: 100vw !important;
+               height: 100vh !important;
+               margin: 0 !important;
+               padding: 0 !important;
+               overflow: hidden !important;
+           `;
+           
+           document.body.style.cssText = `
+               position: fixed !important;
+               top: 0 !important;
+               left: 0 !important;
+               width: 100vw !important;
+               height: 100vh !important;
+               margin: 0 !important;
+               padding: 0 !important;
+               overflow: hidden !important;
+           `;
+
+           // Background container'ı da zorla
+           const background = document.querySelector('.background');
+           if (background) {
+               background.style.cssText = `
+                   position: fixed !important;
+                   top: 0 !important;
+                   left: 0 !important;
+                   width: 100vw !important;
+                   height: 100vh !important;
+                   min-height: 100vh !important;
+                   z-index: 0 !important;
+               `;
+           }
+
+           // URL çubuğunu gizle
+           if (!window.navigator.standalone) {
+               hideAddressBar();
+           }
+           
+           console.log('✅ Tam ekran zorlaması tamamlandı');
+       }
+
+       // Sayfa yüklendiğinde tam ekran zorla
+       window.addEventListener('load', function() {
+           setTimeout(forceFullscreen, 100);
+       });
+
+       // Orientation değişikliklerinde tam ekran zorla
        window.addEventListener('orientationchange', function() {
-           setTimeout(hideAddressBar, 500);
+           setTimeout(forceFullscreen, 300);
+       });
+
+       // Resize olaylarında tam ekran zorla
+       window.addEventListener('resize', function() {
+           clearTimeout(window.resizeTimeout);
+           window.resizeTimeout = setTimeout(forceFullscreen, 200);
+       });
+
+       // Focus geri geldiğinde tam ekran zorla
+       window.addEventListener('focus', function() {
+           setTimeout(forceFullscreen, 100);
+       });
+
+       // Visibility değişikliklerinde tam ekran zorla
+       document.addEventListener('visibilitychange', function() {
+           if (!document.hidden) {
+               setTimeout(forceFullscreen, 100);
+           }
        });
 
        // Tam ekran viewport ayarları
@@ -2396,7 +2501,32 @@
    // Dom yüklendiğinde kiosk modunu başlat
    document.addEventListener('DOMContentLoaded', function() {
        initKioskMode();
+       // DOM yüklendikten hemen sonra tam ekran zorla
+       setTimeout(forceFullscreen, 50);
    });
+
+   // Sayfa tamamen yüklendikten sonra da tam ekran zorla
+   window.addEventListener('load', function() {
+       setTimeout(forceFullscreen, 100);
+   });
+
+   // Touch olaylarında tam ekran kontrol et
+   document.addEventListener('touchstart', function() {
+       // İlk touch'ta tam ekran durumunu kontrol et
+       if (document.body.style.position !== 'fixed') {
+           console.log('⚠️ Touch ile tam ekran modu kaybı tespit edildi, düzeltiliyor...');
+           setTimeout(forceFullscreen, 10);
+       }
+   }, { passive: true });
+
+   // Scroll olaylarını engelle ve tam ekran zorla
+   window.addEventListener('scroll', function(e) {
+       e.preventDefault();
+       window.scrollTo(0, 0);
+       if (document.body.style.position !== 'fixed') {
+           forceFullscreen();
+       }
+   }, { passive: false });
 
    // Visibility API ile sayfa odağını kontrol et
    document.addEventListener('visibilitychange', function() {
