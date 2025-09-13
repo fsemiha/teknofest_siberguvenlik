@@ -64,12 +64,13 @@
       
       <div class="background">
           <img src="assets/Asset 4.svg" alt="Arka Plan" class="background-img" loading="lazy">
-          <img src="assets/Asset 5.svg" alt="Siber Güvenlik Başkanlığı" class="logo" loading="lazy">
-          
-          <!-- 🏠 SADECE ANA EKRANA DÖN BUTONU -->
-          <div id="home-control" style="position: fixed; top: 32px; right: 32px; z-index: 10; cursor: pointer; background: rgba(255,255,255,0.1); border-radius: 50%; padding: 10px; transition: all 0.3s ease; backdrop-filter: blur(10px); border: 2px solid rgba(52,152,219,0.5); width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 15px rgba(52,152,219,0.3);" onclick="goToHome()" onmouseover="this.style.background='rgba(255,255,255,0.2)'; this.style.transform='scale(1.1)'" onmouseout="this.style.background='rgba(255,255,255,0.1)'; this.style.transform='scale(1)'">
-              <span id="home-icon" style="font-size: 20px; color: #fff;">🏠</span>
-          </div>
+      </div>
+      
+      <!-- 🏠 LOGO VE ANA EKRAN BUTONU - BACKGROUND DIV DIŞINDA -->
+      <img src="assets/Asset 5.svg" alt="Siber Güvenlik Başkanlığı" class="logo" loading="lazy">
+      <div id="home-control" onclick="goToHome()">
+          <span id="home-icon">🏠</span>
+      </div>
         <!-- Ana Panel -->
         <div class="center-panel" id="main-panel">
             <div class="main-title-panel">
@@ -2314,39 +2315,7 @@
              document.getElementById('share-panel').style.display = 'none';
              document.getElementById('phishing-panel').style.display = 'flex';
              
-             // PHISHING PANEL - LOGO VE HOME BUTON GÖRÜNÜRLÜĞÜ ZORLA
-             setTimeout(function() {
-                 const logo = document.querySelector('.logo');
-                 const homeControl = document.getElementById('home-control');
-                 
-                 if (logo) {
-                     logo.style.cssText += `
-                         z-index: 999999 !important;
-                         position: fixed !important;
-                         top: 32px !important;
-                         left: 32px !important;
-                         display: block !important;
-                         visibility: visible !important;
-                         opacity: 1 !important;
-                         pointer-events: auto !important;
-                     `;
-                     console.log('🏠 Phishing panelinde logo görünürlük ZORLA');
-                 }
-                 
-                 if (homeControl) {
-                     homeControl.style.cssText += `
-                         z-index: 999999 !important;
-                         position: fixed !important;
-                         top: 32px !important;
-                         right: 32px !important;
-                         display: flex !important;
-                         visibility: visible !important;
-                         opacity: 1 !important;
-                         pointer-events: auto !important;
-                     `;
-                     console.log('🏠 Phishing panelinde home buton görünürlük ZORLA');
-                 }
-             }, 100);
+             // Artık logo ve home buton background div dışında - otomatik görünür
              
              // Panel geçişi sonrası tam ekran zorla
              setTimeout(function() {
@@ -2695,48 +2664,18 @@
        console.log('🏠 Oyun tamamen sıfırlandı - Ana ekran gösteriliyor');
    }
    
-   // Ana ekran butonu için hover efektleri
+   // Ana ekran butonu için basit init
    function initHomeButton() {
        const homeControl = document.getElementById('home-control');
+       const logo = document.querySelector('.logo');
        
        if (homeControl) {
-           // Home butonu için mavi glow zaten CSS'de var
            console.log('🏠 Ana ekran butonu hazır - Sağ üst köşe');
        }
        
-       // LOGO VE HOME BUTON GÖRÜNÜRLÜK GARANTİSİ - Sürekli kontrol
-       setInterval(function() {
-           const logo = document.querySelector('.logo');
-           const homeControl = document.getElementById('home-control');
-           
-           if (logo && (logo.style.visibility === 'hidden' || logo.style.display === 'none' || window.getComputedStyle(logo).visibility === 'hidden')) {
-               logo.style.cssText += `
-                   z-index: 9999999 !important;
-                   position: fixed !important;
-                   top: 32px !important;
-                   left: 32px !important;
-                   display: block !important;
-                   visibility: visible !important;
-                   opacity: 1 !important;
-                   pointer-events: auto !important;
-               `;
-               console.log('⚡ Logo görünürlük otomatik düzeltme');
-           }
-           
-           if (homeControl && (homeControl.style.visibility === 'hidden' || homeControl.style.display === 'none' || window.getComputedStyle(homeControl).visibility === 'hidden')) {
-               homeControl.style.cssText += `
-                   z-index: 9999999 !important;
-                   position: fixed !important;
-                   top: 32px !important;
-                   right: 32px !important;
-                   display: flex !important;
-                   visibility: visible !important;
-                   opacity: 1 !important;
-                   pointer-events: auto !important;
-               `;
-               console.log('⚡ Home buton görünürlük otomatik düzeltme');
-           }
-       }, 1000); // Her saniye kontrol et
+       if (logo) {
+           console.log('🏠 Logo hazır - Sol üst köşe');
+       }
    }
 
    // BEYAZ ALAN SORUNU İÇİN - DİNAMİK VİEWPORT HEİGHT HESAPLAYICI
@@ -2763,20 +2702,9 @@
            // PWA standalone modda orta agresif scale
            scaleFactor = 1.04; // Standalone için orta scale
            document.body.classList.add('pwa-standalone-mode');
-           console.log(`📱 PWA Standalone modu tespit edildi! Ultra scale: ${scaleFactor}`);
+           console.log(`📱 PWA Standalone modu tespit edildi! Orta scale: ${scaleFactor}`);
            
-           // Standalone modda logo görünürlüğünü zorla
-           setTimeout(() => {
-               const logo = document.querySelector('.logo');
-               if (logo) {
-                   logo.style.zIndex = '9999';
-                   logo.style.visibility = 'visible';
-                   logo.style.opacity = '1';
-                   logo.style.display = 'block';
-                   logo.style.position = 'fixed';
-                   console.log('🏠 PWA modunda logo görünürlük zorlandı');
-               }
-           }, 100);
+           // Logo artık background div dışında - otomatik görünür
            
        } else if (realHeight < screenHeight * 0.95) {
            scaleFactor = 1.04; // Browser modda beyaz alan tespit edilirse - daha az agresif  
@@ -2799,25 +2727,7 @@
        
        if (isStandalone) {
            document.body.classList.add('pwa-standalone-mode');
-           console.log('📱 PWA Standalone modu tespit edildi - Özel düzeltmeler aktif');
-           
-           // Logo görünürlüğünü zorla
-           setTimeout(() => {
-               const logo = document.querySelector('.logo');
-               if (logo) {
-                   logo.style.cssText += `
-                       z-index: 9999 !important;
-                       visibility: visible !important;
-                       opacity: 1 !important;
-                       display: block !important;
-                       position: fixed !important;
-                       top: 32px !important;
-                       left: 32px !important;
-                       filter: brightness(1.2) drop-shadow(0 2px 8px rgba(0,0,0,0.5)) !important;
-                   `;
-                   console.log('🏠 PWA modunda logo ultra görünürlük zorlandı');
-               }
-           }, 200);
+           console.log('📱 PWA Standalone modu tespit edildi - Logo ve buton artık otomatik görünür');
        }
        
        // İlk viewport hesaplaması

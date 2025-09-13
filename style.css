@@ -249,28 +249,21 @@ html::before, html::after, body::before, body::after {
     }
 }
 
+/* 🏠 LOGO - BASİT VE GÜVENLİ STİL */
 .logo {
-    position: fixed !important;
-    top: 32px !important;
-    left: 32px !important;
-    width: 110px !important;
-    height: auto !important;
-    z-index: 999999 !important; /* ULTRA ULTRA yüksek z-index */
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
+    position: fixed;
+    top: 32px;
+    left: 32px;
+    width: 110px;
+    height: auto;
+    z-index: 99999;
+    display: block;
+    visibility: visible;
+    opacity: 1;
+    pointer-events: none;
     
-    /* Logo görünürlüğü için özel koruma */
-    filter: brightness(1.1) drop-shadow(0 2px 8px rgba(0,0,0,0.3)) !important;
-    -webkit-filter: brightness(1.1) drop-shadow(0 2px 8px rgba(0,0,0,0.3)) !important;
-    
-    /* Transform hiçbir zaman uygulanmasın */
-    transform: none !important;
-    -webkit-transform: none !important;
-    
-    /* Her durumda üstte kal */
-    pointer-events: auto !important;
-    will-change: auto !important;
+    /* Görünürlük için hafif efekt */
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
 }
 
 .center-panel {
@@ -1799,31 +1792,27 @@ html::before, html::after, body::before, body::after {
     100% { transform: translateX(100%); }
 }
 
-/* 🏠 ANA EKRAN BUTONU STİLLERİ */
+/* 🏠 ANA EKRAN BUTONU - BASİT VE GÜVENLİ STİL */
 #home-control {
-    position: fixed !important;
-    top: 32px !important;
-    right: 32px !important;
-    z-index: 999999 !important; /* Logo ile aynı ULTRA ULTRA seviye */
-    cursor: pointer !important;
-    background: rgba(255,255,255,0.1) !important;
-    border-radius: 50% !important;
-    padding: 10px !important;
-    transition: all 0.3s ease !important;
-    backdrop-filter: blur(10px) !important;
-    border: 2px solid rgba(52,152,219,0.5) !important;
-    width: 50px !important;
-    height: 50px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    box-shadow: 0 0 15px rgba(52,152,219,0.3) !important;
-    
-    /* Her durumda üstte kal */
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    will-change: auto !important;
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    z-index: 99999;
+    cursor: pointer;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+    padding: 10px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(52,152,219,0.5);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(52,152,219,0.3);
+    visibility: visible;
+    opacity: 1;
 }
 
 #home-control:hover {
@@ -1832,54 +1821,12 @@ html::before, html::after, body::before, body::after {
 }
 
 #home-icon {
-    font-size: 20px !important;
-    color: #fff !important;
-    pointer-events: none !important;
+    font-size: 20px;
+    color: #fff;
+    pointer-events: none;
 }
 
-/* PHISHING PANEL ÖZEL LOGO VE BUTON KORUMALARI */
-#phishing-panel ~ .logo,
-body:has(#phishing-panel[style*="flex"]) .logo {
-    z-index: 999999 !important;
-    position: fixed !important;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-#phishing-panel ~ #home-control,
-body:has(#phishing-panel[style*="flex"]) #home-control {
-    z-index: 999999 !important;
-    position: fixed !important;
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-}
-
-/* Phishing panel açık olduğunda logo ve buton koruma */
-body:has(#phishing-panel[style*="display: flex"]) .logo,
-body:has(#phishing-panel[style*="display:flex"]) .logo {
-    z-index: 9999999 !important; /* MEGA ULTRA yüksek */
-    position: fixed !important;
-    top: 32px !important;
-    left: 32px !important;
-    display: block !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
-
-body:has(#phishing-panel[style*="display: flex"]) #home-control,
-body:has(#phishing-panel[style*="display:flex"]) #home-control {
-    z-index: 9999999 !important; /* MEGA ULTRA yüksek */
-    position: fixed !important;
-    top: 32px !important;
-    right: 32px !important;
-    display: flex !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    pointer-events: auto !important;
-}
+/* Gereksiz koruma kodları kaldırıldı - artık logo ve buton background div dışında */
 
 /* Home Modal fade-in animasyonu - MERKEZ ODAKLI */
 @keyframes homeModalFadeIn {
@@ -1972,126 +1919,16 @@ body:has(#phishing-panel[style*="display:flex"]) #home-control {
     padding-top: 0 !important;
 }
 
-/* JavaScript ile eklenen PWA standalone class */
+/* PWA standalone class - artık gereksiz, basit bırakıldı */
 .pwa-standalone-mode {
-    /* PWA modunda ultra scale zorlaması */
-    transform: scale(1.08) translate3d(0,0,0) !important;
-    -webkit-transform: scale(1.08) translate3d(0,0,0) !important;
-    transform-origin: center center !important;
-    -webkit-transform-origin: center center !important;
+    /* Sadece tanımlayıcı class - özel stil gereksiz */
 }
 
-.pwa-standalone-mode .logo {
-    /* PWA modunda logo ultra görünürlük */
-    z-index: 9999 !important;
-    visibility: visible !important;
-    opacity: 1 !important;
-    display: block !important;
-    position: fixed !important;
-    top: 32px !important;
-    left: 32px !important;
-    filter: brightness(1.2) drop-shadow(0 2px 8px rgba(0,0,0,0.5)) !important;
-}
-
-.pwa-standalone-mode .background,
-.pwa-standalone-mode .background-img {
-    /* PWA modunda background ultra scale */
-    transform: scale(1.1) translate3d(0,0,0) !important;
-    -webkit-transform: scale(1.1) translate3d(0,0,0) !important;
-}
-
-/* PWA Standalone modunda logo görünürlüğü zorla - ULTRA GÜÇLENDİRİLMİŞ */
+/* PWA Standalone modu - basit düzeltme */
 @media all and (display-mode: standalone) {
-    .logo {
-        position: fixed !important;
-        top: 32px !important;
-        left: 32px !important;
-        width: 110px !important;
-        height: auto !important;
-        z-index: 9999999 !important; /* MEGA ULTRA yüksek z-index */
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        
-        /* Standalone modda ekstra görünürlük zorlaması */
-        filter: brightness(1.2) drop-shadow(0 3px 10px rgba(0,0,0,0.5)) !important;
-        -webkit-filter: brightness(1.2) drop-shadow(0 3px 10px rgba(0,0,0,0.5)) !important;
-        background: transparent !important;
-        border: none !important;
-        box-shadow: 0 2px 15px rgba(0,0,0,0.3) !important;
-        transform: none !important;
-        -webkit-transform: none !important;
-    }
-    
-    /* Standalone modda body düzeltmeleri */
-    html, body {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        height: 100dvh !important;
-        min-height: 100vh !important;
-        max-height: none !important;
-        margin: 0 !important;
-        padding: 0 !important;
-        overflow: hidden !important;
-        
-        /* Standalone modda beyaz alan için orta scale */
-        transform: scale(1.04) translate3d(0,0,0) !important;
-        -webkit-transform: scale(1.04) translate3d(0,0,0) !important;
-        transform-origin: center center !important;
-        -webkit-transform-origin: center center !important;
-        
-        /* Background zorlaması */
-        background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
-        background-attachment: fixed !important;
-        background-size: cover !important;
-    }
-    
-    /* Standalone modda background elements ultra scale */
-    .background, .background-img {
-        position: fixed !important;
-        top: 0 !important;
-        left: 0 !important;
-        width: 100vw !important;
-        height: 100vh !important;
-        height: 100dvh !important;
-        min-height: 100vh !important;
-        max-height: none !important;
-        
-        /* Orta scale standalone için */
-        transform: scale(1.05) translate3d(0,0,0) !important;
-        -webkit-transform: scale(1.05) translate3d(0,0,0) !important;
-        transform-origin: center center !important;
-        -webkit-transform-origin: center center !important;
-        
-        z-index: -1 !important;
-        overflow: hidden !important;
-    }
-    
-    /* Standalone modda home control butonu üstte kalır - ULTRA GÜÇLENDİRİLMİŞ */
-    #home-control {
-        z-index: 9999999 !important; /* MEGA ULTRA yüksek */
-        position: fixed !important;
-        top: 32px !important;
-        right: 32px !important;
-        display: flex !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        pointer-events: auto !important;
-        transform: none !important;
-        -webkit-transform: none !important;
-    }
-    
-    /* Standalone modda center-panel'lar düzgün konumlanır */
-    .center-panel {
-        position: fixed !important;
-        top: 50% !important;
-        left: 50% !important;
-        transform: translate(-50%, -50%) !important;
-        z-index: 1 !important;
+    /* Safe area padding sadece status bar için */
+    body {
+        padding-top: env(safe-area-inset-top, 0px);
     }
 }
 
