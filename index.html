@@ -2998,55 +2998,151 @@
        console.log('🔒 Kiosk modu ayarları yüklendi');
    }
 
-   // Input alanları için klavye yöneticisi
+   // Input alanları için SÜPER AGRESİF klavye yöneticisi
    function setupKeyboardManager() {
        let isInputFocused = false;
+       let currentInput = null;
+       let keyboardHeight = 0;
+       let originalBodyStyle = '';
+       let originalHtmlStyle = '';
+       
+       // Visual Viewport API'sini kullan (iOS Safari için)
+       if (window.visualViewport) {
+           window.visualViewport.addEventListener('resize', handleViewportChange);
+       }
+       
+       function handleViewportChange() {
+           if (isInputFocused && currentInput) {
+               setTimeout(() => {
+                   keepInputVisible();
+               }, 100);
+           }
+       }
        
        function enableScrollForKeyboard() {
            isInputFocused = true;
+           
+           // Mevcut stilleri kaydet
+           originalBodyStyle = document.body.style.cssText;
+           originalHtmlStyle = document.documentElement.style.cssText;
+           
+           // Scroll'u tamamen aktif et
            document.body.style.position = 'static';
+           document.body.style.overflow = 'auto';
+           document.body.style.height = 'auto';
+           document.body.style.maxHeight = 'none';
+           document.body.style.minHeight = '100vh';
+           
            document.documentElement.style.position = 'static';
-           console.log('⌨️ Klavye için scroll etkinleştirildi');
+           document.documentElement.style.overflow = 'auto';
+           document.documentElement.style.height = 'auto';
+           document.documentElement.style.maxHeight = 'none';
+           
+           console.log('⌨️ SÜPER AGRESİF klavye modu etkin');
        }
        
        function disableScrollForKeyboard() {
            setTimeout(() => {
-               if (!isInputFocused) return; // Başka bir input focus değilse
+               if (!isInputFocused) return;
+               
                isInputFocused = false;
+               currentInput = null;
+               
+               // Eski stilleri geri yükle
+               document.body.style.cssText = originalBodyStyle;
+               document.documentElement.style.cssText = originalHtmlStyle;
+               
+               // Scroll'u tekrar kilitle
                document.body.style.position = 'fixed';
                document.documentElement.style.position = 'fixed';
-               console.log('⌨️ Klavye için scroll devre dışı bırakıldı');
-           }, 300); // Klavye animasyonu için kısa delay
+               
+               // Sayfa pozisyonunu sıfırla
+               window.scrollTo(0, 0);
+               
+               console.log('⌨️ Klavye modu devre dışı - Fixed mod restore');
+           }, 500);
        }
        
-       // Tüm input alanlarını bul ve event listener ekle
+       function keepInputVisible() {
+           if (!currentInput || !isInputFocused) return;
+           
+           const rect = currentInput.getBoundingClientRect();
+           const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+           
+           // Input ekranda görünür mü kontrol et
+           if (rect.bottom > viewportHeight * 0.7 || rect.top < 100) {
+               // Input'u ekranın üst kısmına kaydır
+               const targetY = window.scrollY + rect.top - (viewportHeight * 0.3);
+               
+               window.scrollTo({
+                   top: Math.max(0, targetY),
+                   behavior: 'smooth'
+               });
+               
+               console.log('📱 Input görünürlük ayarlandı:', rect.top, rect.bottom);
+           }
+       }
+       
+       // Tüm input alanlarını bul ve SÜPER AGRESİF event listener ekle
        const inputs = ['username-input', 'password-input-1', 'password-input-2'];
        
        inputs.forEach(inputId => {
            const input = document.getElementById(inputId);
            if (input) {
+               // Focus event
                input.addEventListener('focus', function() {
+                   currentInput = this;
                    enableScrollForKeyboard();
-                   // Input'u görünür hale getir
-                   setTimeout(() => {
-                       this.scrollIntoView({ 
-                           behavior: 'smooth', 
-                           block: 'center',
-                           inline: 'nearest'
-                       });
-                   }, 100);
+                   
+                   // Çoklu timer ile input görünürlüğünü garanti et
+                   setTimeout(() => keepInputVisible(), 100);
+                   setTimeout(() => keepInputVisible(), 300);
+                   setTimeout(() => keepInputVisible(), 600);
+                   setTimeout(() => keepInputVisible(), 1000);
                });
                
+               // Blur event
                input.addEventListener('blur', function() {
                    disableScrollForKeyboard();
                });
                
-               // iOS için özel ayarlar
+               // Input event - yazarken de kontrol et
+               input.addEventListener('input', function() {
+                   if (isInputFocused) {
+                       setTimeout(() => keepInputVisible(), 50);
+                   }
+               });
+               
+               // Touch events - iOS için
                input.addEventListener('touchstart', function() {
+                   currentInput = this;
                    enableScrollForKeyboard();
+               });
+               
+               // Click event - her duruma hazır ol
+               input.addEventListener('click', function() {
+                   currentInput = this;
+                   enableScrollForKeyboard();
+                   setTimeout(() => keepInputVisible(), 200);
                });
            }
        });
+       
+       // Viewport resize dinleyicisi
+       window.addEventListener('resize', function() {
+           if (isInputFocused && currentInput) {
+               setTimeout(() => keepInputVisible(), 200);
+           }
+       });
+       
+       // Orientation change dinleyicisi
+       window.addEventListener('orientationchange', function() {
+           if (isInputFocused && currentInput) {
+               setTimeout(() => keepInputVisible(), 500);
+           }
+       });
+       
+       console.log('⌨️ SÜPER AGRESİF klavye yöneticisi hazır');
    }
 
    // Dom yüklendiğinde kiosk modunu başlat
