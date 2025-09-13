@@ -1,0 +1,42 @@
+{
+  "name": "Siber Güvenlik Macerası",
+  "short_name": "Siber Macera",
+  "description": "Siber güvenlik eğitimi için interaktif oyun",
+  "start_url": "/index.html",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone", "minimal-ui"],
+  "orientation": "any",
+  "theme_color": "#0a1428",
+  "background_color": "#0a1428",
+  "categories": ["education", "games"],
+  "lang": "tr",
+  "dir": "ltr",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "assets/Asset 5.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/Asset 5.svg",
+      "sizes": "152x152",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "assets/Asset 5.svg", 
+      "sizes": "167x167",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "assets/Asset 5.svg",
+      "sizes": "180x180", 
+      "type": "image/svg+xml"
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 800
+  }
+}
