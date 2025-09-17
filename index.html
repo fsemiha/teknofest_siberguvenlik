@@ -2,49 +2,25 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Teknofest Siber Güvenlik Macerası</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Siber Macera</title>
     
-    <!-- Base URL ve Canonical ayarları -->
-    <base href="/teknofest_siberguvenlik/">
-    <link rel="canonical" href="https://fsemiha.github.io/teknofest_siberguvenlik/">
-    
-    <!-- BEYAZ KISIM SORUNU İÇİN SÜPER AGRESİF VIEWPORT -->
-        <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no, interactive-widget=resizes-visual, web-app-capable=yes">
-    
-    <!-- iPad için ek meta taglar - BEYAZ ALAN SORUNU İÇİN -->
-    <meta name="full-screen" content="yes">
-    <meta name="browsermode" content="application">
-    <meta name="x5-fullscreen" content="true">
-    <meta name="x5-page-mode" content="app">
-    
-    <!-- PWA ve Kiosk Modu için Meta Taglar -->
+    <!-- Safari için PWA ve kiosk mode desteği -->
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Siber Macera">
+    
+    <!-- Safari için tam ekran desteği -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#0a1428">
     <meta name="msapplication-navbutton-color" content="#0a1428">
-    <meta name="apple-touch-fullscreen" content="yes">
-    
-    <!-- Tam ekran zorlaması için ek meta taglar -->
     <meta name="format-detection" content="telephone=no">
-    <meta name="msapplication-tap-highlight" content="no">
-    <meta name="apple-mobile-web-app-orientations" content="portrait-any landscape-any">
-    
-    <!-- Ana ekran ikonları -->
-    <link rel="apple-touch-icon" sizes="152x152" href="/teknofest_siberguvenlik/assets/Asset 5.svg">
-    <link rel="apple-touch-icon" sizes="167x167" href="/teknofest_siberguvenlik/assets/Asset 5.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/teknofest_siberguvenlik/assets/Asset 5.svg">
-    <link rel="icon" type="image/svg+xml" href="/teknofest_siberguvenlik/assets/Asset 5.svg">
-    
-    <!-- Manifest dosyası -->
-    <link rel="manifest" href="/teknofest_siberguvenlik/manifest.json">
     <!-- Font preload for faster loading -->
-    <link rel="preload" href="/teknofest_siberguvenlik/fonts/Gilmer Regular.otf" as="font" type="font/otf" crossorigin>
-    <link rel="preload" href="/teknofest_siberguvenlik/fonts/Gilmer Light.otf" as="font" type="font/otf" crossorigin>
-    <link rel="preload" href="/teknofest_siberguvenlik/fonts/Gilmer Bold.otf" as="font" type="font/otf" crossorigin>
-    <link rel="preload" href="/teknofest_siberguvenlik/fonts/conthrax-sb.otf" as="font" type="font/otf" crossorigin>
-    <link rel="stylesheet" href="/teknofest_siberguvenlik/style.css">
+    <link rel="preload" href="fonts/Gilmer Regular.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="fonts/Gilmer Light.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="fonts/Gilmer Bold.otf" as="font" type="font/otf" crossorigin>
+    <link rel="preload" href="fonts/conthrax-sb.otf" as="font" type="font/otf" crossorigin>
+    <link rel="stylesheet" href="style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js" defer></script>
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js" defer></script>
@@ -64,13 +40,13 @@
       
       <div class="background">
           <img src="assets/Asset 4.svg" alt="Arka Plan" class="background-img" loading="lazy">
-      </div>
-      
-      <!-- 🏠 LOGO VE ANA EKRAN BUTONU - BACKGROUND DIV DIŞINDA -->
-      <img src="assets/Asset 5.svg" alt="Siber Güvenlik Başkanlığı" class="logo" loading="lazy">
-      <div id="home-control" onclick="goToHome()">
-          <span id="home-icon">🏠</span>
-      </div>
+          <img src="assets/Asset 5.svg" alt="Siber Güvenlik Başkanlığı" class="logo" loading="lazy">
+          
+          <!-- Ana Ekrana Dön Butonu - Sağ Üst Köşe -->
+          <div id="home-button" class="home-button" style="display: none;">
+              <img src="assets/anaekranadon.svg" alt="Ana Ekrana Dön" loading="lazy" 
+                   onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;80&quot; height=&quot;40&quot; viewBox=&quot;0 0 80 40&quot;><rect width=&quot;80&quot; height=&quot;40&quot; fill=&quot;%23ff6600&quot; rx=&quot;5&quot;/><text x=&quot;40&quot; y=&quot;25&quot; text-anchor=&quot;middle&quot; fill=&quot;white&quot; font-family=&quot;Arial&quot; font-size=&quot;12&quot;>Ana Ekran</text></svg>';">
+          </div>
         <!-- Ana Panel -->
         <div class="center-panel" id="main-panel">
             <div class="main-title-panel">
@@ -122,11 +98,11 @@
                     <div class="password-desc" id="password-desc">Parolanızı girin ve gücünü test edin.</div>
                     <div class="input-svg-wrapper password-input-wrapper" id="password-input-wrapper">
                         <img src="assets/Asset 32.svg" alt="Parola Input" class="input-svg" loading="lazy">
-                        <input type="password" class="username-input-on-svg password-input" placeholder="Parolanız..." id="password-input-1">
+                        <input type="password" class="username-input-on-svg password-input" placeholder="Parolanız..." id="password-input-1" maxlength="12">
                     </div>
                     <div class="input-svg-wrapper password-input-wrapper" id="password-confirm-wrapper" style="margin-top: 12px;">
                         <img src="assets/Asset 32.svg" alt="Parola Onay Input" class="input-svg" loading="lazy">
-                        <input type="password" class="username-input-on-svg password-input" placeholder="Parolayı tekrar girin..." id="password-input-2">
+                        <input type="password" class="username-input-on-svg password-input" placeholder="Parolayı tekrar girin..." id="password-input-2" maxlength="12">
                     </div>
                     <div id="password-match-message" style="text-align: center; margin: 8px 0; font-size: 0.9rem; color: #ff4444;"></div>
                     <div class="password-check-btn-wrapper" id="password-check-btn-wrapper">
@@ -167,7 +143,8 @@
                     </div>
                     
                     <div id="continue-to-phishing-btn" class="continue-btn" style="display:block !important; text-align: center; margin-top: 30px; width: 100%; padding: 20px; position: relative; z-index: 100; visibility: visible !important; opacity: 1 !important;" onclick="checkShareAnswers()">
-                        <img src="assets/oltalamatestinegec.svg" alt="Oltalama Testine Geç" style="max-width: 350px; width: 100%; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <img src="assets/oltalamatestinegec.svg" alt="Oltalama Testine Geç" style="max-width: 350px; width: 100%; cursor: pointer; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;350&quot; height=&quot;60&quot; viewBox=&quot;0 0 350 60&quot;><rect width=&quot;350&quot; height=&quot;60&quot; fill=&quot;%23ff3366&quot; rx=&quot;10&quot;/><text x=&quot;175&quot; y=&quot;38&quot; text-anchor=&quot;middle&quot; fill=&quot;white&quot; font-family=&quot;Arial&quot; font-size=&quot;16&quot; font-weight=&quot;bold&quot;>OLTALAMA TESTİNE GEÇ</text></svg>';">
                     </div>
                     
                     <div id="share-results" class="share-results" style="display:none;">
@@ -242,7 +219,8 @@
                     </div>
 
                     <div class="final-back-btn" id="final-back-btn">
-                        <img src="assets/Asset 22.svg" alt="Ana Ekrana Dön">
+                        <img src="assets/Asset 22.svg" alt="Ana Ekrana Dön"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;120&quot; height=&quot;50&quot; viewBox=&quot;0 0 120 50&quot;><rect width=&quot;120&quot; height=&quot;50&quot; fill=&quot;%23ff6600&quot; rx=&quot;8&quot;/><text x=&quot;60&quot; y=&quot;32&quot; text-anchor=&quot;middle&quot; fill=&quot;white&quot; font-family=&quot;Arial&quot; font-size=&quot;14&quot;>Ana Ekrana Dön</text></svg>';">
                     </div>
                 </div>
             </div>
@@ -270,9 +248,18 @@
                         </div>
                     </div>
                     
+                    <!-- Sayfalama Kontrolleri -->
+                    <div class="pagination-controls" style="display: flex; justify-content: center; align-items: center; gap: 15px; margin: 20px 0;">
+                        <button id="prev-page-btn" style="background: #ff6600; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 14px;" disabled>◀ Önceki</button>
+                        <span id="page-info" style="color: #ffffff; font-size: 14px; min-width: 100px; text-align: center;">Sayfa 1 / 1</span>
+                        <button id="next-page-btn" style="background: #ff6600; color: white; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; font-size: 14px;" disabled>Sonraki ▶</button>
+                    </div>
+                    
                     <div class="scoreboard-buttons" style="display: flex; gap: 25px; margin-top: 30px;">
-                        <img src="assets/Asset 26.svg" alt="Yenile" id="refresh-scoreboard-btn" style="cursor: pointer; max-width: 170px; transition: transform 0.2s ease;">
-                        <img src="assets/Asset 22.svg" alt="Ana Menü" id="scoreboard-back-btn" style="cursor: pointer; max-width: 170px; transition: transform 0.2s ease;">
+                        <img src="assets/Asset 26.svg" alt="Yenile" id="refresh-scoreboard-btn" style="cursor: pointer; max-width: 170px; transition: transform 0.2s ease;"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;120&quot; height=&quot;40&quot; viewBox=&quot;0 0 120 40&quot;><rect width=&quot;120&quot; height=&quot;40&quot; fill=&quot;%2300cc99&quot; rx=&quot;5&quot;/><text x=&quot;60&quot; y=&quot;25&quot; text-anchor=&quot;middle&quot; fill=&quot;white&quot; font-family=&quot;Arial&quot; font-size=&quot;12&quot;>Yenile</text></svg>';">
+                        <img src="assets/anaekranadon.svg" alt="Ana Menü" id="scoreboard-back-btn" style="cursor: pointer; max-width: 170px; transition: transform 0.2s ease;"
+                             onerror="this.onerror=null; this.src='data:image/svg+xml,<svg xmlns=&quot;http://www.w3.org/2000/svg&quot; width=&quot;120&quot; height=&quot;40&quot; viewBox=&quot;0 0 120 40&quot;><rect width=&quot;120&quot; height=&quot;40&quot; fill=&quot;%23ff6600&quot; rx=&quot;5&quot;/><text x=&quot;60&quot; y=&quot;25&quot; text-anchor=&quot;middle&quot; fill=&quot;white&quot; font-family=&quot;Arial&quot; font-size=&quot;12&quot;>Ana Menü</text></svg>';">
                     </div>
                 </div>
             </div>
@@ -302,14 +289,18 @@
     
     // Firebase konfigürasyonunu kontrol et
     if (firebaseConfig.apiKey && firebaseConfig.apiKey !== "AIzaSyExample...") {
-        // Firebase'i async olarak başlat
+        // Firebase'i başlat (sadece geçerli config varsa)
         setTimeout(() => {
             try {
+                console.log("🚀 Firebase başlatılıyor...");
+                console.log("📝 Config:", firebaseConfig);
+                
                 firebase.initializeApp(firebaseConfig);
                 database = firebase.database();
                 isFirebaseEnabled = true;
                 console.log("✅ Firebase başarıyla bağlandı - Çoklu ekran modu aktif!");
                 console.log("🔗 Veritabanı URL:", firebaseConfig.databaseURL);
+                console.log("📊 Database objesi:", database);
             
             // Mevcut status div'ini kaldır (temizlik)
             const existingStatus = document.getElementById('firebase-status');
@@ -464,6 +455,11 @@
     let timerStarted = false;
     let currentUsername = ''; // Kullanıcı adı
     
+    // Sayfalama değişkenleri
+    let currentPage = 1;
+    let allScores = [];
+    let scoresPerPage = 6;
+    
     // Bölüm skorları
     let passwordScore = 0;
     let shareScore = 0;
@@ -498,13 +494,13 @@
                 
                 // Skor limitini kontrol et ve eski skorları temizle
                 scoresRef.orderByChild('score').limitToLast(600).once('value', (snapshot) => {
-                    const allScores = [];
+                    const firebaseScores = [];
                     snapshot.forEach((child) => {
-                        allScores.push({ key: child.key, ...child.val() });
+                        firebaseScores.push({ key: child.key, ...child.val() });
                     });
                     
                     // Sıralama: önce puan, sonra süre
-                    allScores.sort((a, b) => {
+                    firebaseScores.sort((a, b) => {
                         if (b.score !== a.score) {
                             return b.score - a.score;
                         }
@@ -514,20 +510,26 @@
                     });
                     
                     // En fazla 500 skoru tut, fazlasını sil
-                    if (allScores.length > 500) {
-                        const toDelete = allScores.slice(500);
+                    if (firebaseScores.length > 500) {
+                        const toDelete = firebaseScores.slice(500);
                         toDelete.forEach(scoreToDelete => {
                             scoresRef.child(scoreToDelete.key).remove();
                         });
                     }
                 });
             }).catch((error) => {
-                console.error("Firebase'e skor kaydedilemedi:", error);
+                console.error("❌ Firebase'e skor kaydedilemedi - HATA DETAYI:", error);
+                console.error("❌ Error message:", error.message);
+                console.error("❌ Error code:", error.code);
+                console.error("❌ Database state:", database ? "Mevcut" : "Null");
+                console.error("❌ isFirebaseEnabled:", isFirebaseEnabled);
                 // Hata durumunda yerel olarak kaydet
                 saveScoreLocally(newScore);
             });
         } catch (error) {
-            console.error("Firebase kaydetme hatası:", error);
+            console.error("❌ Firebase kaydetme hatası - TRY-CATCH:", error);
+            console.error("❌ Hata mesajı:", error.message);
+            console.error("❌ Database durumu:", database);
             saveScoreLocally(newScore);
         }
     }
@@ -609,23 +611,10 @@
         return deviceId;
     }
     
-    // Ana oyun skorboard'u için ekran boyutuna göre maksimum skor sayısı (Artırılmış)
+    // Ana oyun skorboard'u için ekran boyutuna göre maksimum skor sayısı (Her sayfada 6 skor)
     function getMaxDisplayScores() {
-        const screenHeight = window.innerHeight;
-        const screenWidth = window.innerWidth;
-        
-        // 500+ skor optimizasyonu - büyük turnuva için daha fazla skor gösterimi
-        if (screenWidth >= 1400 && screenHeight >= 900) {
-            return 50; // Büyük ekran - 50 skor (500+ destekli)
-        } else if (screenWidth >= 1200 && screenHeight >= 768) {
-            return 35; // Orta büyük ekran - 35 skor
-        } else if (screenWidth >= 900 && screenHeight >= 600) {
-            return 25; // Orta ekran - 25 skor
-        } else if (screenWidth >= 600) {
-            return 20; // Küçük ekran - 20 skor
-        } else {
-            return 15; // Çok küçük ekran - 15 skor
-        }
+        // Her sayfada sabit 6 skor göster
+        return 6;
     }
     
     function convertTimeToSeconds(timeString) {
@@ -640,47 +629,88 @@
         scoreboardList.innerHTML = '<div style="text-align: center; color: #ffaa00; padding: 20px;">📊 Skorlar yükleniyor...</div>';
         
         getScores().then(scores => {
+            allScores = scores; // Global değişkene kaydet
+            
             if (scores.length === 0) {
                 scoreboardList.innerHTML = '<div style="text-align: center; color: #cccccc; padding: 20px;">Henüz kayıtlı skor yok.</div>';
+                updatePaginationControls(0);
                 return;
             }
             
-            scoreboardList.innerHTML = '';
-            
-            // Ekran boyutuna göre gösterilecek skor sayısını belirle
-            const maxDisplayScores = getMaxDisplayScores();
-            const displayScores = scores.slice(0, maxDisplayScores);
-            
-            displayScores.forEach((score, index) => {
-                const row = document.createElement('div');
-                row.className = 'scoreboard-row';
-                if (index === 0) row.classList.add('top-score');
-                
-                // Device indicator ekle
-                const deviceIndicator = score.deviceId ? 
-                    `<span style="font-size: 0.7rem; color: #888; margin-left: 5px;">📱</span>` : '';
-                
-                row.innerHTML = `
-                    <span class="scoreboard-rank">${index + 1}</span>
-                    <span class="scoreboard-name">${score.username}${deviceIndicator}</span>
-                    <span class="scoreboard-score">${score.score}</span>
-                    <span class="scoreboard-time">${score.time}</span>
-                    <span class="scoreboard-date">${score.date}</span>
-                `;
-                
-                scoreboardList.appendChild(row);
-            });
-            
-            // Firebase durumu console'da yazdır (ekranda görünmez)
-            if (isFirebaseEnabled) {
-                console.log('🌐 Çoklu ekran modu aktif - Tüm cihazlardan skorlar');
-            } else {
-                console.log('💾 Yerel mod - Sadece bu cihazın skorları');
-            }
+            displayCurrentPage();
+            updatePaginationControls(scores.length);
         }).catch(error => {
             console.error('Skorlar yüklenirken hata:', error);
             scoreboardList.innerHTML = '<div style="text-align: center; color: #ff4444; padding: 20px;">❌ Skorlar yüklenemedi. Tekrar deneyin.</div>';
+            updatePaginationControls(0);
         });
+    }
+    
+    function displayCurrentPage() {
+        const scoreboardList = document.getElementById('scoreboard-list');
+        scoreboardList.innerHTML = '';
+        
+        console.log(`📄 Sayfa gösteriliyor: ${currentPage}, Toplam skor: ${allScores.length}, Sayfa başına: ${scoresPerPage}`);
+        
+        // Mevcut sayfa için skorları hesapla
+        const startIndex = (currentPage - 1) * scoresPerPage;
+        const endIndex = startIndex + scoresPerPage;
+        const displayScores = allScores.slice(startIndex, endIndex);
+        
+        console.log(`📊 Gösterilecek skorlar: ${displayScores.length} (${startIndex} - ${endIndex})`);
+        
+        displayScores.forEach((score, index) => {
+            const row = document.createElement('div');
+            row.className = 'scoreboard-row';
+            const globalIndex = startIndex + index;
+            if (globalIndex === 0) row.classList.add('top-score');
+            
+            // Device indicator ekle
+            const deviceIndicator = score.deviceId ? 
+                `<span style="font-size: 0.7rem; color: #888; margin-left: 5px;">📱</span>` : '';
+            
+            row.innerHTML = `
+                <span class="scoreboard-rank">${globalIndex + 1}</span>
+                <span class="scoreboard-name">${score.username}${deviceIndicator}</span>
+                <span class="scoreboard-score">${score.score}</span>
+                <span class="scoreboard-time">${score.time}</span>
+                <span class="scoreboard-date">${score.date}</span>
+            `;
+            
+            scoreboardList.appendChild(row);
+        });
+        
+        // Firebase durumu console'da yazdır (ekranda görünmez)
+        if (isFirebaseEnabled) {
+            console.log('🌐 Çoklu ekran modu aktif - Tüm cihazlardan skorlar');
+        } else {
+            console.log('💾 Yerel mod - Sadece bu cihazın skorları');
+        }
+    }
+    
+    function updatePaginationControls(totalScores) {
+        const totalPages = Math.ceil(totalScores / scoresPerPage);
+        const pageInfo = document.getElementById('page-info');
+        const prevBtn = document.getElementById('prev-page-btn');
+        const nextBtn = document.getElementById('next-page-btn');
+        
+        console.log(`🎛️ Pagination güncelleniyor: Sayfa ${currentPage}/${totalPages}, Toplam skor: ${totalScores}`);
+        
+        if (pageInfo) {
+            pageInfo.textContent = `Sayfa ${currentPage} / ${totalPages || 1}`;
+        }
+        
+        if (prevBtn) {
+            prevBtn.disabled = currentPage <= 1;
+            prevBtn.style.opacity = currentPage <= 1 ? '0.5' : '1';
+            console.log(`⬅️ Önceki buton: ${currentPage <= 1 ? 'Disabled' : 'Enabled'}`);
+        }
+        
+        if (nextBtn) {
+            nextBtn.disabled = currentPage >= totalPages;
+            nextBtn.style.opacity = currentPage >= totalPages ? '0.5' : '1';
+            console.log(`➡️ Sonraki buton: ${currentPage >= totalPages ? 'Disabled' : 'Enabled'}`);
+        }
     }
     
     // Ana oyunda gerçek zamanlı skorboard için dinleyici kurulumu
@@ -761,26 +791,13 @@
     }
 
     document.getElementById('start-btn').onclick = function() {
-        // 🎵 HEMEN BAŞLA - HOŞ GELDİN MELODİSİ
-        gameAudio.play('welcome');
-        
+        playButtonClickSound(); // Ses efekti ekle
         document.getElementById('main-panel').style.display = 'none';
         document.getElementById('username-panel').style.display = 'flex';
-        
-        // Panel geçişi sonrası tam ekran zorla
-        setTimeout(function() {
-            if (typeof forceFullscreen === 'function') {
-                forceFullscreen();
-            }
-            console.log('🎯 Username paneline geçiş - Tam ekran zorlandı');
-        }, 50);
-        
         // Username input'una odaklan
         setTimeout(() => {
             document.getElementById('username-input').focus();
         }, 100);
-        
-        console.log('🎵 "Hemen Başla" butonuna basıldı - Hoş geldin melodisi çalındı');
     };
 
     document.getElementById('play-btn').onclick = function() {
@@ -808,29 +825,22 @@
             return;
         }
         
-        // 🎵 OYUNA BAŞLA - OYUN BAŞLAMA FANFARI
-        gameAudio.play('gameStart');
-        
         // Username'i global değişkene kaydet
         currentUsername = username;
         
+        playStartGameSound(); // Oyun başlama ses efekti
+        
         document.getElementById('username-panel').style.display = 'none';
         document.getElementById('password-panel').style.display = 'flex';
+        
+        // Ana ekrana dön butonunu göster
+        document.getElementById('home-button').style.display = 'block';
+        
         startTimer();
         setScore(0);
         
-        // Panel geçişi sonrası tam ekran zorla
-        setTimeout(function() {
-            if (typeof forceFullscreen === 'function') {
-                forceFullscreen();
-            }
-            console.log('🎯 Password paneline geçiş - Tam ekran zorlandı');
-        }, 50);
-        
         // Parola inputları için event listener ekle
         setupPasswordValidation();
-        
-        console.log('🎵 "Oyuna Başla" butonuna basıldı - Oyun başlama fanfarı çalındı');
     };
 
     // Enter tuşu ile de oyuna başlayabilme
@@ -1007,16 +1017,12 @@
     // PAYLAŞ/SAKLA butonuna tıklanınca panel geçişi
     document.addEventListener('click', function(e) {
         if (e.target.closest('#next-task-btn')) {
-            // 🎵 PAYLAŞ/SAKLA GÖREVİNE GEÇ SESİ
-            gameAudio.play('success');
-            
+            playTransitionSound(); // Geçiş ses efekti
             document.getElementById('password-panel').style.display = 'none';
             document.getElementById('share-panel').style.display = 'flex';
             
             // Yeni share panel sistemini başlat
             displayShareQuestions();
-            
-            console.log('🎵 "Paylaş/Sakla Görevine Geç" butonuna basıldı - Başarı sesi çalındı');
         }
         
                                   // Phishing testine geçiş butonu
@@ -1109,12 +1115,9 @@
              if (crackTime) crackTime.textContent = '';
              if (congratsMessage) congratsMessage.textContent = '';
              
-       // Parola sonuçlarını temizle
-       const passwordResult = document.querySelector('.password-result');
-       if (passwordResult) {
-           passwordResult.style.display = 'none';
-           passwordResult.innerHTML = ''; // İçeriği tamamen temizle
-       }
+             // Parola sonuçlarını temizle
+             const passwordResult = document.querySelector('.password-result');
+             if (passwordResult) passwordResult.style.display = 'none';
              
              const nextTaskBtn = document.getElementById('next-task-btn');
              if (nextTaskBtn) nextTaskBtn.style.display = 'none';
@@ -1128,7 +1131,16 @@
              const shareResults = document.getElementById('share-results');
              const shareSubmitBtn = document.getElementById('continue-to-phishing-btn');
              
-             if (shareContainer) shareContainer.innerHTML = '';
+             if (shareContainer) {
+                 // Mevcut soruların pointer-events'lerini sıfırla
+                 const existingQuestions = shareContainer.querySelectorAll('.share-question-item');
+                 existingQuestions.forEach(q => {
+                     q.style.pointerEvents = 'auto';
+                     q.style.opacity = '1';
+                     q.classList.remove('selected', 'correct', 'wrong');
+                 });
+                 shareContainer.innerHTML = '';
+             }
              if (shareResults) {
                  shareResults.style.display = 'none';
                  shareResults.innerHTML = '';
@@ -1235,50 +1247,50 @@
     // PHISHING TEST - Çoklu Soru Sistemi
     let phishingQuestions = [
         {
-            text: "YouTube'da yorum görüyorsun: 'Bu kanala abone ol, ilk 100 kişiye iPhone hediye! Link profilimde'\nNe yaparsın?",
-            options: [
-                { text: "Profiline gidip linke tıklarım", correct: false },
-                { text: "Sahte olduğunu düşünür, tıklamam", correct: true },
-                { text: "Arkadaşlarıma da gönderir herkesi uyarırım", correct: false }
-            ],
-            explanation: "YouTube yorumlarındaki hediye linkler genellikle sahte. Gerçek kanallar böyle hediye vermez."
-        },
-        {
-            text: "WhatsApp'ta arkadaşından mesaj geliyor: 'Bu linke tıkla çok komik video var: bit.ly/xyz123'\nNe yaparsın?",
-            options: [
-                { text: "Arkadaşımdan geldiği için güvenle tıklarım", correct: false },
-                { text: "Önce arkadaşıma sorarak doğruluğunu kontrol ederim", correct: true },
-                { text: "Hemen tıklarım, arkadaşım gönderdi sonuçta", correct: false }
-            ],
-            explanation: "Arkadaşının hesabı çalınmış olabilir. Şüpheli linkler için önce kişiyi arayıp doğrulamak en iyisi."
-        },
-        {
-            text: "Telefonunda açılır pencere çıkıyor: 'DİKKAT! Telefonunuz virüslü. Hemen temizlemek için TIKLA'\nNe yaparsın?",
-            options: [
-                { text: "Hemen tıklarım, telefonum tehlikede", correct: false },
-                { text: "Bu sahte bir uyarı, kapatırım", correct: true },
-                { text: "Tıklayıp virüs programını indiririm", correct: false }
-            ],
-            explanation: "Açılır pencere virüs uyarıları genellikle sahte. Telefonlar böyle uyarı vermez, güvenlik uygulamanız verir."
-        },
-        {
-            text: "Instagram'dan DM geliyor: 'Şifren çalındı! Hesabını kurtarmak için buraya git: insta-guvenlik.com'\nNe yaparsın?",
-            options: [
-                { text: "Linke tıklamam, Instagram uygulamasından kontrol ederim", correct: true },
-                { text: "Hemen linke tıklayıp şifremi değiştiririm", correct: false },
-                { text: "Mesajdaki linke tıklayıp bilgilerimi veririm", correct: false }
-            ],
-            explanation: "Gerçek Instagram'ın adresi instagram.com'dur. Sahte siteler farklı adresler kullanır. Her zaman resmi uygulamayı kullan."
-        },
-        {
-            text: "Discord'da tanımadığın biri mesaj atıyor: 'Bedava Roblox/Minecraft premium hesap istiyorsan şifreni yaz'\nNe yaparsın?",
-            options: [
-                { text: "Bedava hesap için şifremi veririm", correct: false },
-                { text: "Bu bir tuzak, engellerim ve bildiririm", correct: true },
-                { text: "Arkadaşlarıma da söylerim belki onlar da ister", correct: false }
-            ],
-            explanation: "Asla kimseyle oyun şifrelerini paylaşma! Bedava hesap vaadiyle bilgilerini çalmaya çalışıyorlar."
-        }
+    text: "TikTok'ta viral olan bir challenge videosunda yorum gördün: 'Bu challenge'ı yapmak için şifre123 kullan, süper havalı hesap aç!'\nNe yaparsın?",
+    options: [
+        { text: "Hemen şifre123'ü kullanarak hesap açarım", correct: false },
+        { text: "Bu güvensiz görünüyor, kendi güçlü şifremi oluştururum", correct: true },
+        { text: "Arkadaşlarıma da bu şifreyi söylerim", correct: false }
+    ],
+    explanation: "Herkesin kullandığı basit şifreler çok tehlikeli! Her zaman kendi benzersiz ve güçlü şifreni oluştur. Şifreleri asla paylaşma."
+},
+{
+    text: "YouTube'da en sevdiğin youtuber'ın videosunda açıklama kısmında link var:\n 'ÜCRETSİZ ROBUx KAZANMAK İÇİN TIKLA!'\nNe yaparsın?",
+    options: [
+        { text: "Hemen tıklarım, ücretsiz Robux istiyorum!", correct: false },
+        { text: "Bu bir tuzak, youtuber'ın gerçek olup olmadığını kontrol ederim", correct: true },
+        { text: "Linki kopyalayıp arkadaşlarıma gönderirim", correct: false }
+    ],
+    explanation: "Ücretsiz oyun parası vaat eden linkler genellikle dolandırıcılık!\n\n Gerçek YouTuber'lar böyle şeyler paylaşmaz. Her zaman şüpheli ol."
+},
+{
+    text: "WhatsApp'ta tanımadığın bir numaradan mesaj geliyor: 'Merhaba! Okul arkadaşınım, telefon numaramı değiştirdim. Acil para lazım, annene söyle lütfen.'\nNe yaparsın?",
+    options: [
+        { text: "Hemen anneme söylerim, arkadaşım yardıma ihtiyacı var", correct: false },
+        { text: "Bu şüpheli, önce kimliğini doğrulayacağım sorular sorarım", correct: true },
+        { text: "Para göndermek için banka bilgilerini sorarım", correct: false }
+    ],
+    explanation: "Bu klasik bir dolandırıcılık yöntemi! Tanımadığın numaralardan gelen para isteklerine asla güvenme. Önce kimliği doğrula."
+},
+{
+    text: "Discord'da oyun oynarken biri özel mesaj atıyor: 'Hey! Minecraft server'ımıza katıl, admin olmak ister misin? Şifreni ver, seni yetkili yapayım.'\nNe yaparsın?",
+    options: [
+        { text: "Süper! Hemen şifremi veririm, admin olmak istiyorum", correct: false },
+        { text: "Şifremi asla kimseyle paylaşmam, bu bir tuzak", correct: true },
+        { text: "Önce arkadaşlarıma sorayım, onlar da admin olmak isteyebilir", correct: false }
+    ],
+    explanation: "Oyun şifrelerini ASLA kimseyle paylaşma! Gerçek admin'ler şifreni istemez. Bu hesap çalma yöntemidir."
+},
+{
+    text: "Instagram'da tanınmış bir markanın sahte hesabından mesaj aldın: 'TEBRİKLER! iPhone 15 kazandın! Almak için bu linke tıkla ve bilgilerini gir: fakeapple-giveaway.com'\nNe yaparsın?",
+    options: [
+        { text: "Harika! Hemen tıklayıp bilgilerimi giriyorum", correct: false },
+        { text: "Bu sahte görünüyor, gerçek marka hesabını kontrol ederim", correct: true },
+        { text: "Linki arkadaşlarıma da gönderiyorum, onlar da kazanabilir", correct: false }
+    ],
+    explanation: "Sahte hediye çekilişleri çok yaygın!\n\n Gerçek markalar resmi hesaplarından açıklama yapar. Domain adına dikkat et, sahte siteler farklı uzantı kullanır."
+}
     ];
     
     let currentPhishingQuestion = 0;
@@ -1405,25 +1417,29 @@
          document.getElementById('final-total-time').textContent = totalTime;
          document.getElementById('final-total-score').textContent = totalScore;
          
-         // Skoru kaydet
-         saveScore(username, totalScore, totalTime);
-         
-         // Timer'ı durdur
+        // Skoru kaydet
+        console.log("💾 Skor kaydediliyor:", {
+            username: username,
+            totalScore: totalScore,
+            totalTime: totalTime,
+            isFirebaseEnabled: isFirebaseEnabled
+        });
+        saveScore(username, totalScore, totalTime);         // Timer'ı durdur
          stopTimer();
      }
 
     // PAYLAŞ/SAKLA paneli - 10 Soru Sistemi
     let shareQuestions = [
-        { text: 'Adın ve Soyadın', shareable: false, explanation: 'Adınız ve soyadınız kişisel kimliğinizle doğrudan bağlantılıdır, internette tanımadığınız kişilerle paylaşmaktan kaçının.' },
-        { text: 'En sevdiğin renk', shareable: true, explanation: 'Renk tercihin seni tanımlar ama kişisel gizliliğini tehlikeye atmaz.' },
-        { text: 'E-posta adresin', shareable: false, explanation: 'E-posta adresiniz kimlik avı (oltalama) saldırıları için kullanılabilir. Güvenmediğiniz kişilerle paylaşmaktan kaçının.' },
-        { text: 'Telefon numaran', shareable: false, explanation: 'Telefon numaranız paylaşıldığında istenmeyen aramalar, mesajlar veya dolandırıcılık girişimlerine yol açabilir.' },
-        { text: 'Hobin (örneğin futbol)', shareable: true, explanation: 'Hobiler ve ilgi alanları ortak noktası olan insanlarla bağlantı kurmanın güvenli bir yoludur.' },
-        { text: 'TC kimlik numaran', shareable: false, explanation: 'Kimlik numaran çok özel bir bilgidir. Dolandırıcılık ve kimlik hırsızlığı için kullanılabilir, asla paylaşma.' },
-        { text: 'En sevdiğin film', shareable: true, explanation: 'Film zevkin güvenle paylaşılabilir ve yeni arkadaşlıklar kurman için ortak konu olabilir.' },
-        { text: 'Ev adresin', shareable: false, explanation: 'Ev adresiniz fiziksel güvenliğinizle ilgilidir. İnternette asla tanımadığınız kişilerle paylaşılmamalıdır.' },
-        { text: 'En sevdiğin spor', shareable: true, explanation: 'Spor tercihlerin güvenle paylaşılabilir ve yeni arkadaşlıklar kurmen için faydalı olabilir.' },
-        { text: 'Sosyal medya şifren', shareable: false, explanation: 'Şifreler asla paylaşılmamalıdır. Hesaplarının güvenliği için kritiktir.' }
+        { text: 'Sınıfın (örneğin 5-A)', shareable: false, explanation: 'Hangi sınıfta okuduğun kişisel bir bilgidir. Tanımadığın kişilerle paylaşmamalısın!' },
+        { text: 'En sevdiğin renk', shareable: true, explanation: 'Renk tercihin güvenle paylaşılabilir ve arkadaş edinmek için güzel bir konudur.' },
+        { text: 'Okul numaranız', shareable: false, explanation: 'Okul numaran gibi özel kimlik bilgilerini sadece öğretmenin ve ailen bilmeli.' },
+        { text: 'En sevdiğin çizgi film', shareable: true, explanation: 'Çizgi film zevkin paylaşılabilir ve ortak ilgi alanı olan arkadaşlar bulabilirsin.' },
+        { text: 'Hobin (örneğin futbol)', shareable: true, explanation: 'Hobiler güvenle paylaşılabilir ve yeni arkadaşlıklar kurman için harika konulardır.' },
+        { text: 'Ev adresin', shareable: false, explanation: 'Ev adresin çok gizli bir bilgidir. Sadece ailen ve yakın akrabalar bilmeli.' },
+        { text: 'En sevdiğin oyun', shareable: true, explanation: 'Oyun tercihlerin güvenle paylaşılabilir ve oyun arkadaşları bulabilirsin.' },
+        { text: 'Doğum tarihin', shareable: false, explanation: 'Doğum tarihin kişisel bir bilgidir. Kötü niyetli kişiler bu bilgiyi kötüye kullanabilir.' },
+        { text: 'En sevdiğin hayvan', shareable: true, explanation: 'Hayvan sevgin güvenle paylaşılabilir ve hayvansever arkadaşlar edinebilirsin.' },
+        { text: 'Telefon numaran', shareable: false, explanation: 'Telefon numaran çok özel bir bilgidir. Sadece ailen ve çok yakın arkadaşların bilmeli.' }
     ];
 
     let selectedAnswers = {};
@@ -1804,31 +1820,19 @@
         console.log('\x07');
     }
     
-    // Başarı sesi fonksiyonu (Share bölümü doğru seçimler için)
+    // Başarı sesi fonksiyonu (Share bölümü doğru seçimler için) - GELİŞTİRİLMİŞ
     function playSuccessSound() {
         try {
             const ctx = new (window.AudioContext || window.webkitAudioContext)();
+            
+            // AudioContext'i aktifleştir
             if (ctx.state === 'suspended') {
-                ctx.resume();
+                ctx.resume().then(() => {
+                    playSuccessSoundInternal(ctx);
+                });
+            } else {
+                playSuccessSoundInternal(ctx);
             }
-            
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            
-            osc.connect(gain);
-            gain.connect(ctx.destination);
-            
-            // Pozitif müzikal ton - C major akor benzeri
-            osc.frequency.setValueAtTime(523, ctx.currentTime); // C5
-            osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1); // E5
-            osc.frequency.setValueAtTime(783, ctx.currentTime + 0.2); // G5
-            
-            osc.type = 'sine';
-            gain.gain.setValueAtTime(0.08, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
-            
-            osc.start();
-            osc.stop(ctx.currentTime + 0.4);
             
         } catch (e) {
             console.log('Başarı sesi hatası:', e);
@@ -1839,7 +1843,215 @@
             navigator.vibrate([30, 20, 50]);
         }
         
-        console.log('✅ Doğru seçim!');
+        console.log('✅ Doğru seçim sesi çalınıyor!');
+    }
+    
+    function playSuccessSoundInternal(ctx) {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        // Pozitif müzikal ton - C major akor benzeri
+        osc.frequency.setValueAtTime(523, ctx.currentTime); // C5
+        osc.frequency.setValueAtTime(659, ctx.currentTime + 0.1); // E5
+        osc.frequency.setValueAtTime(783, ctx.currentTime + 0.2); // G5
+        
+        osc.type = 'sine';
+        gain.gain.setValueAtTime(0.12, ctx.currentTime); // Ses seviyesi artırıldı
+        gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+        
+        osc.start(ctx.currentTime);
+        osc.stop(ctx.currentTime + 0.4);
+    }
+    
+    // Buton ses efektleri
+    function playButtonClickSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Standart buton sesi - kısa ve net
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(600, audioContext.currentTime + 0.1);
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.15);
+            
+            // Hafif titreşim
+            if (navigator.vibrate) {
+                navigator.vibrate([15]);
+            }
+            
+        } catch (e) {
+            console.log('Buton ses hatası:', e);
+        }
+    }
+    
+    function playStartGameSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            // Oyun başlama fanfarı - kısa ve heyecanlı
+            const notes = [
+                { freq: 523, time: 0.0, duration: 0.12 }, // C5
+                { freq: 659, time: 0.12, duration: 0.12 }, // E5
+                { freq: 783, time: 0.24, duration: 0.25 }, // G5 - uzun
+            ];
+
+            notes.forEach((note) => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.type = 'triangle';
+                oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime + note.time);
+                
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime + note.time);
+                gainNode.gain.linearRampToValueAtTime(0.12, audioContext.currentTime + note.time + 0.02);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + note.time + note.duration);
+                
+                oscillator.start(audioContext.currentTime + note.time);
+                oscillator.stop(audioContext.currentTime + note.time + note.duration);
+            });
+            
+            // Başlama titreşimi
+            if (navigator.vibrate) {
+                navigator.vibrate([50, 30, 70]);
+            }
+            
+            console.log('🎮 Oyun başlama sesi çalındı!');
+            
+        } catch (e) {
+            console.log('Oyun başlama ses hatası:', e);
+        }
+    }
+    
+    function playTransitionSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Geçiş sesi - yumuşak yükselme
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(400, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(700, audioContext.currentTime + 0.3);
+            
+            gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.4);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.4);
+            
+            // Geçiş titreşimi
+            if (navigator.vibrate) {
+                navigator.vibrate([30, 10, 40]);
+            }
+            
+            console.log('➡️ Geçiş sesi çalındı!');
+            
+        } catch (e) {
+            console.log('Geçiş ses hatası:', e);
+        }
+    }
+    
+    function playConfirmSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // Onay sesi - çift ton
+            oscillator.type = 'sine';
+            oscillator.frequency.setValueAtTime(600, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(800, audioContext.currentTime + 0.1);
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.setValueAtTime(0.08, audioContext.currentTime + 0.1);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.25);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.25);
+            
+            // Onay titreşimi
+            if (navigator.vibrate) {
+                navigator.vibrate([20, 10, 30]);
+            }
+            
+            console.log('✅ Onay sesi çalındı!');
+            
+        } catch (e) {
+            console.log('Onay ses hatası:', e);
+        }
+    }
+    
+    function playCancelSound() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+
+            // İptal sesi - düşük ton
+            oscillator.type = 'triangle';
+            oscillator.frequency.setValueAtTime(300, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(200, audioContext.currentTime + 0.2);
+            
+            gainNode.gain.setValueAtTime(0.08, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.25);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.25);
+            
+            // İptal titreşimi
+            if (navigator.vibrate) {
+                navigator.vibrate([40]);
+            }
+            
+            console.log('❌ İptal sesi çalındı!');
+            
+        } catch (e) {
+            console.log('İptal ses hatası:', e);
+        }
     }
     
     // Yeni share panel fonksiyonları
@@ -1859,6 +2071,18 @@
             questionDiv.className = 'share-question-item';
             questionDiv.textContent = question.text;
             questionDiv.setAttribute('data-index', index);
+            
+            // Başlangıçta tüm butonları aktif hale getir
+            questionDiv.style.pointerEvents = 'auto';
+            questionDiv.style.opacity = '1';
+            questionDiv.classList.remove('selected', 'correct', 'wrong');
+            
+            // Tablet için touchstart olayı ekle
+            questionDiv.addEventListener('touchstart', function(e) {
+                e.preventDefault(); // Varsayılan dokunma davranışını engelle
+                const questionIndex = this.getAttribute('data-index');
+                toggleQuestionSelection(questionIndex, this);
+            });
             
             questionDiv.addEventListener('click', function() {
                 const questionIndex = this.getAttribute('data-index');
@@ -1885,36 +2109,49 @@
     }
     
     function toggleQuestionSelection(index, element) {
-        if (selectedAnswers[index]) {
-            // Seçimi kaldır
-            delete selectedAnswers[index];
-            element.classList.remove('selected', 'correct', 'wrong');
+        // Eğer bu soru zaten cevaplanmışsa, tekrar tıklamaya izin verme
+        if (selectedAnswers[index] !== undefined) {
+            console.log("⚠️ Bu soru zaten cevaplanmış, tekrar tıklama yapılamaz!");
+            return;
+        }
+        
+        // Seçim yap (artık sadece bir kez yapılabilir)
+        selectedAnswers[index] = true;
+        element.classList.add('selected');
+        
+        // Butonu devre dışı bırak
+        element.style.pointerEvents = 'none';
+        element.style.opacity = '0.8';
+        
+        // Hemen kontrol et - doğru mu yanlış mı?
+        const question = shareQuestions[index];
+        const shouldBeSelected = question.shareable === true;
+        
+        if (shouldBeSelected) {
+            // Doğru seçim - PUAN ARTTIR ve SES ÇAL!
+            element.classList.add('correct');
+            shareScore += 30;
+            addScore(30);
             
-            // Açıklamayı temizle
-            clearExplanation();
-        } else {
-            // Seçim yap
-            selectedAnswers[index] = true;
-            element.classList.add('selected');
-            
-            // Hemen kontrol et - doğru mu yanlış mı?
-            const question = shareQuestions[index];
-            const shouldBeSelected = question.shareable === true;
-            
-            if (shouldBeSelected) {
-                // Doğru seçim - PUAN ARTTIR ve SES ÇAL!
-                element.classList.add('correct');
-                shareScore += 30;
-                addScore(30);
+            // Geliştirilmiş ses çalma - browser kısıtlamalarını aş
+            setTimeout(() => {
                 playSuccessSound();
-            } else {
-                // Yanlış seçim - PUAN DÜŞÜR, SES ÇAL ve açıklama göster!
-                element.classList.add('wrong');
-                shareScore -= 15; // Yanlış cevap için puan düşür
-                addScore(-15);
+            }, 50);
+            
+            console.log("✅ Doğru seçim: " + question.text + " (+30 puan)");
+        } else {
+            // Yanlış seçim - PUAN DÜŞÜR, SES ÇAL ve açıklama göster!
+            element.classList.add('wrong');
+            shareScore -= 15; // Yanlış cevap için puan düşür
+            addScore(-15);
+            
+            // Geliştirilmiş ses çalma - browser kısıtlamalarını aş
+            setTimeout(() => {
                 playBuzzerSound();
-                showExplanation(question.explanation, false);
-            }
+            }, 50);
+            
+            showExplanation(question.explanation, false);
+            console.log("❌ Yanlış seçim: " + question.text + " (-15 puan)");
         }
         
         // Submit butonunu al
@@ -2049,6 +2286,7 @@
     }
     
         function checkShareAnswers() {
+        playButtonClickSound(); // Ses efekti ekle
         // Basit tamamlanma mesajı göster
         showCompletionModal();
     }
@@ -2119,28 +2357,252 @@
     }
     
     function continueToPhishing() {
-        // 🎵 EMİN MİSİN EKRАНИ - GEÇ SESİ
-        gameAudio.play('success');
-        
+        playConfirmSound(); // Onay ses efekti
         // Modal'ı kaldır
         clearExplanation();
         
         // Phishing testine geç
         showPhishingPanel();
-        
-        console.log('🎵 Emin misin ekranı "Geç" butonuna basıldı - Başarı sesi çalındı');
     }
     
     function cancelToPhishing() {
-        // 🎵 EMİN MİSİN EKRАНИ - GEÇME SESİ
-        gameAudio.play('buttonClick');
-        
+        playCancelSound(); // İptal ses efekti
         // Modal'ı kaldır
         clearExplanation();
         
         // Paylaş/sakla bölümünde kal - hiçbir şey yapma, modal sadece kapansın
         console.log("👤 Kullanıcı phishing testine geçmek istemedi, paylaş/sakla bölümünde kalıyor");
-        console.log('🎵 Emin misin ekranı "Geçme" butonuna basıldı - Buton sesi çalındı');
+    }
+    
+    // Ana Ekrana Dön Butonu Event Listener
+    document.getElementById('home-button').addEventListener('click', function() {
+        playButtonClickSound(); // Ses efekti ekle
+        showHomeConfirmModal();
+    });
+    
+    // Ana ekrana dön onay modalı
+    function showHomeConfirmModal() {
+        // Mevcut modalları kaldır
+        clearExplanation();
+        
+        // Ana ekrana dön modalı
+        const modalHTML = `
+            <div id="explanation-modal" style="
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 1000;
+                max-width: 700px;
+                width: 85vw;
+                min-height: 400px;
+                text-align: center;
+                font-size: 1.3rem;
+                line-height: 1.5;
+                animation: modalFadeIn 0.5s ease-out;
+            ">
+                <img src="assets/Asset 43.svg" alt="Modal Çerçeve" style="
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 0;
+                    pointer-events: none;
+                ">
+                <div style="
+                    position: relative;
+                    z-index: 1;
+                    padding: 50px 40px;
+                    color: #ffffff;
+                ">
+                <div style="margin-bottom: 30px;">
+                    <img src="assets/Asset 46.svg" alt="Soru İşareti" style="max-width: 60px; height: auto;">
+                </div>
+                <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; color: #fff;">
+                    Ana ekrana dönmek istediğinize emin misiniz?
+                </div>
+                <div style="color: #ffffff; line-height: 1.4; margin-bottom: 30px; font-size: 1.2rem;">
+                    Tüm ilerlemeniz kaybolacak ve oyun başa dönecektir.
+                </div>
+                <div style="margin-top: 35px; display: flex; gap: 30px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                    <img src="assets/Asset 60.svg" alt="Dön" onclick="confirmGoHome()" style="
+                        max-width: 180px;
+                        cursor: pointer;
+                        transition: transform 0.2s ease;
+                    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                    
+                    <img src="assets/Asset 61.svg" alt="Kalma" onclick="cancelGoHome()" style="
+                        max-width: 180px;
+                        cursor: pointer;
+                        transition: transform 0.2s ease;
+                    " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                </div>
+                </div>
+            </div>
+        `;
+        
+        // Body'ye ekle
+        document.body.insertAdjacentHTML('beforeend', modalHTML);
+    }
+    
+    // Ana ekrana dön onaylandı
+    function confirmGoHome() {
+        playConfirmSound(); // Onay ses efekti
+        // Modal'ı kaldır
+        clearExplanation();
+        
+        // Oyunu tamamen sıfırla ve ana ekrana dön
+        resetGameToHome();
+    }
+    
+    // Ana ekrana dön iptal edildi
+    function cancelGoHome() {
+        playCancelSound(); // İptal ses efekti
+        // Modal'ı kaldır
+        clearExplanation();
+        
+        // Mevcut panelde kal
+        console.log("👤 Kullanıcı ana ekrana dönmek istemedi, mevcut panelde kalıyor");
+    }
+    
+    // Oyunu tamamen sıfırla ve ana ekrana dön
+    function resetGameToHome() {
+        // Ana ekrana dön butonunu gizle
+        document.getElementById('home-button').style.display = 'none';
+        
+        // Tüm panelleri gizle
+        document.getElementById('main-panel').style.display = 'none';
+        document.getElementById('username-panel').style.display = 'none';
+        document.getElementById('password-panel').style.display = 'none';
+        document.getElementById('share-panel').style.display = 'none';
+        document.getElementById('phishing-panel').style.display = 'none';
+        document.getElementById('final-score-panel').style.display = 'none';
+        document.getElementById('scoreboard-panel').style.display = 'none';
+        
+        // Ana menü panelini göster
+        document.getElementById('main-panel').style.display = 'flex';
+        
+        // Kullanıcı adı input'unu temizle
+        const usernameInput = document.getElementById('username-input');
+        if (usernameInput) {
+            usernameInput.value = '';
+        }
+        
+        // Oyunu tamamen sıfırla
+        totalScore = 0;
+        passwordScore = 0;
+        shareScore = 0;
+        phishingScore = 0;
+        timeLeft = 0;
+        timerStarted = false;
+        currentPhishingQuestion = 0;
+        currentUsername = '';
+        
+        // Timer'ı durdur
+        if (timerInterval) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+        }
+        
+        // Parola panelini sıfırla
+        const passwordInput = document.getElementById('password-input-1');
+        const confirmPasswordInput = document.getElementById('password-input-2');
+        if (passwordInput) passwordInput.value = '';
+        if (confirmPasswordInput) confirmPasswordInput.value = '';
+        
+        // Parola kontrol butonunu sıfırla
+        const checkBtn = document.getElementById('check-password-btn');
+        const checkBtnWrapper = document.getElementById('password-check-btn-wrapper');
+        if (checkBtn) {
+            checkBtn.style.opacity = '0.5';
+            checkBtn.style.pointerEvents = 'none';
+            checkBtn.style.display = 'block';
+        }
+        if (checkBtnWrapper) {
+            checkBtnWrapper.style.display = 'flex';
+        }
+        
+        // Parola match mesajını temizle
+        const matchMessage = document.getElementById('password-match-message');
+        if (matchMessage) {
+            matchMessage.textContent = '';
+        }
+        
+        // Input wrapper'ları göster
+        const passwordWrapper = document.getElementById('password-input-wrapper');
+        const confirmWrapper = document.getElementById('password-confirm-wrapper');
+        if (passwordWrapper) passwordWrapper.style.display = 'flex';
+        if (confirmWrapper) confirmWrapper.style.display = 'flex';
+        
+        // Açıklamayı sıfırla
+        const passwordDesc = document.getElementById('password-desc');
+        if (passwordDesc) {
+            passwordDesc.textContent = 'Parolanızı girin ve gücünü test edin.';
+            passwordDesc.style.display = 'block';
+        }
+        
+        // Parola güç sonuçlarını temizle
+        const passwordResult = document.querySelector('.password-result');
+        if (passwordResult) passwordResult.style.display = 'none';
+        
+        const nextTaskBtn = document.getElementById('next-task-btn');
+        if (nextTaskBtn) nextTaskBtn.style.display = 'none';
+        
+        // Share panel'ı sıfırla
+        selectedAnswers = {};
+        shareQuestionsDisplayed = false;
+        
+        // Share panel öğelerini temizle
+        const shareContainer = document.getElementById('share-questions-container');
+        const shareResults = document.getElementById('share-results');
+        const shareSubmitBtn = document.getElementById('continue-to-phishing-btn');
+        
+        if (shareContainer) shareContainer.innerHTML = '';
+        if (shareResults) {
+            shareResults.style.display = 'none';
+            shareResults.innerHTML = '';
+        }
+        if (shareSubmitBtn) shareSubmitBtn.style.display = 'block';
+        
+        // Share panel açıklamasını sıfırla
+        const shareDesc = document.querySelector('#share-panel .password-desc');
+        if (shareDesc) {
+            shareDesc.textContent = 'Aşağıdaki bilgilerden hangilerini güvenle paylaşabileceğini seç:';
+        }
+        
+        // Phishing panel'ı sıfırla
+        currentPhishingQuestion = 0;
+        
+        // Phishing panel açıklamasını temizle
+        const phishingExplanation = document.getElementById('phishing-explanation');
+        if (phishingExplanation) {
+            phishingExplanation.textContent = '';
+            phishingExplanation.className = 'share-explanation';
+        }
+        
+        // Phishing butonlarını sıfırla
+        const phishingButtons = document.querySelectorAll('.phishing-button');
+        phishingButtons.forEach(btn => {
+            btn.style.pointerEvents = 'auto';
+            btn.style.opacity = '1';
+            btn.style.transform = 'scale(1)';
+        });
+        
+        // Skor ve timer'ı sıfırla
+        setScore(0);
+        updateTimer();
+        
+        // Skor tablosunu güncelle
+        const scoreElements = ['score', 'score-share', 'score-phishing'];
+        scoreElements.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = '0';
+            }
+        });
+        
+        console.log("🏠 Oyun ana ekrana döndürüldü ve tamamen sıfırlandı");
     }
     
     // Phishing test acil durumu - eğer test tamamen çökerse kullan
@@ -2190,7 +2652,109 @@
 
     
     // Yükleme ekranını gizle
+    // Oyun yükleniyor müziği
+    function playLoadingMusic() {
+        try {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            // Siber/elektronik temalı melodi notaları
+            const melody = [
+                { freq: 261.63, time: 0.0, duration: 0.3 }, // C4
+                { freq: 329.63, time: 0.3, duration: 0.3 }, // E4
+                { freq: 392.00, time: 0.6, duration: 0.3 }, // G4
+                { freq: 523.25, time: 0.9, duration: 0.4 }, // C5
+                { freq: 659.25, time: 1.3, duration: 0.3 }, // E5
+                { freq: 783.99, time: 1.6, duration: 0.3 }, // G5
+                { freq: 1046.50, time: 1.9, duration: 0.5 }, // C6
+                
+                // İkinci dalga - daha dramatik
+                { freq: 392.00, time: 2.5, duration: 0.2 }, // G4
+                { freq: 440.00, time: 2.7, duration: 0.2 }, // A4
+                { freq: 493.88, time: 2.9, duration: 0.2 }, // B4
+                { freq: 523.25, time: 3.1, duration: 0.4 }, // C5
+                { freq: 659.25, time: 3.5, duration: 0.6 }, // E5 - uzun
+            ];
+
+            // Ana melodi
+            melody.forEach((note, index) => {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                // Siber tema için triangle wave
+                oscillator.type = 'triangle';
+                oscillator.frequency.setValueAtTime(note.freq, audioContext.currentTime + note.time);
+                
+                // Fade in-out efekti
+                gainNode.gain.setValueAtTime(0, audioContext.currentTime + note.time);
+                gainNode.gain.linearRampToValueAtTime(0.08, audioContext.currentTime + note.time + 0.05);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + note.time + note.duration);
+                
+                oscillator.start(audioContext.currentTime + note.time);
+                oscillator.stop(audioContext.currentTime + note.time + note.duration);
+            });
+
+            // Alt bas notaları - derinlik katmak için
+            const bassNotes = [
+                { freq: 65.41, time: 0.0, duration: 1.0 }, // C2
+                { freq: 87.31, time: 1.0, duration: 1.0 }, // F2
+                { freq: 98.00, time: 2.0, duration: 1.0 }, // G2
+                { freq: 130.81, time: 3.0, duration: 1.2 }, // C3
+            ];
+
+            bassNotes.forEach((note) => {
+                const bassOsc = audioContext.createOscillator();
+                const bassGain = audioContext.createGain();
+                
+                bassOsc.connect(bassGain);
+                bassGain.connect(audioContext.destination);
+                
+                bassOsc.type = 'sine';
+                bassOsc.frequency.setValueAtTime(note.freq, audioContext.currentTime + note.time);
+                
+                bassGain.gain.setValueAtTime(0.06, audioContext.currentTime + note.time);
+                bassGain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + note.time + note.duration);
+                
+                bassOsc.start(audioContext.currentTime + note.time);
+                bassOsc.stop(audioContext.currentTime + note.time + note.duration);
+            });
+
+            // Elektronik efektler - siber tema
+            for (let i = 0; i < 6; i++) {
+                const effectOsc = audioContext.createOscillator();
+                const effectGain = audioContext.createGain();
+                
+                effectOsc.connect(effectGain);
+                effectGain.connect(audioContext.destination);
+                
+                effectOsc.type = 'square';
+                const randomFreq = 800 + Math.random() * 400; // 800-1200 Hz
+                const randomTime = Math.random() * 3.5; // 0-3.5 saniye arası
+                
+                effectOsc.frequency.setValueAtTime(randomFreq, audioContext.currentTime + randomTime);
+                effectGain.gain.setValueAtTime(0.02, audioContext.currentTime + randomTime);
+                effectGain.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + randomTime + 0.1);
+                
+                effectOsc.start(audioContext.currentTime + randomTime);
+                effectOsc.stop(audioContext.currentTime + randomTime + 0.1);
+            }
+
+            console.log('🎵 Oyun yükleniyor müziği başlatıldı!');
+
+        } catch (e) {
+            console.log('Loading müzik hatası:', e);
+        }
+    }
+
     window.addEventListener('load', function() {
+        // Müziği başlat
+        playLoadingMusic();
+        
         setTimeout(function() {
             const loadingScreen = document.getElementById('loading-screen');
             if (loadingScreen) {
@@ -2255,6 +2819,7 @@
         const refreshBtn = document.getElementById('refresh-scoreboard-btn');
         if (refreshBtn) {
             refreshBtn.onclick = function() {
+                currentPage = 1; // İlk sayfaya dön
                 displayScoreboard();
             };
         }
@@ -2263,9 +2828,40 @@
         const scoreboardBackBtn = document.getElementById('scoreboard-back-btn');
         if (scoreboardBackBtn) {
             scoreboardBackBtn.onclick = function() {
+                currentPage = 1; // Sayfa sıfırla
                 document.getElementById('scoreboard-panel').style.display = 'none';
                 document.getElementById('main-panel').style.display = 'flex';
             };
+        }
+        
+        // Sayfalama butonları event listeners
+        const prevPageBtn = document.getElementById('prev-page-btn');
+        const nextPageBtn = document.getElementById('next-page-btn');
+        
+        // Eski event listener'ları temizle
+        if (prevPageBtn) {
+            prevPageBtn.onclick = null;
+            prevPageBtn.addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    console.log('🔙 Önceki sayfaya geçiliyor:', currentPage);
+                    displayCurrentPage();
+                    updatePaginationControls(allScores.length);
+                }
+            });
+        }
+        
+        if (nextPageBtn) {
+            nextPageBtn.onclick = null;
+            nextPageBtn.addEventListener('click', function() {
+                const totalPages = Math.ceil(allScores.length / scoresPerPage);
+                if (currentPage < totalPages) {
+                    currentPage++;
+                    console.log('➡️ Sonraki sayfaya geçiliyor:', currentPage);
+                    displayCurrentPage();
+                    updatePaginationControls(allScores.length);
+                }
+            });
         }
         
         // Firebase gerçek zamanlı skorboard sistemini başlat
@@ -2277,56 +2873,25 @@
          const submitAnswersBtn = document.getElementById('continue-to-phishing-btn');
          if (submitAnswersBtn) {
              submitAnswersBtn.onclick = function() {
-                 // 🎵 OLTALAMA TESTİNE GEÇ SESİ - PAYLAŞ/SAKLA İLE AYNI
-                 gameAudio.play('success');
-                 
                  // Her durumda sonuç ekranını göster
                  checkShareAnswers();
-                 
-                 console.log('🎵 "Oltalama Testine Geç" butonuna basıldı - Geçiş sesi çalındı');
              };
          }
         
                  // Share panel fonksiyonu - phishing'ten geri dönüş için
          window.showSharePanel = function() {
-             // 🎵 PANEL GEÇİŞ SESİ
-             gameAudio.play('transition');
-             
              document.getElementById('password-panel').style.display = 'none';
              document.getElementById('phishing-panel').style.display = 'none';
              document.getElementById('share-panel').style.display = 'flex';
-             
-             // Panel geçişi sonrası tam ekran zorla
-             setTimeout(function() {
-                 if (typeof forceFullscreen === 'function') {
-                     forceFullscreen();
-                 }
-                 console.log('🎯 Share paneline geçiş - Tam ekran zorlandı');
-             }, 50);
-             
              displayShareQuestions();
-             console.log('🎵 Share paneline geçiş - Geçiş sesi çalındı');
          };
          
          // Phishing panel fonksiyonu
          window.showPhishingPanel = function() {
              console.log("🎮 Phishing paneline geçiliyor...");
              
-             // 🎵 PANEL GEÇİŞ SESİ
-             gameAudio.play('transition');
-             
              document.getElementById('share-panel').style.display = 'none';
              document.getElementById('phishing-panel').style.display = 'flex';
-             
-             // Artık logo ve home buton background div dışında - otomatik görünür
-             
-             // Panel geçişi sonrası tam ekran zorla
-             setTimeout(function() {
-                 if (typeof forceFullscreen === 'function') {
-                     forceFullscreen();
-                 }
-                 console.log('🎯 Phishing paneline geçiş - Tam ekran zorlandı');
-             }, 50);
              
              // İlk phishing sorusunu başlat
              currentPhishingQuestion = 0;
@@ -2389,861 +2954,113 @@
              
              console.log(`✅ ${buttons.length} phishing butonu hazırlandı`);
              
-            // İlk soruyu göster
-            currentPhishingQuestion = 0;
-            showNextPhishingQuestion();
-        };
-   });
+             // İlk soruyu göster
+             currentPhishingQuestion = 0;
+             showNextPhishingQuestion();
+         };
 
-   // 🎵 OYUN SES EFEKTLERİ SİSTEMİ
-   class GameAudio {
-       constructor() {
-           this.sounds = {};
-           this.volume = 0.3; // Ses seviyesi (0.0 - 1.0)
-           this.enabled = true;
-           this.initSounds();
-       }
-       
-       initSounds() {
-           // Ses dosyalarını yükle (Web Audio API ile)
-           this.sounds = {
-               startGame: this.createMelody([523, 659, 784, 1047], [0.15, 0.15, 0.15, 0.3], 'sine'), // Do-Mi-Sol-Do melodisi
-               buttonClick: this.createBeep(600, 0.08, 'sine'), // Buton tıklama sesi
-               success: this.createMelody([523, 659, 784, 1047, 1319], [0.1, 0.1, 0.1, 0.1, 0.4], 'sine'), // Başarı melodisi
-               transition: this.createBeep([400, 600, 800], 0.12, 'triangle'), // Panel geçiş sesi
-               gameStart: this.createMelody([392, 523, 659, 784], [0.2, 0.2, 0.2, 0.4], 'square'), // Oyuna başlama fanfarı
-               welcome: this.createBeep([880, 1100], 0.15, 'sine') // Hoş geldin sesi
-           };
-           console.log('🎵 Gelişmiş oyun ses efektleri yüklendi');
-       }
-       
-       createMelody(frequencies, durations, waveType = 'sine') {
-           return () => {
-               if (!this.enabled) return;
-               
-               try {
-                   const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                   let currentTime = audioContext.currentTime;
-                   
-                   frequencies.forEach((freq, index) => {
-                       const duration = durations[index] || durations[0];
-                       setTimeout(() => {
-                           this.playTone(audioContext, freq, duration, waveType);
-                       }, currentTime * 1000 + (index * 150)); // 150ms aralıklarla çal
-                   });
-               } catch (error) {
-                   console.log('🔇 Melodi çalınamadı:', error);
-               }
-           };
-       }
-       
-       createBeep(frequency, duration, waveType = 'sine') {
-           return () => {
-               if (!this.enabled) return;
-               
-               try {
-                   const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                   
-                   if (Array.isArray(frequency)) {
-                       // Çoklu frekans (melodi)
-                       frequency.forEach((freq, index) => {
-                           setTimeout(() => {
-                               this.playTone(audioContext, freq, duration / frequency.length, waveType);
-                           }, index * (duration / frequency.length) * 1000);
-                       });
-                   } else {
-                       // Tek frekans
-                       this.playTone(audioContext, frequency, duration, waveType);
-                   }
-               } catch (error) {
-                   console.log('🔇 Ses çalınamadı (tarayıcı kısıtlaması):', error);
-               }
-           };
-       }
-       
-       playTone(audioContext, frequency, duration, waveType) {
-           const oscillator = audioContext.createOscillator();
-           const gainNode = audioContext.createGain();
-           
-           oscillator.connect(gainNode);
-           gainNode.connect(audioContext.destination);
-           
-           oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-           oscillator.type = waveType;
-           
-           gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-           gainNode.gain.linearRampToValueAtTime(this.volume, audioContext.currentTime + 0.01);
-           gainNode.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
-           
-           oscillator.start(audioContext.currentTime);
-           oscillator.stop(audioContext.currentTime + duration);
-       }
-       
-       play(soundName) {
-           if (this.sounds[soundName]) {
-               this.sounds[soundName]();
-           }
-       }
-       
-       toggle() {
-           this.enabled = !this.enabled;
-           console.log(`🎵 Ses efektleri: ${this.enabled ? 'Açık' : 'Kapalı'}`);
-       }
-   }
-   
-   // Global ses sistemi
-   const gameAudio = new GameAudio();
+        // Safari PWA ve kiosk mode optimizasyonları
+        function initializeSafariPWA() {
+            // Safari standalone mode kontrolü
+            if (('standalone' in window.navigator) && window.navigator.standalone) {
+                console.log('✅ Safari PWA standalone modda çalışıyor');
+                document.body.classList.add('safari-standalone');
+            }
 
-   // 🎵 Ses kontrol fonksiyonu kaldırıldı - sadece otomatik ses var
-   
-   // 🏠 ANA EKRANA DÖN FONKSİYONU
-   function goToHome() {
-       // 🎵 ANA EKRANA DÖNÜŞ SESİ
-       gameAudio.play('welcome');
-       
-       // Onay modal'ı göster
-       showHomeConfirmModal();
-       
-       console.log('🏠 Ana ekrana dön butonu basıldı - Onay modalı gösteriliyor');
-   }
-   
-   // Ana ekrana dönüş onay modal'ı
-   function showHomeConfirmModal() {
-       // Eğer zaten ana ekrandaysak, modal gösterme
-       const mainPanel = document.getElementById('main-panel');
-       if (mainPanel && mainPanel.style.display !== 'none' && mainPanel.style.display !== '') {
-           console.log('🏠 Zaten ana ekrandasınız');
-           return;
-       }
-       
-       // EMİN MİSİN MODALI İLE AYNI TASARIM - Çerçeve ve yazı tipi eşitleme
-       const modalHTML = `
-           <div id="home-confirm-modal" style="
-               position: fixed;
-               top: 50%;
-               left: 50%;
-               transform: translate(-50%, -50%);
-               z-index: 1000;
-               max-width: 700px;
-               width: 85vw;
-               min-height: 400px;
-               text-align: center;
-               font-size: 1.3rem;
-               line-height: 1.5;
-               animation: homeModalFadeIn 0.5s ease-out;
-           ">
-               <img src="assets/Asset 43.svg" alt="Modal Çerçeve" style="
-                   position: absolute;
-                   top: 0;
-                   left: 0;
-                   width: 100%;
-                   height: 100%;
-                   z-index: 0;
-                   pointer-events: none;
-               ">
-               <div style="
-                   position: relative;
-                   z-index: 1;
-                   padding: 50px 40px;
-                   color: #ffffff;
-               ">
-                   <div style="margin-bottom: 30px;">
-                       <img src="assets/Asset 46.svg" alt="Soru İşareti" style="max-width: 60px; height: auto;">
-                   </div>
-                   <div style="font-size: 1.5rem; font-weight: bold; margin-bottom: 20px; color: #fff;">
-                       Ana ekrana dönmek istiyor musunuz?
-                   </div>
-                   <div style="color: #ffffff; line-height: 1.4; margin-bottom: 30px; font-size: 1.2rem;">
-                       ⚠️ Oyunun tüm ilerlemesi sıfırlanacak!
-                   </div>
-                   <div style="margin-top: 35px; display: flex; gap: 30px; justify-content: center; align-items: center; flex-wrap: wrap;">
-                       <img src="assets/Asset 60.svg" alt="Evet, Dön" onclick="confirmGoHome()" style="
-                           max-width: 180px;
-                           cursor: pointer;
-                           transition: transform 0.2s ease;
-                       " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                       
-                       <img src="assets/Asset 61.svg" alt="İptal" onclick="cancelGoHome()" style="
-                           max-width: 180px;
-                           cursor: pointer;
-                           transition: transform 0.2s ease;
-                       " onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                   </div>
-               </div>
-           </div>
-       `;
-       
-       // Body'ye ekle
-       document.body.insertAdjacentHTML('beforeend', modalHTML);
-   }
-   
-   // Ana ekrana dönüşü onayla
-   function confirmGoHome() {
-       // 🎵 ANA EKRANA DÖN ÖZEL SESİ - Daha dramatik
-       gameAudio.play('startGame');
-       
-       // Modal'ı kaldır
-       const modal = document.getElementById('home-confirm-modal');
-       if (modal) {
-           modal.remove();
-       }
-       
-       // Oyunu tamamen sıfırla ve ana ekrana dön
-       resetGameToHome();
-       
-       console.log('🏠 Ana ekrana dönüş onaylandı - Oyun sıfırlandı');
-   }
-   
-   // Ana ekrana dönüşü iptal et
-   function cancelGoHome() {
-       // 🎵 İPTAL SESİ
-       gameAudio.play('buttonClick');
-       
-       // Modal'ı kaldır
-       const modal = document.getElementById('home-confirm-modal');
-       if (modal) {
-           modal.remove();
-       }
-       
-       console.log('🏠 Ana ekrana dönüş iptal edildi');
-   }
-   
-   // Oyunu sıfırlayıp ana ekrana dön
-   function resetGameToHome() {
-       // Tüm panelleri gizle
-       const panels = ['main-panel', 'username-panel', 'password-panel', 'share-panel', 'phishing-panel', 'final-score-panel', 'scoreboard-panel'];
-       panels.forEach(panelId => {
-           const panel = document.getElementById(panelId);
-           if (panel) {
-               panel.style.display = 'none';
-           }
-       });
-       
-       // Ana menü panelini göster
-       const mainPanel = document.getElementById('main-panel');
-       if (mainPanel) {
-           mainPanel.style.display = 'flex';
-       }
-       
-       // Kullanıcı adı input'unu temizle
-       const usernameInput = document.getElementById('username-input');
-       if (usernameInput) {
-           usernameInput.value = '';
-       }
-       
-       // Global değişkenleri sıfırla
-       if (typeof totalScore !== 'undefined') totalScore = 0;
-       if (typeof passwordScore !== 'undefined') passwordScore = 0;
-       if (typeof shareScore !== 'undefined') shareScore = 0;
-       if (typeof phishingScore !== 'undefined') phishingScore = 0;
-       if (typeof timeLeft !== 'undefined') timeLeft = 0;
-       if (typeof timerStarted !== 'undefined') timerStarted = false;
-       if (typeof currentPhishingQuestion !== 'undefined') currentPhishingQuestion = 0;
-       if (typeof currentUsername !== 'undefined') currentUsername = '';
-       
-       // Timer'ı durdur
-       if (typeof timerInterval !== 'undefined' && timerInterval) {
-           clearInterval(timerInterval);
-           timerInterval = null;
-       }
-       
-       // Parola panelini sıfırla
-       const passwordInput = document.getElementById('password-input-1');
-       const confirmPasswordInput = document.getElementById('password-input-2');
-       if (passwordInput) passwordInput.value = '';
-       if (confirmPasswordInput) confirmPasswordInput.value = '';
-       
-       // Parola sonuç panelini tamamen temizle
-       const passwordResultPanel = document.getElementById('password-result');
-       if (passwordResultPanel) {
-           passwordResultPanel.style.display = 'none';
-           passwordResultPanel.innerHTML = ''; // İçeriği tamamen temizle
-       }
-       
-       // Parola eşleşme mesajını temizle
-       const passwordMatchMessage = document.getElementById('password-match-message');
-       if (passwordMatchMessage) {
-           passwordMatchMessage.textContent = '';
-       }
-       
-       // Parola kontrol butonunu sıfırla
-       const checkBtn = document.getElementById('check-password-btn');
-       if (checkBtn) {
-           checkBtn.style.opacity = '0.5';
-           checkBtn.style.pointerEvents = 'none';
-       }
-       
-       // Parola input wrapper'larını tekrar göster
-       const passwordInputWrapper = document.getElementById('password-input-wrapper');
-       const confirmWrapper = document.getElementById('password-confirm-wrapper');
-       const passwordDesc = document.getElementById('password-desc');
-       const checkBtnWrapper = document.getElementById('password-check-btn-wrapper');
-       
-       if (passwordInputWrapper) passwordInputWrapper.style.display = 'flex';
-       if (confirmWrapper) confirmWrapper.style.display = 'flex';
-       if (passwordDesc) passwordDesc.style.display = 'block';
-       if (checkBtnWrapper) checkBtnWrapper.style.display = 'flex';
-       
-       // Share panel'ı sıfırla
-       if (typeof selectedAnswers !== 'undefined') selectedAnswers = {};
-       if (typeof shareQuestionsDisplayed !== 'undefined') shareQuestionsDisplayed = false;
-       
-       // Tam ekran zorla
-       setTimeout(function() {
-           if (typeof forceFullscreen === 'function') {
-               forceFullscreen();
-           }
-       }, 100);
-       
-       console.log('🏠 Oyun tamamen sıfırlandı - Ana ekran gösteriliyor');
-   }
-   
-   // Ana ekran butonu için basit init
-   function initHomeButton() {
-       const homeControl = document.getElementById('home-control');
-       const logo = document.querySelector('.logo');
-       
-       if (homeControl) {
-           console.log('🏠 Ana ekran butonu hazır - Sağ üst köşe');
-       }
-       
-       if (logo) {
-           console.log('🏠 Logo hazır - Sol üst köşe');
-       }
-   }
+            // iOS Safari viewport height düzeltmesi
+            function setViewportHeight() {
+                const vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', `${vh}px`);
+                
+                // Body ve background'ı tamamen doldur
+                document.body.style.height = '100vh';
+                document.body.style.height = `${window.innerHeight}px`;
+                
+                const background = document.querySelector('.background');
+                if (background) {
+                    background.style.height = '100vh';
+                    background.style.height = `${window.innerHeight}px`;
+                }
+            }
 
-   // BEYAZ ALAN SORUNU İÇİN - DİNAMİK VİEWPORT HEİGHT HESAPLAYICI
-   function setViewportHeight() {
-       // Gerçek viewport yüksekliğini hesapla
-       let vh = window.innerHeight * 0.01;
-       const realHeight = window.innerHeight;
-       const screenHeight = window.screen.height;
-       
-       // CSS custom property'leri güncelle
-       document.documentElement.style.setProperty('--vh', `${vh}px`);
-       document.documentElement.style.setProperty('--app-height', `${realHeight}px`);
-       document.documentElement.style.setProperty('--real-height', `${realHeight}px`);
-       
-       // PWA Standalone modu tespiti
-       const isStandalone = window.navigator.standalone || 
-                           window.matchMedia('(display-mode: standalone)').matches ||
-                           window.matchMedia('(display-mode: fullscreen)').matches;
-       
-       // Beyaz alan için dinamik scale faktörü hesapla
-       let scaleFactor = 1.02; // Default browser modu - daha az agresif
-       
-       if (isStandalone) {
-           // PWA standalone modda orta agresif scale
-           scaleFactor = 1.04; // Standalone için orta scale
-           document.body.classList.add('pwa-standalone-mode');
-           console.log(`📱 PWA Standalone modu tespit edildi! Orta scale: ${scaleFactor}`);
-           
-           // Logo artık background div dışında - otomatik görünür
-           
-       } else if (realHeight < screenHeight * 0.95) {
-           scaleFactor = 1.04; // Browser modda beyaz alan tespit edilirse - daha az agresif  
-           console.log(`📐 Browser modda beyaz alan tespit edildi! Scale faktörü artırıldı: ${scaleFactor}`);
-       } else if (realHeight < screenHeight * 0.98) {
-           scaleFactor = 1.03; // Orta scale
-       }
-       
-       document.documentElement.style.setProperty('--scale-factor', scaleFactor);
-       
-       console.log(`📐 Dinamik viewport ayarlandı: ${realHeight}px (--vh: ${vh}px, scale: ${scaleFactor})`);
-   }
+            setViewportHeight();
+            window.addEventListener('resize', setViewportHeight);
+            window.addEventListener('orientationchange', () => {
+                setTimeout(setViewportHeight, 100);
+            });
 
-   // PWA ve Kiosk Modu Kontrollerini
-   function initKioskMode() {
-       // PWA Standalone modu tespiti ve logo düzeltmesi
-       const isStandalone = window.navigator.standalone || 
-                           window.matchMedia('(display-mode: standalone)').matches ||
-                           window.matchMedia('(display-mode: fullscreen)').matches;
-       
-       if (isStandalone) {
-           document.body.classList.add('pwa-standalone-mode');
-           console.log('📱 PWA Standalone modu tespit edildi - Logo ve buton artık otomatik görünür');
-       }
-       
-       // İlk viewport hesaplaması
-       setViewportHeight();
-       
-       // Tam ekran modu için gerekli ayarlar
-       if ('serviceWorker' in navigator) {
-           console.log('PWA modu aktif');
-       }
+            // Status bar gizleme (iOS Safari) - Beyaz alanları tamamen kaldır
+            if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {
+                const metaViewport = document.querySelector('meta[name="viewport"]');
+                if (metaViewport) {
+                    metaViewport.setAttribute('content', 
+                        'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no');
+                }
+                
+                // Body'yi tamamen siyah yap
+                document.body.style.backgroundColor = '#0a1428';
+                document.documentElement.style.backgroundColor = '#0a1428';
+            }
 
-       // iOS Safari tam ekran kontrolü
-       if (window.navigator.standalone === true) {
-           console.log('✅ iPad Ana Ekran Modu Aktiv - Arama çubuğu gizli');
-           document.body.classList.add('standalone-mode');
-       }
+            // Tam ekran desteği
+            function requestFullscreen() {
+                const element = document.documentElement;
+                if (element.requestFullscreen) {
+                    element.requestFullscreen();
+                } else if (element.webkitRequestFullscreen) {
+                    element.webkitRequestFullscreen();
+                } else if (element.mozRequestFullScreen) {
+                    element.mozRequestFullScreen();
+                } else if (element.msRequestFullscreen) {
+                    element.msRequestFullscreen();
+                }
+            }
 
-       // Safari URL çubuğunu gizlemek için scroll kontrolü
-       function hideAddressBar() {
-           if (!window.navigator.standalone) {
-               // Ana ekran modu değilse URL çubuğunu gizle
-               setTimeout(function() {
-                   window.scrollTo(0, 1);
-               }, 100);
-               
-               setTimeout(function() {
-                   window.scrollTo(0, 0);
-               }, 200);
-           }
-       }
+            // Safari PWA için gesture desteği
+            document.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) {
+                    e.preventDefault(); // Çok parmaklı gesture'ları engelle
+                }
+            }, {passive: false});
 
-       // BEYAZ KISIM SORUNU İÇİN - DİNAMİK VİEWPORT İLE TAM EKRAN ZORLAMA
-       function forceFullscreen() {
-           console.log('🔄 DİNAMİK VİEWPORT ile tam ekran zorlaması başlatılıyor...');
-           
-           // Önce dinamik viewport hesapla
-           setViewportHeight();
-           
-           // Gerçek yüksekliği al
-           const realHeight = window.innerHeight;
-           
-           // HTML'i zorla tam ekran yap - DİNAMİK HEİGHT ile
-           document.documentElement.style.cssText = `
-               position: fixed !important;
-               top: 0 !important;
-               bottom: 0 !important;
-               left: 0 !important;
-               right: 0 !important;
-               width: 100vw !important;
-               height: ${realHeight}px !important;
-               height: 100dvh !important;
-               height: var(--app-height) !important;
-               min-width: 100vw !important;
-               max-width: 100vw !important;
-               min-height: ${realHeight}px !important;
-               max-height: ${realHeight}px !important;
-               margin: 0 !important;
-               padding: 0 !important;
-               overflow: hidden !important;
-               background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
-               background-size: cover !important;
-               background-attachment: fixed !important;
-           `;
-           
-           // Body'yi zorla tam ekran yap - DİNAMİK HEİGHT ile
-           document.body.style.cssText = `
-               position: fixed !important;
-               top: 0 !important;
-               bottom: 0 !important;
-               left: 0 !important;
-               right: 0 !important;
-               width: 100vw !important;
-               height: ${realHeight}px !important;
-               height: 100dvh !important;
-               height: var(--app-height) !important;
-               min-width: 100vw !important;
-               max-width: 100vw !important;
-               min-height: ${realHeight}px !important;
-               max-height: ${realHeight}px !important;
-               margin: 0 !important;
-               padding: 0 !important;
-               overflow: hidden !important;
-               background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
-               background-size: cover !important;
-               background-attachment: fixed !important;
-               font-family: 'Gilmer', Arial, sans-serif !important;
-               color: #fff !important;
-           `;
+            // Zoom engelleme
+            document.addEventListener('gesturestart', function(e) {
+                e.preventDefault();
+            });
 
-           // Background container'ı da zorla - DİNAMİK HEİGHT ile
-           const background = document.querySelector('.background');
-           if (background) {
-               background.style.cssText = `
-                   position: fixed !important;
-                   top: 0 !important;
-                   bottom: 0 !important;
-                   left: 0 !important;
-                   right: 0 !important;
-                   width: 100vw !important;
-                   height: ${realHeight}px !important;
-                   height: 100dvh !important;
-                   height: var(--app-height) !important;
-                   min-width: 100vw !important;
-                   max-width: 100vw !important;
-                   min-height: ${realHeight}px !important;
-                   max-height: ${realHeight}px !important;
-                   margin: 0 !important;
-                   padding: 0 !important;
-                   z-index: 0 !important;
-                   background: radial-gradient(circle at 20% 40%, #0a2a4d 60%, #0b0f2a 100%) !important;
-                   background-size: cover !important;
-                   background-attachment: fixed !important;
-                   overflow: hidden !important;
-               `;
-           }
+            console.log('🍎 Safari PWA optimizasyonları aktive edildi');
+        }
 
-           // Background image'ı da zorla - DİNAMİK HEİGHT ile
-           const backgroundImg = document.querySelector('.background-img');
-           if (backgroundImg) {
-               backgroundImg.style.cssText = `
-                   position: fixed !important;
-                   top: 0 !important;
-                   bottom: 0 !important;
-                   left: 0 !important;
-                   right: 0 !important;
-                   width: 100vw !important;
-                   height: ${realHeight}px !important;
-                   height: 100dvh !important;
-                   height: var(--app-height) !important;
-                   min-width: 100vw !important;
-                   max-width: 100vw !important;
-                   min-height: ${realHeight}px !important;
-                   max-height: ${realHeight}px !important;
-                   margin: 0 !important;
-                   padding: 0 !important;
-                   object-fit: cover !important;
-                   object-position: center center !important;
-                   z-index: 0 !important;
-                   pointer-events: none !important;
-                   opacity: 0.95 !important;
-               `;
-           }
-           
-           // URL çubuğunu gizle
-           if (!window.navigator.standalone) {
-               hideAddressBar();
-           }
-           
-           console.log(`✅ DİNAMİK VİEWPORT Tam ekran zorlaması tamamlandı - Gerçek yükseklik: ${realHeight}px`);
-       }
-
-       // Sayfa yüklendiğinde tam ekran zorla
-       window.addEventListener('load', function() {
-           setTimeout(forceFullscreen, 100);
-       });
-
-       // Orientation değişikliklerinde tam ekran zorla ve viewport hesapla
-       window.addEventListener('orientationchange', function() {
-           setTimeout(function() {
-               setViewportHeight();
-               forceFullscreen();
-           }, 300);
-       });
-
-       // Resize olaylarında tam ekran zorla ve viewport hesapla
-       window.addEventListener('resize', function() {
-           clearTimeout(window.resizeTimeout);
-           window.resizeTimeout = setTimeout(function() {
-               setViewportHeight();
-               forceFullscreen();
-           }, 200);
-       });
-
-       // Focus geri geldiğinde tam ekran zorla
-       window.addEventListener('focus', function() {
-           setTimeout(forceFullscreen, 100);
-       });
-
-       // Visibility değişikliklerinde tam ekran zorla
-       document.addEventListener('visibilitychange', function() {
-           if (!document.hidden) {
-               setTimeout(forceFullscreen, 100);
-           }
-       });
-
-       // Tam ekran viewport ayarları
-       function updateViewport() {
-           const viewport = document.querySelector('meta[name=viewport]');
-           if (viewport) {
-               viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover, shrink-to-fit=no');
-           }
-       }
-       updateViewport();
-
-       // Kiosk modu için zoom engelleme
-       document.addEventListener('gesturestart', function (e) {
-           e.preventDefault();
-       });
-
-       document.addEventListener('gesturechange', function (e) {
-           e.preventDefault();
-       });
-
-       document.addEventListener('gestureend', function (e) {
-           e.preventDefault();
-       });
-
-       // Context menu engelleme
-       document.addEventListener('contextmenu', function(e) {
-           e.preventDefault();
-       });
-
-       // Seçim engelleme
-       document.addEventListener('selectstart', function(e) {
-           e.preventDefault();
-       });
-
-       // Scroll engelleme
-       document.addEventListener('touchmove', function(e) {
-           if (e.scale !== 1) { 
-               e.preventDefault(); 
-           }
-       }, { passive: false });
-
-       // Çift tıklama zoom engelleme
-       let lastTouchEnd = 0;
-       document.addEventListener('touchend', function (event) {
-           let now = (new Date()).getTime();
-           if (now - lastTouchEnd <= 300) {
-               event.preventDefault();
-           }
-           lastTouchEnd = now;
-       }, false);
-
-       console.log('🔒 Kiosk modu ayarları yüklendi');
-   }
-
-   // Input alanları için SÜPER AGRESİF klavye yöneticisi
-   function setupKeyboardManager() {
-       let isInputFocused = false;
-       let currentInput = null;
-       let keyboardHeight = 0;
-       let originalBodyStyle = '';
-       let originalHtmlStyle = '';
-       
-       // Visual Viewport API'sini kullan (iOS Safari için)
-       if (window.visualViewport) {
-           window.visualViewport.addEventListener('resize', handleViewportChange);
-       }
-       
-       function handleViewportChange() {
-           if (isInputFocused && currentInput) {
-               setTimeout(() => {
-                   keepInputVisible();
-               }, 100);
-           }
-       }
-       
-       function enableScrollForKeyboard() {
-           isInputFocused = true;
-           
-           // Mevcut stilleri kaydet
-           originalBodyStyle = document.body.style.cssText;
-           originalHtmlStyle = document.documentElement.style.cssText;
-           
-           // Scroll'u tamamen aktif et
-           document.body.style.position = 'static';
-           document.body.style.overflow = 'auto';
-           document.body.style.height = 'auto';
-           document.body.style.maxHeight = 'none';
-           document.body.style.minHeight = '100vh';
-           
-           document.documentElement.style.position = 'static';
-           document.documentElement.style.overflow = 'auto';
-           document.documentElement.style.height = 'auto';
-           document.documentElement.style.maxHeight = 'none';
-           
-           console.log('⌨️ SÜPER AGRESİF klavye modu etkin');
-       }
-       
-       function disableScrollForKeyboard() {
-           setTimeout(() => {
-               if (!isInputFocused) return;
-               
-               isInputFocused = false;
-               currentInput = null;
-               
-               // Eski stilleri geri yükle
-               document.body.style.cssText = originalBodyStyle;
-               document.documentElement.style.cssText = originalHtmlStyle;
-               
-               // Scroll'u tekrar kilitle
-               document.body.style.position = 'fixed';
-               document.documentElement.style.position = 'fixed';
-               
-               // Sayfa pozisyonunu sıfırla
-               window.scrollTo(0, 0);
-               
-               console.log('⌨️ Klavye modu devre dışı - Fixed mod restore');
-           }, 500);
-       }
-       
-       function keepInputVisible() {
-           if (!currentInput || !isInputFocused) return;
-           
-           const rect = currentInput.getBoundingClientRect();
-           const viewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
-           
-           // Input ekranda görünür mü kontrol et
-           if (rect.bottom > viewportHeight * 0.7 || rect.top < 100) {
-               // Input'u ekranın üst kısmına kaydır
-               const targetY = window.scrollY + rect.top - (viewportHeight * 0.3);
-               
-               window.scrollTo({
-                   top: Math.max(0, targetY),
-                   behavior: 'smooth'
-               });
-               
-               console.log('📱 Input görünürlük ayarlandı:', rect.top, rect.bottom);
-           }
-       }
-       
-       // Tüm input alanlarını bul ve SÜPER AGRESİF event listener ekle
-       const inputs = ['username-input', 'password-input-1', 'password-input-2'];
-       
-       inputs.forEach(inputId => {
-           const input = document.getElementById(inputId);
-           if (input) {
-               // Focus event
-               input.addEventListener('focus', function() {
-                   currentInput = this;
-                   enableScrollForKeyboard();
-                   
-                   // Çoklu timer ile input görünürlüğünü garanti et
-                   setTimeout(() => keepInputVisible(), 100);
-                   setTimeout(() => keepInputVisible(), 300);
-                   setTimeout(() => keepInputVisible(), 600);
-                   setTimeout(() => keepInputVisible(), 1000);
-               });
-               
-               // Blur event
-               input.addEventListener('blur', function() {
-                   disableScrollForKeyboard();
-               });
-               
-               // Input event - yazarken de kontrol et
-               input.addEventListener('input', function() {
-                   if (isInputFocused) {
-                       setTimeout(() => keepInputVisible(), 50);
-                   }
-               });
-               
-               // Touch events - iOS için
-               input.addEventListener('touchstart', function() {
-                   currentInput = this;
-                   enableScrollForKeyboard();
-               });
-               
-               // Click event - her duruma hazır ol
-               input.addEventListener('click', function() {
-                   currentInput = this;
-                   enableScrollForKeyboard();
-                   setTimeout(() => keepInputVisible(), 200);
-               });
-           }
-       });
-       
-       // Viewport resize dinleyicisi
-       window.addEventListener('resize', function() {
-           if (isInputFocused && currentInput) {
-               setTimeout(() => keepInputVisible(), 200);
-           }
-       });
-       
-       // Orientation change dinleyicisi
-       window.addEventListener('orientationchange', function() {
-           if (isInputFocused && currentInput) {
-               setTimeout(() => keepInputVisible(), 500);
-           }
-       });
-       
-       console.log('⌨️ SÜPER AGRESİF klavye yöneticisi hazır');
-   }
-
-   // Dom yüklendiğinde kiosk modunu başlat
-   document.addEventListener('DOMContentLoaded', function() {
-       initKioskMode();
-       initHomeButton(); // 🏠 Ana ekran butonu başlat
-       setupKeyboardManager(); // ⌨️ Klavye yöneticisini başlat
-       
-       // DOM yüklendikten hemen sonra viewport hesapla ve tam ekran zorla
-       setTimeout(function() {
-           setViewportHeight();
-           forceFullscreen();
-       }, 50);
-   });
-
-   // Sayfa tamamen yüklendikten sonra da viewport hesapla ve tam ekran zorla
-   window.addEventListener('load', function() {
-       setTimeout(function() {
-           setViewportHeight();
-           forceFullscreen();
-       }, 100);
-   });
-
-   // Touch olaylarında tam ekran kontrol et
-   document.addEventListener('touchstart', function() {
-       // İlk touch'ta tam ekran durumunu kontrol et
-       if (document.body.style.position !== 'fixed') {
-           console.log('⚠️ Touch ile tam ekran modu kaybı tespit edildi, düzeltiliyor...');
-           setTimeout(forceFullscreen, 10);
-       }
-   }, { passive: true });
-
-   // BEYAZ ALAN ENGELLEMESİ - Süper Agresif Scroll Kilitleme
-   let scrollResetTimeout;
-   let lastScrollTime = 0;
-   
-   function forceScrollReset() {
-       const now = Date.now();
-       if (now - lastScrollTime < 16) return; // 60fps throttle
-       lastScrollTime = now;
-       
-       // Hemen scroll'u sıfırla - Tüm yönlerde
-       window.scrollTo(0, 0);
-       document.documentElement.scrollTop = 0;
-       document.body.scrollTop = 0;
-       document.documentElement.scrollLeft = 0;
-       document.body.scrollLeft = 0;
-       
-       // Viewport yeniden hesapla
-       setViewportHeight();
-       
-       // Tam ekran zorla
-       if (typeof forceFullscreen === 'function') {
-           forceFullscreen();
-       }
-       
-       console.log('🔒 BEYAZ ALAN ENGELLENDİ - Scroll agresif sıfırlama');
-   }
-   
-   // Scroll olaylarını engelle ve tam ekran zorla - SÜPER AGRESİF
-   window.addEventListener('scroll', function(e) {
-       e.preventDefault();
-       e.stopPropagation();
-       e.stopImmediatePropagation();
-       
-       clearTimeout(scrollResetTimeout);
-       scrollResetTimeout = setTimeout(forceScrollReset, 1);
-       
-       return false;
-   }, { passive: false, capture: true });
-   
-   // Touch scroll engelleme - Beyaz alan engelleyici
-   window.addEventListener('touchmove', function(e) {
-       if (e.touches.length > 1) return; // Multi-touch gestures allow
-       
-       e.preventDefault();
-       clearTimeout(scrollResetTimeout);
-       scrollResetTimeout = setTimeout(forceScrollReset, 1);
-       
-       return false;
-   }, { passive: false, capture: true });
-   
-   // Mouse wheel scroll engelleme
-   window.addEventListener('wheel', function(e) {
-       e.preventDefault();
-       e.stopPropagation();
-       
-       clearTimeout(scrollResetTimeout);
-       scrollResetTimeout = setTimeout(forceScrollReset, 1);
-       
-       return false;
-   }, { passive: false, capture: true });
-
-   // Visibility API ile sayfa odağını kontrol et
-   document.addEventListener('visibilitychange', function() {
-       if (document.hidden) {
-           console.log('⚠️ Uygulama arka plana geçti');
-       } else {
-           console.log('✅ Uygulama tekrar aktif');
-       }
-   });
-   </script>
+        // Sayfa yüklendiğinde Safari PWA ayarlarını başlat
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initializeSafariPWA);
+        } else {
+            initializeSafariPWA();
+        }
+        
+        // Service Worker kaydı - offline çalışma için
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', async () => {
+                try {
+                    const registration = await navigator.serviceWorker.register('./sw.js');
+                    console.log('✅ Service Worker kaydedildi:', registration.scope);
+                    
+                    // Yeni version varsa otomatik güncelle
+                    registration.addEventListener('updatefound', () => {
+                        const newWorker = registration.installing;
+                        newWorker.addEventListener('statechange', () => {
+                            if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                                console.log('🔄 Yeni Service Worker hazır, sayfa yenileniyor...');
+                                window.location.reload();
+                            }
+                        });
+                    });
+                } catch (error) {
+                    console.warn('⚠️ Service Worker kaydedilemedi:', error);
+                }
+            });
+        }
+    });
+    </script>
 </body>
 </html> 
